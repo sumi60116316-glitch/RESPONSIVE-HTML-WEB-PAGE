@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nestora | Find Your Place</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary:#256c55;
+  --primary-dark:#194f3d;
+  --ink:#202b27;
+  --muted:#77817c;
+  --bg:#f7f8f5;
+  --line:#e5e9e2;
+  --white:#fff;
+  --radius:17px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,91%);margin:auto}
+
+header{
+  height:76px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;position:sticky;top:0;z-index:50
+}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:25px}
+.logo{font:800 28px 'Outfit',sans-serif;letter-spacing:-1px}
+.logo span{color:var(--primary)}
+.nav-links{display:flex;gap:27px;font-size:13px;color:#5f6964}
+.nav-links a:hover{color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn{border:0;border-radius:9px;padding:12px 17px;font-size:12px;font-weight:700;transition:.2s}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-light{background:#edf4ed;color:var(--primary)}
+.btn-outline{background:white;border:1px solid var(--line);color:var(--ink)}
+.menu-toggle{display:none;border:0;background:transparent;font-size:25px}
+
+.hero{
+  padding:63px 0 55px;
+  background:linear-gradient(120deg,#edf3e9,#f8f8f4 58%,#e6eee1)
+}
+.hero-grid{display:grid;grid-template-columns:1fr .95fr;align-items:center;gap:52px}
+.eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:1.5px}
+.hero h1{font:800 clamp(40px,5vw,64px)/1.07 'Outfit',sans-serif;letter-spacing:-2.5px;margin:20px 0}
+.hero h1 span{color:var(--primary)}
+.hero p{color:var(--muted);font-size:14px;line-height:1.9;max-width:480px}
+.hero-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.hero-image{height:405px;position:relative}
+.hero-image img{width:100%;height:100%;object-fit:cover;border-radius:25px;box-shadow:0 20px 45px #183b2920}
+.floating-card{position:absolute;background:white;border:1px solid var(--line);border-radius:13px;padding:14px 17px;box-shadow:0 10px 30px #183b2915}
+.floating-card.top{top:20px;left:-25px}
+.floating-card.bottom{bottom:20px;right:-20px}
+.floating-card strong{display:block;font-size:15px}
+.floating-card small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+
+.search-wrap{position:relative;z-index:2;margin-top:-10px}
+.search-panel{
+  background:white;border:1px solid var(--line);border-radius:15px;
+  padding:14px;display:grid;grid-template-columns:1.2fr 1fr 1fr auto;
+  gap:10px;box-shadow:0 12px 32px #183b2910
+}
+.search-field{padding:5px 10px;min-width:0}
+.search-field+.search-field{border-left:1px solid var(--line)}
+.search-field label{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}
+.search-field input,.search-field select{width:100%;border:0;outline:0;background:white;font-size:12px;font-weight:600;color:var(--ink)}
+
+section{padding:68px 0}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px}
+.section-heading h2{font:700 31px 'Outfit',sans-serif;letter-spacing:-.7px}
+.section-heading p{color:var(--muted);font-size:13px;margin-top:7px}
+.text-link{color:var(--primary);font-size:12px;font-weight:700}
+
+.property-section{background:white}
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:25px}
+.filter-btn{border:1px solid var(--line);background:white;border-radius:50px;padding:9px 15px;font-size:12px;color:#66716a;font-weight:600}
+.filter-btn.active,.filter-btn:hover{background:var(--primary);border-color:var(--primary);color:white}
+.sort-select{margin-left:auto;border:1px solid var(--line);border-radius:9px;padding:10px;background:white;color:var(--ink);font-size:12px}
+.property-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:23px}
+.property-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:white;transition:.25s}
+.property-card:hover{transform:translateY(-4px);box-shadow:0 15px 35px #1a38250f}
+.property-image{height:225px;position:relative;overflow:hidden;background:#e6eae2}
+.property-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.property-card:hover .property-image img{transform:scale(1.04)}
+.property-tag{position:absolute;top:13px;left:13px;background:white;border-radius:7px;padding:7px 10px;font-size:10px;font-weight:800}
+.fav-btn{position:absolute;right:12px;top:12px;width:35px;height:35px;border-radius:50%;background:white;border:0;font-size:19px;color:#777}
+.fav-btn.saved{color:#e44d69}
+.property-body{padding:18px}
+.property-type{color:var(--primary);font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:800}
+.property-body h3{font:700 20px 'Outfit',sans-serif;margin:7px 0}
+.property-location{color:var(--muted);font-size:12px}
+.property-meta{display:flex;gap:15px;flex-wrap:wrap;margin-top:15px;padding-bottom:15px;border-bottom:1px solid var(--line);color:#637067;font-size:11px}
+.property-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:15px}
+.property-price{font:800 21px 'Outfit',sans-serif}
+.property-price small{display:block;font:11px 'DM Sans',sans-serif;color:var(--muted);margin-top:3px}
+.empty-state{grid-column:1/-1;padding:50px;text-align:center;border:1px dashed var(--line);border-radius:15px;color:var(--muted)}
+
+.locations-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.location-card{height:210px;border-radius:15px;position:relative;overflow:hidden;color:white;cursor:pointer}
+.location-card img{width:100%;height:100%;object-fit:cover;transition:.35s}
+.location-card:hover img{transform:scale(1.06)}
+.location-card:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#101b16cf,transparent 70%)}
+.location-info{position:absolute;bottom:17px;left:17px;z-index:1}
+.location-info h3{font:700 20px 'Outfit',sans-serif}
+.location-info p{font-size:11px;margin-top:4px;color:#eee}
+
+.benefits{background:#1d342a;color:white}
+.benefits .section-heading p{color:#c2d0c7}
+.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.benefit{border:1px solid #ffffff20;background:#ffffff08;border-radius:15px;padding:25px}
+.benefit-icon{width:44px;height:44px;display:grid;place-items:center;background:#ffffff12;border-radius:11px;font-size:22px}
+.benefit h3{font:600 18px 'Outfit',sans-serif;margin:17px 0 9px}
+.benefit p{color:#c4d0c8;font-size:12px;line-height:1.8}
+
+.cta{background:#eaf1e6;border-radius:20px;padding:36px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.cta h2{font:700 27px 'Outfit',sans-serif}
+.cta p{color:var(--muted);font-size:13px;line-height:1.8;margin-top:8px;max-width:600px}
+footer{background:white;border-top:1px solid var(--line);padding:32px 0}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+
+.modal-backdrop{position:fixed;inset:0;background:#14221bd9;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.show{display:flex}
+.modal{background:white;border-radius:20px;padding:27px;width:min(480px,100%);max-height:90vh;overflow-y:auto;position:relative;animation:appear .2s ease}
+@keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.modal h2{font:700 25px 'Outfit',sans-serif;margin-bottom:8px}
+.modal-subtitle{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.close-modal{position:absolute;top:16px;right:16px;width:32px;height:32px;border:0;border-radius:50%;background:#edf1ec;font-size:20px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;outline:0;background:white;color:var(--ink)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary)}
+.form-group textarea{min-height:75px;resize:vertical}
+.modal .btn-primary{width:100%;margin-top:5px}
+.notice{font-size:10px;color:var(--muted);line-height:1.6;margin-top:12px;text-align:center}
+.success-view{text-align:center;padding:18px 0 5px}
+.success-icon{width:65px;height:65px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:#e2f5e9;color:#168568;font-size:30px}
+.success-view p{color:var(--muted);font-size:13px;line-height:1.8;margin:12px 0 22px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,100px);background:var(--ink);color:white;border-radius:10px;padding:13px 20px;font-size:13px;z-index:150;transition:.3s;box-shadow:0 8px 25px #0002}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:950px){
+ .nav-links{gap:14px}.hero-grid{gap:30px}.hero-image{height:340px}
+ .search-panel{grid-template-columns:repeat(2,1fr)}
+ .search-field:nth-child(3){border-left:0;border-top:1px solid var(--line);padding-top:12px}
+ .property-grid{grid-template-columns:repeat(2,1fr)}
+ .locations-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+ header{height:68px}.menu-toggle{display:block}
+ .nav-links{display:none;position:absolute;top:68px;left:0;width:100%;padding:22px 5%;background:white;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}
+ .nav-links.open{display:flex}.nav-actions .btn-light{display:none}.logo{font-size:24px}
+ .hero{padding:43px 0}.hero-grid{grid-template-columns:1fr}.hero h1{font-size:43px}
+ .hero-image{height:285px;margin:10px 5px 0}.floating-card.top{left:-8px}.floating-card.bottom{right:-8px}
+ .search-wrap{margin-top:15px}.search-panel{grid-template-columns:1fr}
+ .search-field+.search-field,.search-field:nth-child(3){border-left:0;border-top:1px solid var(--line);padding-top:12px}
+ section{padding:48px 0}.section-heading{align-items:flex-start}.section-heading h2{font-size:27px}
+ .property-grid{grid-template-columns:1fr}.property-image{height:240px}.sort-select{margin-left:0}
+ .locations-grid{grid-template-columns:repeat(2,1fr)}.location-card{height:170px}
+ .benefit-grid{grid-template-columns:1fr}.cta{align-items:flex-start;flex-direction:column;padding:25px}
+ .footer-row{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:380px){.locations-grid{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="logo" href="#home">nest<span>ora.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#properties">Properties</a>
+      <a href="#locations">Locations</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn btn-light" onclick="showFavorites()">♡ Saved</button>
+      <button class="btn btn-primary" onclick="openEnquiry()">Contact Us</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">FIND A PLACE TO CALL YOUR OWN</div>
+      <h1>Your next chapter starts <span>at home.</span></h1>
+      <p>Explore homes, apartments and spaces that fit your lifestyle. Compare property details and connect with a property representative through a simple enquiry experience.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="scrollToProperties()">Explore Properties ↗</button>
+        <button class="btn btn-outline" onclick="openEnquiry()">List a Property</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1100&q=85" alt="Modern house with landscaped garden">
+      <div class="floating-card top">
+        <strong>Find your space</strong>
+        <small>Homes · Apartments · Villas</small>
+      </div>
+      <div class="floating-card bottom">
+        <strong style="color:var(--primary)">Made for your next move</strong>
+        <small>Search, compare and enquire</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="search-wrap">
+  <div class="container">
+    <form class="search-panel" id="searchForm">
+      <div class="search-field">
+        <label for="keyword">KEYWORD OR AREA</label>
+        <input id="keyword" type="search" placeholder="e.g. garden home">
+      </div>
+      <div class="search-field">
+        <label for="city">LOCATION</label>
+        <select id="city">
+          <option value="">All locations</option>
+          <option>Chennai</option>
+          <option>Coimbatore</option>
+          <option>Bengaluru</option>
+          <option>Madurai</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label for="purpose">PROPERTY TYPE</label>
+        <select id="purpose">
+          <option value="">All types</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Villa">Villa</option>
+          <option value="House">House</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Search Homes ↗</button>
+    </form>
+  </div>
+</div>
+
+<section class="property-section" id="properties">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <h2 id="propertyHeading">Featured properties</h2>
+        <p>Explore spaces with the features that matter to you.</p>
+      </div>
+      <a href="#locations" class="text-link">Browse locations ↗</a>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-type="All">All properties</button>
+      <button class="filter-btn" data-type="Apartment">Apartments</button>
+      <button class="filter-btn" data-type="Villa">Villas</button>
+      <button class="filter-btn" data-type="House">Houses</button>
+      <button class="filter-btn" data-type="Commercial">Commercial</button>
+      <select class="sort-select" id="sortProperties" aria-label="Sort properties">
+        <option value="featured">Sort: Featured</option>
+        <option value="low">Price: Low to high</option>
+        <option value="high">Price: High to low</option>
+        <option value="area">Area: Largest first</option>
+      </select>
+    </div>
+
+    <div class="property-grid" id="propertyGrid"></div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <h2>Explore popular locations</h2>
+        <p>Start your search in a city you love.</p>
+      </div>
+    </div>
+    <div class="locations-grid">
+      <div class="location-card" onclick="chooseLocation('Chennai')">
+        <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=700&q=80" alt="Chennai city">
+        <div class="location-info"><h3>Chennai</h3><p>Explore city properties ↗</p></div>
+      </div>
+      <div class="location-card" onclick="chooseLocation('Coimbatore')">
+        <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=700&q=80" alt="Coimbatore city architecture">
+        <div class="location-info"><h3>Coimbatore</h3><p>Explore city properties ↗</p></div>
+      </div>
+      <div class="location-card" onclick="chooseLocation('Bengaluru')">
+        <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=700&q=80" alt="Bengaluru city">
+        <div class="location-info"><h3>Bengaluru</h3><p>Explore city properties ↗</p></div>
+      </div>
+      <div class="location-card" onclick="chooseLocation('Madurai')">
+        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=700&q=80" alt="Architectural landmark">
+        <div class="location-info"><h3>Madurai</h3><p>Explore city properties ↗</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" id="about">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <h2>Property search, simplified.</h2>
+        <p>A more organised way to explore your next space.</p>
+      </div>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit">
+        <div class="benefit-icon">⌕</div>
+        <h3>Search your way</h3>
+        <p>Filter listings by location, property type and budget to narrow your search.</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">▤</div>
+        <h3>Compare details</h3>
+        <p>Review the displayed price, property size, bedrooms and listing information.</p>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">♡</div>
+        <h3>Save your favourites</h3>
+        <p>Keep interesting listings in your saved list while you browse other properties.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta">
+      <div>
+        <h2>Have a property to list?</h2>
+        <p>Share your details through our demo enquiry form. In a real estate application, a backend would be needed to verify listings and contact property owners.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openEnquiry()">Submit an Enquiry ↗</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <a class="logo" href="#home">nest<span>ora.</span></a>
+    <p>© 2026 Nestora. Property website demo.</p>
+    <div class="footer-links">
+      <a href="#properties">Properties</a>
+      <a href="#locations">Locations</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Property details and enquiry modal -->
+<div class="modal-backdrop" id="propertyModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close-modal" onclick="closeModal()" aria-label="Close">×</button>
+
+    <div id="modalFormView">
+      <h2 id="modalTitle">Property details</h2>
+      <p class="modal-subtitle" id="modalSubtitle">Review the listing and send an enquiry.</p>
+
+      <form id="enquiryForm">
+        <div class="form-group">
+          <label for="visitorName">Full name</label>
+          <input id="visitorName" required maxlength="80" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="visitorEmail">Email address</label>
+          <input id="visitorEmail" type="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="visitorPhone">Mobile number</label>
+          <input id="visitorPhone" type="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number">
+        </div>
+        <div class="form-group">
+          <label for="enquiryType">I'm interested in</label>
+          <select id="enquiryType" required>
+            <option value="">Choose an option</option>
+            <option>Buying a property</option>
+            <option>Renting a property</option>
+            <option>Listing my property</option>
+            <option>General enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="visitorMessage">Message (optional)</label>
+          <textarea id="visitorMessage" placeholder="Tell us what you would like to know"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit Enquiry</button>
+        <p class="notice">Demo only: no real estate agent is contacted and no property is reserved.</p>
+      </form>
+    </div>
+
+    <div class="success-view" id="modalSuccess" hidden>
+      <div class="success-icon">✓</div>
+      <h2>Enquiry submitted!</h2>
+      <p id="successMessage"></p>
+      <button class="btn btn-primary" onclick="closeModal()">Continue browsing</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const properties = [
+  {
+    id:1,title:"The Greenview Residence",type:"Villa",city:"Chennai",
+    area:"OMR, Chennai",price:12500000,bedrooms:4,bathrooms:3,sqft:2400,
+    tag:"Featured",purpose:"Buy",
+    description:"Contemporary villa with generous living space and a landscaped outdoor area.",
+    image:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:2,title:"Urban Nest Apartments",type:"Apartment",city:"Bengaluru",
+    area:"Whitefield, Bengaluru",price:6800000,bedrooms:3,bathrooms:2,sqft:1450,
+    tag:"Popular",purpose:"Buy",
+    description:"Modern apartment layout designed for convenient everyday living.",
+    image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:3,title:"Palm Grove Family Home",type:"House",city:"Coimbatore",
+    area:"Peelamedu, Coimbatore",price:8200000,bedrooms:3,bathrooms:3,sqft:1900,
+    tag:"Family home",purpose:"Buy",
+    description:"Comfortable family home with bright interiors and practical living spaces.",
+    image:"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:4,title:"The Minimalist Apartment",type:"Apartment",city:"Chennai",
+    area:"Velachery, Chennai",price:4200000,bedrooms:2,bathrooms:2,sqft:1050,
+    tag:"Value pick",purpose:"Buy",
+    description:"A compact modern apartment with a clean design and efficient layout.",
+    image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:5,title:"Hillside Modern Villa",type:"Villa",city:"Coimbatore",
+    area:"Vadavalli, Coimbatore",price:14500000,bedrooms:4,bathrooms:4,sqft:2800,
+    tag:"Premium",purpose:"Buy",
+    description:"Spacious villa concept with contemporary architecture and large windows.",
+    image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:6,title:"Central Business Studio",type:"Commercial",city:"Bengaluru",
+    area:"Indiranagar, Bengaluru",price:55000,bedrooms:0,bathrooms:1,sqft:850,
+    tag:"For rent",purpose:"Rent",
+    description:"Flexible commercial studio suitable for a small office or creative workspace.",
+    image:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:7,title:"Lakeview City Apartment",type:"Apartment",city:"Madurai",
+    area:"Anna Nagar, Madurai",price:5100000,bedrooms:3,bathrooms:2,sqft:1300,
+    tag:"New listing",purpose:"Buy",
+    description:"A practical apartment layout with comfortable bedrooms and shared amenities.",
+    image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:8,title:"Bright Corner Family House",type:"House",city:"Chennai",
+    area:"Tambaram, Chennai",price:7600000,bedrooms:3,bathrooms:2,sqft:1700,
+    tag:"Spacious",purpose:"Buy",
+    description:"An inviting home concept with open common areas and a bright interior.",
+    image:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:9,title:"Creative Office Suite",type:"Commercial",city:"Coimbatore",
+    area:"Avinashi Road, Coimbatore",price:35000,bedrooms:0,bathrooms:1,sqft:700,
+    tag:"For rent",purpose:"Rent",
+    description:"A flexible office space concept for teams seeking a practical work environment.",
+    image:"https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=85"
+  }
+];
+
+let activeType = "All";
+let keyword = "";
+let cityFilter = "";
+let savedProperties = new Set();
+let showingFavorites = false;
+let selectedProperty = null;
+let toastTimer;
+
+const propertyGrid = document.getElementById("propertyGrid");
+
+function formatPrice(price,type){
+  if(type==="Commercial"){
+    return "₹"+price.toLocaleString("en-IN")+"/mo";
+  }
+  if(price>=10000000) return "₹"+(price/10000000).toFixed(2).replace(/\.00$/,"")+" Cr";
+  return "₹"+(price/100000).toFixed(price%100000===0?0:1)+" L";
+}
+
+function renderProperties(){
+  let list = properties.filter(property=>{
+    const text=(property.title+" "+property.type+" "+property.city+" "+property.area+" "+property.description).toLowerCase();
+    return (activeType==="All"||property.type===activeType)
+      && text.includes(keyword.toLowerCase())
+      && (!cityFilter||property.city===cityFilter)
+      && (!showingFavorites||savedProperties.has(property.id));
+  });
+
+  const sort=document.getElementById("sortProperties").value;
+  if(sort==="low")list.sort((a,b)=>a.price-b.price);
+  if(sort==="high")list.sort((a,b)=>b.price-a.price);
+  if(sort==="area")list.sort((a,b)=>b.sqft-a.sqft);
+
+  document.getElementById("propertyHeading").textContent=
+    showingFavorites?"Your saved properties":
+    activeType==="All"?"Featured properties":activeType+" listings";
+
+  if(!list.length){
+    propertyGrid.innerHTML=`
+      <div class="empty-state">
+        <h3>No properties found</h3>
+        <p style="margin-top:8px">Try changing your search or clearing the filters.</p>
+        <button class="btn btn-light" style="margin-top:16px" onclick="resetFilters()">Clear filters</button>
+      </div>`;
+    return;
+  }
+
+  propertyGrid.innerHTML=list.map(property=>`
+    <article class="property-card">
+      <div class="property-image">
+        <img src="${property.image}" alt="${property.title}" loading="lazy">
+        <span class="property-tag">${property.tag}</span>
+        <button class="fav-btn ${savedProperties.has(property.id)?"saved":""}"
+          onclick="toggleFavorite(${property.id})" aria-label="Save property">
+          ${savedProperties.has(property.id)?"♥":"♡"}
+        </button>
+      </div>
+      <div class="property-body">
+        <div class="property-type">${property.type} · ${property.purpose}</div>
+        <h3>${property.title}</h3>
+        <p class="property-location">⌖ ${property.area}</p>
+        <div class="property-meta">
+          ${property.bedrooms?`<span>▣ ${property.bedrooms} beds</span>`:""}
+          <span>◫ ${property.bathrooms} bath</span>
+          <span>▤ ${property.sqft.toLocaleString("en-IN")} sq.ft.</span>
+        </div>
+        <div class="property-bottom">
+          <div class="property-price">${formatPrice(property.price,property.type)}
+            <small>${property.type==="Commercial"?"Indicative monthly rent":"Indicative listing price"}</small>
+          </div>
+          <button class="btn btn-primary" onclick="openProperty(${property.id})">View Details</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function setType(type){
+  activeType=type;
+  showingFavorites=false;
+  document.querySelectorAll(".filter-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.type===type);
+  });
+  renderProperties();
+}
+
+document.querySelectorAll(".filter-btn").forEach(button=>{
+  button.addEventListener("click",()=>setType(button.dataset.type));
+});
+
+document.getElementById("sortProperties").addEventListener("change",renderProperties);
+
+document.getElementById("searchForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  keyword=document.getElementById("keyword").value.trim();
+  cityFilter=document.getElementById("city").value;
+  activeType=document.getElementById("purpose").value||"All";
+  showingFavorites=false;
+  document.querySelectorAll(".filter-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.type===activeType);
+  });
+  renderProperties();
+  scrollToProperties();
+});
+
+function chooseLocation(city){
+  document.getElementById("city").value=city;
+  cityFilter=city;
+  keyword="";
+  document.getElementById("keyword").value="";
+  showingFavorites=false;
+  renderProperties();
+  scrollToProperties();
+}
+
+function resetFilters(){
+  keyword="";
+  cityFilter="";
+  activeType="All";
+  showingFavorites=false;
+  document.getElementById("keyword").value="";
+  document.getElementById("city").value="";
+  document.getElementById("purpose").value="";
+  document.getElementById("sortProperties").value="featured";
+  document.querySelectorAll(".filter-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.type==="All");
+  });
+  renderProperties();
+  showToast("Filters cleared");
+}
+
+function toggleFavorite(id){
+  if(savedProperties.has(id)){
+    savedProperties.delete(id);
+    showToast("Removed from saved properties");
+  }else{
+    savedProperties.add(id);
+    showToast("Property saved");
+  }
+  renderProperties();
+}
+
+function showFavorites(){
+  showingFavorites=true;
+  activeType="All";
+  keyword="";
+  cityFilter="";
+  document.getElementById("keyword").value="";
+  document.getElementById("city").value="";
+  document.getElementById("purpose").value="";
+  document.querySelectorAll(".filter-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.type==="All");
+  });
+  renderProperties();
+  scrollToProperties();
+}
+
+function scrollToProperties(){
+  document.getElementById("properties").scrollIntoView({behavior:"smooth"});
+}
+
+function openProperty(id){
+  selectedProperty=properties.find(property=>property.id===id);
+  document.getElementById("modalFormView").hidden=false;
+  document.getElementById("modalSuccess").hidden=true;
+  document.getElementById("modalTitle").textContent="Enquire about this property";
+  document.getElementById("modalSubtitle").textContent=
+    selectedProperty.title+" · "+selectedProperty.area+" · "+
+    formatPrice(selectedProperty.price,selectedProperty.type);
+  document.getElementById("enquiryType").value=
+    selectedProperty.purpose==="Rent"?"Renting a property":"Buying a property";
+  openModal();
+}
+
+function openEnquiry(){
+  selectedProperty=null;
+  document.getElementById("modalFormView").hidden=false;
+  document.getElementById("modalSuccess").hidden=true;
+  document.getElementById("modalTitle").textContent="Send an enquiry";
+  document.getElementById("modalSubtitle").textContent=
+    "Tell us how we can help with your property search or listing.";
+  document.getElementById("enquiryType").value="";
+  openModal();
+}
+
+function openModal(){
+  document.getElementById("propertyModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function closeModal(){
+  document.getElementById("propertyModal").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+document.getElementById("enquiryForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const name=document.getElementById("visitorName").value.trim();
+  const requestId="NS"+Date.now().toString().slice(-7);
+  const propertyText=selectedProperty
+    ?" about "+selectedProperty.title
+    :" regarding your property enquiry";
+
+  document.getElementById("modalFormView").hidden=true;
+  document.getElementById("modalSuccess").hidden=false;
+  document.getElementById("modalTitle").textContent="Enquiry received";
+  document.getElementById("successMessage").textContent=
+    "Thank you, "+name+". Your demo enquiry"+propertyText+
+    " has been recorded on this screen. Reference: "+requestId+
+    ". No agent has been contacted and no property has been reserved.";
+  document.getElementById("enquiryForm").reset();
+});
+
+document.getElementById("propertyModal").addEventListener("click",event=>{
+  if(event.target.id==="propertyModal")closeModal();
+});
+
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape")closeModal();
+});
+
+function showToast(message){
+  const toast=document.getElementById("toast");
+  toast.textContent=message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove("show"),2600);
+}
+
+document.getElementById("menuToggle").addEventListener("click",()=>{
+  document.getElementById("navLinks").classList.toggle("open");
+});
+
+document.querySelectorAll("#navLinks a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    document.getElementById("navLinks").classList.remove("open");
+  });
+});
+
+renderProperties();
+</script>
+</body>
+</html>

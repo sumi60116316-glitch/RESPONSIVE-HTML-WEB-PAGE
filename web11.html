@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield | Security Operations Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080d16;
+  --panel:#101824;
+  --panel2:#141f2d;
+  --border:#243244;
+  --text:#edf4ff;
+  --muted:#8c9bb0;
+  --green:#52e3a4;
+  --blue:#64a9ff;
+  --red:#ff647c;
+  --yellow:#ffc76a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Inter,sans-serif;font-size:14px;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
+  outline:2px solid var(--green);outline-offset:3px
+}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:245px;flex-shrink:0;position:fixed;inset:0 auto 0 0;
+  background:#0b121d;border-right:1px solid var(--border);
+  padding:25px 17px;display:flex;flex-direction:column;z-index:20;
+}
+.brand{display:flex;align-items:center;gap:11px;padding:0 9px 31px}
+.brand-icon{
+  height:39px;width:39px;display:grid;place-items:center;
+  border:1px solid #2c705d;background:#102e29;border-radius:12px;
+  color:var(--green);font-size:23px
+}
+.brand h1{font:700 19px "Space Grotesk",sans-serif;letter-spacing:-.5px}
+.brand small{display:block;color:var(--muted);font-size:10px;margin-top:3px;letter-spacing:1.5px}
+.nav-label{color:#64748a;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:13px 12px}
+.nav-link{
+  display:flex;align-items:center;gap:12px;padding:12px;
+  color:#98a8bd;border-radius:9px;margin-bottom:4px;transition:.2s;
+  background:transparent;border:0;width:100%;text-align:left;font-size:13px
+}
+.nav-link .ico{font-size:17px;width:21px;text-align:center}
+.nav-link:hover,.nav-link.active{background:#172a2b;color:var(--green)}
+.nav-link.active{box-shadow:inset 3px 0 var(--green)}
+.nav-count{margin-left:auto;font-size:10px;background:#33202b;color:#ff8395;padding:3px 7px;border-radius:5px}
+.sidebar-bottom{margin-top:auto}
+.status-box{border:1px solid #24443d;background:#10211f;padding:14px;border-radius:11px;margin-top:15px}
+.status-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 9px #52e3a477}
+.status-box p{color:var(--muted);font-size:11px;line-height:1.7;margin-top:9px}
+main{margin-left:245px;width:calc(100% - 245px);min-width:0}
+.topbar{
+  height:75px;padding:0 30px;display:flex;align-items:center;justify-content:space-between;
+  gap:15px;border-bottom:1px solid var(--border);background:#0b121d;position:sticky;top:0;z-index:10
+}
+.page-name h2{font:600 16px "Space Grotesk",sans-serif}
+.page-name p{font-size:11px;color:var(--muted);margin-top:4px}
+.top-actions{display:flex;align-items:center;gap:12px}
+.live-pill{display:flex;align-items:center;gap:8px;color:var(--green);font-size:11px;border:1px solid #24443d;padding:8px 11px;border-radius:7px;background:#10211f}
+.icon-btn{height:36px;width:36px;background:var(--panel);border:1px solid var(--border);color:#dce7f6;border-radius:8px;font-size:16px;position:relative}
+.notification-dot{position:absolute;width:6px;height:6px;background:var(--red);border-radius:50%;right:7px;top:6px}
+.user-avatar{width:35px;height:35px;border-radius:10px;object-fit:cover;border:1px solid var(--border)}
+.mobile-menu{display:none}
+.content{padding:28px 30px 45px;max-width:1600px;margin:auto}
+.eyebrow{font-size:10px;color:var(--green);letter-spacing:1.8px;font-weight:800;text-transform:uppercase}
+.heading-row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:23px}
+.heading-row h2{font:700 27px "Space Grotesk",sans-serif;letter-spacing:-.8px;margin-top:7px}
+.heading-row p{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.7}
+.btn{
+  border:1px solid var(--border);border-radius:8px;padding:11px 15px;
+  color:var(--text);background:var(--panel2);font-size:12px;font-weight:700;transition:.2s
+}
+.btn:hover{border-color:#4c7c7b;transform:translateY(-1px)}
+.btn-primary{background:var(--green);border-color:var(--green);color:#07140f}
+.btn-primary:hover{background:#7af0bc;border-color:#7af0bc}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.stat-card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px}
+.stat-card{padding:19px;min-width:0}
+.stat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stat-label{font-size:11px;color:var(--muted)}
+.stat-icon{height:34px;width:34px;border-radius:9px;display:grid;place-items:center;font-size:17px;background:#1a2b3b;color:var(--blue)}
+.stat-card:nth-child(2) .stat-icon{background:#32212b;color:var(--red)}
+.stat-card:nth-child(3) .stat-icon{background:#332a1c;color:var(--yellow)}
+.stat-card:nth-child(4) .stat-icon{background:#143329;color:var(--green)}
+.stat-value{font:700 29px "Space Grotesk",sans-serif;margin-top:17px;letter-spacing:-.7px}
+.stat-foot{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:10px;color:var(--muted)}
+.trend{color:var(--green);font-weight:700}
+.trend.warn{color:var(--yellow)}
+.main-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.85fr);gap:17px;margin-top:18px}
+.panel{padding:20px;min-width:0}
+.panel-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.panel-title{font:600 14px "Space Grotesk",sans-serif}
+.panel-subtitle{color:var(--muted);font-size:10px;margin-top:5px}
+.small-select{border:1px solid var(--border);background:#0c1420;color:#bdcadd;border-radius:7px;padding:8px;font-size:11px}
+.chart-area{height:220px;position:relative}
+.chart-area svg{width:100%;height:100%;overflow:visible}
+.grid-line{stroke:#243244;stroke-width:1;stroke-dasharray:4 5}
+.chart-label{fill:#71839a;font-size:10px;font-family:Inter,sans-serif}
+.chart-line{fill:none;stroke:var(--green);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart-fill{fill:url(#chartGradient)}
+.chart-dot{fill:var(--green);stroke:#10251f;stroke-width:3}
+.chart-legend{display:flex;gap:17px;flex-wrap:wrap;color:var(--muted);font-size:10px;margin-top:12px}
+.legend-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}
+.severity-list{display:grid;gap:20px}
+.severity-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:9px}
+.severity-row span:first-child{display:flex;align-items:center;gap:9px;color:#b5c2d3}
+.severity-row strong{font:600 13px "Space Grotesk",sans-serif}
+.severity-bar{height:6px;border-radius:10px;background:#263343;overflow:hidden}
+.severity-fill{height:100%;border-radius:10px;transition:width .4s}
+.red{background:var(--red)}.yellow{background:var(--yellow)}
+.blue{background:var(--blue)}.green{background:var(--green)}
+.threat-panel{margin-top:18px}
+.table-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search-input{
+  background:#0c1420;color:var(--text);border:1px solid var(--border);
+  border-radius:7px;padding:10px 12px;font-size:11px;min-width:180px;outline:none
+}
+.search-input:focus{border-color:#4b7e78}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:670px;text-align:left}
+thead th{font-size:10px;color:#71839a;font-weight:700;letter-spacing:.5px;padding:13px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td{padding:15px 12px;border-bottom:1px solid #1d2a39;font-size:11px;color:#bac8d8;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#131f2d}
+.threat-name{color:#f0f5fd;font-weight:600}
+.threat-id{font-size:10px;color:#71839a;margin-top:4px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:5px;font-size:10px;font-weight:700}
+.badge:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.badge-critical{background:#371e29;color:#ff8094}
+.badge-high{background:#38291b;color:#ffbd67}
+.badge-medium{background:#1b2e43;color:#83baff}
+.badge-low{background:#17352b;color:#67e1a9}
+.row-action{border:0;background:transparent;color:var(--blue);font-size:11px;font-weight:700}
+.row-action:hover{text-decoration:underline}
+.activity-list{display:grid;gap:0}
+.activity{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid #1d2a39}
+.activity:last-child{border-bottom:0}
+.activity-icon{height:31px;width:31px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;background:#1c2e40;color:var(--blue)}
+.activity-icon.alert{background:#38202a;color:var(--red)}
+.activity-icon.success{background:#16352b;color:var(--green)}
+.activity strong{font-size:11px;display:block;font-weight:600}
+.activity p{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.6}
+.activity time{display:block;color:#708198;font-size:9px;margin-top:6px}
+.empty-state{display:none;text-align:center;color:var(--muted);padding:30px;font-size:12px}
+footer{border-top:1px solid var(--border);padding:18px 30px;color:#6f8297;font-size:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toast{
+  position:fixed;right:22px;bottom:22px;z-index:100;
+  background:#14251f;border:1px solid #31664f;color:#c7f7df;
+  border-radius:10px;padding:15px 18px;box-shadow:0 10px 35px #0006;
+  max-width:min(360px,calc(100vw - 30px));font-size:12px;
+  opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s
+}
+.toast.show{opacity:1;transform:translateY(0)}
+.scan-overlay{display:none;position:fixed;inset:0;background:#03070dc9;z-index:50;place-items:center;padding:20px}
+.scan-overlay.show{display:grid}
+.scan-box{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:30px;width:min(440px,100%);text-align:center}
+.scan-ring{
+  height:92px;width:92px;border-radius:50%;border:3px solid #263a4a;
+  border-top-color:var(--green);margin:0 auto 22px;
+  display:grid;place-items:center;font-size:30px;color:var(--green)
+}
+.scanning .scan-ring{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scan-box h3{font:700 20px "Space Grotesk",sans-serif}
+.scan-box p{color:var(--muted);font-size:12px;line-height:1.8;margin:10px 0 20px}
+.scan-progress{height:6px;background:#273445;border-radius:10px;overflow:hidden}
+.scan-progress div{height:100%;width:0;background:var(--green);transition:width .25s}
+.scan-status{margin-top:10px;color:var(--muted);font-size:10px}
+@media(max-width:1150px){
+  .sidebar{width:215px}main{margin-left:215px;width:calc(100% - 215px)}
+  .content{padding:24px 20px 38px}.topbar{padding:0 20px}
+  .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .main-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s;width:245px;box-shadow:12px 0 30px #0005}
+  .sidebar.open{transform:translateX(0)}
+  main{margin-left:0;width:100%}
+  .mobile-menu{display:inline-grid;place-items:center}
+  .topbar{height:65px;padding:0 15px}
+  .page-name p{display:none}.top-actions{gap:7px}.live-pill{font-size:10px;padding:7px}
+  .user-avatar{display:none}
+  .content{padding:24px 14px 30px}
+  .heading-row{flex-direction:column}
+  .heading-row h2{font-size:24px}
+  .stats-grid{gap:10px}
+  .stat-card{padding:14px}
+  .stat-value{font-size:25px}
+  .stat-label{font-size:10px}
+  .main-grid{gap:12px;margin-top:12px}
+  .panel{padding:15px}
+  .chart-area{height:190px}
+  .table-tools{width:100%}.search-input{flex:1;min-width:0}
+  .table-tools .small-select{max-width:130px}
+  .footer-inner{padding:0}
+  footer{padding:17px 14px}
+}
+@media(max-width:390px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-icon{width:28px;height:28px}
+  .stat-value{font-size:23px}
+  .live-pill{display:none}
+  .form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#overview">
+      <div class="brand-icon">⬡</div>
+      <div><h1>CyberShield</h1><small>SECURITY CENTER</small></div>
+    </a>
+
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link active" href="#overview"><span class="ico">▦</span>Overview</a>
+    <a class="nav-link" href="#threats"><span class="ico">⌁</span>Threat Detection <span class="nav-count" id="navThreatCount">4</span></a>
+    <a class="nav-link" href="#activity"><span class="ico">◷</span>Activity Logs</a>
+    <a class="nav-link" href="#analytics"><span class="ico">▥</span>Analytics</a>
+
+    <div class="nav-label">SECURITY TOOLS</div>
+    <button class="nav-link" id="sideScan"><span class="ico">⌕</span>Security Scanner</button>
+    <a class="nav-link" href="#protection"><span class="ico">⬡</span>Protection Status</a>
+
+    <div class="sidebar-bottom">
+      <div class="nav-label">SYSTEM</div>
+      <a class="nav-link" href="#footer"><span class="ico">ⓘ</span>About CyberShield</a>
+      <div class="status-box">
+        <div class="status-title"><span class="dot"></span> Protection Active</div>
+        <p>Demo monitoring interface is running. Scan results are simulated locally.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:13px">
+        <button class="icon-btn mobile-menu" id="menuToggle" aria-label="Open menu">☰</button>
+        <div class="page-name">
+          <h2>Security Overview</h2>
+          <p>Workspace / Dashboard / Overview</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="live-pill"><span class="dot"></span> DEMO MONITORING</div>
+        <button class="icon-btn" id="notificationBtn" aria-label="Notifications">♧<span class="notification-dot"></span></button>
+        <img class="user-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Demo analyst profile">
+      </div>
+    </header>
+
+    <div class="content" id="overview">
+      <div class="heading-row">
+        <div>
+          <div class="eyebrow">● Security operations center</div>
+          <h2>Your security at a glance.</h2>
+          <p>Monitor sample threats, review activity, and run an interactive demo scan.</p>
+        </div>
+        <button class="btn btn-primary" id="runScan">＋ Run Security Scan</button>
+      </div>
+
+      <section class="stats-grid" aria-label="Security summary" style="padding:0">
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Threats Detected</span><span class="stat-icon">⌁</span></div>
+          <div class="stat-value" id="statThreats">04</div>
+          <div class="stat-foot"><span class="trend warn">● Monitored</span> <span>in demo data</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Critical Alerts</span><span class="stat-icon">⚠</span></div>
+          <div class="stat-value" id="statCritical">02</div>
+          <div class="stat-foot"><span class="trend warn">● Review</span> <span>sample alerts</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Scans Completed</span><span class="stat-icon">⌕</span></div>
+          <div class="stat-value" id="statScans">128</div>
+          <div class="stat-foot"><span class="trend">↑ Demo metric</span> <span>session total</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Protection Status</span><span class="stat-icon">⬡</span></div>
+          <div class="stat-value" style="font-size:23px;color:var(--green)">Active</div>
+          <div class="stat-foot"><span class="trend">● Enabled</span> <span>interface state</span></div>
+        </div>
+      </section>
+
+      <div class="main-grid" id="analytics">
+        <section class="panel">
+          <div class="panel-header">
+            <div><div class="panel-title">Threat Activity</div><div class="panel-subtitle">Illustrative activity over the selected period</div></div>
+            <select class="small-select" id="chartPeriod" aria-label="Chart period">
+              <option value="7">Last 7 days</option>
+              <option value="14">Last 14 days</option>
+              <option value="30">Last 30 days</option>
+            </select>
+          </div>
+          <div class="chart-area">
+            <svg viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="Illustrative threat activity line chart">
+              <defs>
+                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#52e3a4" stop-opacity=".22"/>
+                  <stop offset="100%" stop-color="#52e3a4" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <g>
+                <line class="grid-line" x1="40" y1="25" x2="590" y2="25"/>
+                <line class="grid-line" x1="40" y1="70" x2="590" y2="70"/>
+                <line class="grid-line" x1="40" y1="115" x2="590" y2="115"/>
+                <line class="grid-line" x1="40" y1="160" x2="590" y2="160"/>
+                <line class="grid-line" x1="40" y1="195" x2="590" y2="195"/>
+                <text class="chart-label" x="5" y="29">40</text>
+                <text class="chart-label" x="5" y="74">30</text>
+                <text class="chart-label" x="5" y="119">20</text>
+                <text class="chart-label" x="5" y="164">10</text>
+                <text class="chart-label" x="14" y="199">0</text>
+              </g>
+              <path class="chart-fill" id="chartFill" d=""/>
+              <path class="chart-line" id="chartLine" d=""/>
+              <g id="chartDots"></g>
+              <g id="chartLabels"></g>
+            </svg>
+          </div>
+          <div class="chart-legend"><span><i class="legend-dot" style="background:var(--green)"></i>Detected events</span><span>Sample visualization — not live telemetry</span></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div><div class="panel-title">Threat Severity</div><div class="panel-subtitle">Distribution of current sample alerts</div></div>
+            <span class="eyebrow">OVERVIEW</span>
+          </div>
+          <div class="severity-list" id="severityList">
+            <div><div class="severity-row"><span><i class="legend-dot" style="background:var(--red)"></i>Critical</span><strong id="criticalCount">2</strong></div><div class="severity-bar"><div class="severity-fill red" id="criticalBar" style="width:50%"></div></div></div>
+            <div><div class="severity-row"><span><i class="legend-dot" style="background:var(--yellow)"></i>High</span><strong id="highCount">1</strong></div><div class="severity-bar"><div class="severity-fill yellow" id="highBar" style="width:25%"></div></div></div>
+            <div><div class="severity-row"><span><i class="legend-dot" style="background:var(--blue)"></i>Medium</span><strong id="mediumCount">1</strong></div><div class="severity-bar"><div class="severity-fill blue" id="mediumBar" style="width:25%"></div></div></div>
+            <div><div class="severity-row"><span><i class="legend-dot" style="background:var(--green)"></i>Low</span><strong id="lowCount">0</strong></div><div class="severity-bar"><div class="severity-fill green" id="lowBar" style="width:0%"></div></div></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel threat-panel" id="threats">
+        <div class="panel-header" style="flex-wrap:wrap">
+          <div><div class="panel-title">Detected Threats</div><div class="panel-subtitle">Sample records for exploring the security interface</div></div>
+          <div class="table-tools">
+            <input class="search-input" id="threatSearch" type="search" placeholder="Search threats..." aria-label="Search threats">
+            <select class="small-select" id="severityFilter" aria-label="Filter by severity">
+              <option value="all">All severities</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>THREAT</th><th>SEVERITY</th><th>SOURCE</th><th>STATUS</th><th>ACTION</th></tr></thead>
+            <tbody id="threatTable"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState">No matching sample threats found.</div>
+        </div>
+      </section>
+
+      <section class="panel threat-panel" id="activity">
+        <div class="panel-header">
+          <div><div class="panel-title">Recent Activity</div><div class="panel-subtitle">Actions performed in this demo session</div></div>
+          <button class="btn" id="clearActivity">Clear Logs</button>
+        </div>
+        <div class="activity-list" id="activityList"></div>
+        <div class="empty-state" id="activityEmpty">No activity logs yet.</div>
+      </section>
+
+      <section class="panel threat-panel" id="protection">
+        <div class="panel-header">
+          <div><div class="panel-title">Protection Status</div><div class="panel-subtitle">Local demo controls — not connected to a real security system</div></div>
+          <span class="badge badge-low">DEMO MODE</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Firewall display</div><div class="stat-value" style="font-size:20px">Enabled</div><div class="stat-foot">UI demonstration only</div></div>
+          <div class="stat-card"><div class="stat-label">Malware protection</div><div class="stat-value" style="font-size:20px">Enabled</div><div class="stat-foot">No real device scan</div></div>
+          <div class="stat-card"><div class="stat-label">Network monitor</div><div class="stat-value" style="font-size:20px">Simulated</div><div class="stat-foot">No network inspection</div></div>
+          <div class="stat-card"><div class="stat-label">Last demo scan</div><div class="stat-value" style="font-size:20px" id="lastScan">Not run</div><div class="stat-foot">Updates after a demo scan</div></div>
+        </div>
+      </section>
+    </div>
+
+    <footer id="footer">
+      <span>© 2026 CyberShield Security Center</span>
+      <span>Educational demo · Sample data only · No real threats detected</span>
+    </footer>
+  </main>
+</div>
+
+<div class="scan-overlay" id="scanOverlay" role="dialog" aria-modal="true" aria-labelledby="scanTitle">
+  <div class="scan-box" id="scanBox">
+    <div class="scan-ring" id="scanIcon">⬡</div>
+    <h3 id="scanTitle">Security Scan</h3>
+    <p id="scanDescription">This interactive demo will simulate a security scan. It will not access your device, files, or network.</p>
+    <div class="scan-progress"><div id="scanProgress"></div></div>
+    <div class="scan-status" id="scanStatus">Preparing demo scan...</div>
+    <button class="btn" id="closeScan" style="margin-top:20px" disabled>Close</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let threats = [
+  {id:"TH-2041",name:"Suspicious Login Attempt",severity:"Critical",source:"192.0.2.14",status:"Under review"},
+  {id:"TH-2042",name:"Malware Signature Match",severity:"High",source:"198.51.100.22",status:"Investigating"},
+  {id:"TH-2043",name:"Unusual Data Transfer",severity:"Medium",source:"203.0.113.8",status:"Monitoring"},
+  {id:"TH-2044",name:"Repeated Access Failure",severity:"Critical",source:"192.0.2.87",status:"Under review"}
+];
+
+let activities = [
+  {type:"alert",icon:"⚠",title:"Critical alert recorded",detail:"Suspicious login attempt · TH-2041",time:"09:42 AM"},
+  {type:"success",icon:"✓",title:"Protection display checked",detail:"Demo protection status is enabled",time:"09:30 AM"},
+  {type:"normal",icon:"⌕",title:"Threat records loaded",detail:"Sample dataset initialized successfully",time:"09:15 AM"}
+];
+
+let scanCount = 128;
+let toastTimer;
+
+function showToast(message){
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("show"),3200);
+}
+
+function addActivity(type,title,detail){
+  const now = new Date();
+  activities.unshift({
+    type,
+    icon:type==="alert"?"⚠":type==="success"?"✓":"⌕",
+    title,detail,
+    time:now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})
+  });
+  activities = activities.slice(0,30);
+  renderActivities();
+}
+
+function renderActivities(){
+  const list = $("activityList");
+  list.innerHTML = "";
+  $("activityEmpty").style.display = activities.length ? "none":"block";
+
+  activities.forEach(item=>{
+    const row = document.createElement("div");
+    row.className = "activity";
+
+    const icon = document.createElement("div");
+    icon.className = "activity-icon "+(item.type==="alert"?"alert":item.type==="success"?"success":"");
+    icon.textContent = item.icon;
+
+    const body = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+    const detail = document.createElement("p");
+    detail.textContent = item.detail;
+    const time = document.createElement("time");
+    time.textContent = item.time;
+
+    body.append(title,detail,time);
+    row.append(icon,body);
+    list.appendChild(row);
+  });
+}
+
+function renderThreats(){
+  const query = $("threatSearch").value.trim().toLowerCase();
+  const severity = $("severityFilter").value;
+  const filtered = threats.filter(t=>
+    (severity==="all"||t.severity===severity) &&
+    [t.id,t.name,t.source,t.status,t.severity].some(v=>v.toLowerCase().includes(query))
+  );
+
+  const tbody = $("threatTable");
+  tbody.innerHTML = "";
+  $("emptyState").style.display = filtered.length ? "none":"block";
+
+  filtered.forEach(t=>{
+    const tr = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    const name = document.createElement("div");
+    name.className = "threat-name";
+    name.textContent = t.name;
+    const id = document.createElement("div");
+    id.className = "threat-id";
+    id.textContent = t.id;
+    nameCell.append(name,id);
+
+    const sevCell = document.createElement("td");
+    const badge = document.createElement("span");
+    badge.className = "badge badge-"+t.severity.toLowerCase();
+    badge.textContent = t.severity;
+    sevCell.appendChild(badge);
+
+    const sourceCell = document.createElement("td");
+    sourceCell.textContent = t.source;
+
+    const statusCell = document.createElement("td");
+    statusCell.textContent = t.status;
+
+    const actionCell = document.createElement("td");
+    const action = document.createElement("button");
+    action.className = "row-action";
+    action.textContent = t.status==="Resolved"?"Resolved":"Resolve";
+    action.disabled = t.status==="Resolved";
+    action.addEventListener("click",()=>resolveThreat(t.id));
+    actionCell.appendChild(action);
+
+    tr.append(nameCell,sevCell,sourceCell,statusCell,actionCell);
+    tbody.appendChild(tr);
+  });
+  updateStats();
+}
+
+function updateStats(){
+  const active = threats.filter(t=>t.status!=="Resolved");
+  $("statThreats").textContent = String(active.length).padStart(2,"0");
+  $("statCritical").textContent = String(active.filter(t=>t.severity==="Critical").length).padStart(2,"0");
+  $("statScans").textContent = scanCount;
+  $("navThreatCount").textContent = active.length;
+
+  const counts = {Critical:0,High:0,Medium:0,Low:0};
+  active.forEach(t=>counts[t.severity]++);
+  const total = active.length || 1;
+
+  [["Critical","critical"],["High","high"],["Medium","medium"],["Low","low"]].forEach(([label,key])=>{
+    $(key+"Count").textContent = counts[label];
+    $(key+"Bar").style.width = (counts[label]/total*100)+"%";
+  });
+}
+
+function resolveThreat(id){
+  const threat = threats.find(t=>t.id===id);
+  if(!threat || threat.status==="Resolved") return;
+  threat.status = "Resolved";
+  renderThreats();
+  addActivity("success","Sample threat marked resolved",threat.name+" · "+threat.id);
+  showToast("Demo record updated. No real security action was taken.");
+}
+
+const chartData = {
+  7:[12,20,15,30,23,34,26],
+  14:[9,14,18,12,22,17,27,21,30,24,35,27,31,25],
+  30:[8,11,7,14,12,19,15,22,17,12,25,20,29,23,18,28,21,34,26,19,30,24,36,28,22,31,25,35,29,33]
+};
+
+function drawChart(period){
+  const values = chartData[period] || chartData[7];
+  const left=42,right=588,top=25,bottom=195;
+  const max=40;
+  const points=values.map((v,i)=>{
+    const x=left+i*(right-left)/(values.length-1);
+    const y=bottom-(v/max)*(bottom-top);
+    return [x,y];
+  });
+  const line=points.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  $("chartLine").setAttribute("d",line);
+  $("chartFill").setAttribute("d",line+" L "+right+" "+bottom+" L "+left+" "+bottom+" Z");
+
+  const dots = points.filter((p,i)=>i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/5))===0);
+  $("chartDots").innerHTML=dots.map(p=>`<circle class="chart-dot" cx="${p[0]}" cy="${p[1]}" r="4"/>`).join("");
+
+  const labels=period==="7"
+    ?["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    :period==="14"
+      ?["D1","D3","D5","D7","D9","D11","D14"]
+      :["D1","D5","D10","D15","D20","D25","D30"];
+  const labelPoints=labels.map((label,i)=>{
+    const x=left+i*(right-left)/(labels.length-1);
+    return `<text class="chart-label" x="${x}" y="215" text-anchor="middle">${label}</text>`;
+  });
+  $("chartLabels").innerHTML=labelPoints.join("");
+}
+
+$("threatSearch").addEventListener("input",renderThreats);
+$("severityFilter").addEventListener("change",renderThreats);
+$("chartPeriod").addEventListener("change",e=>drawChart(e.target.value));
+
+$("clearActivity").addEventListener("click",()=>{
+  activities=[];
+  renderActivities();
+  showToast("Activity log cleared for this demo session.");
+});
+
+$("notificationBtn").addEventListener("click",()=>{
+  const active=threats.filter(t=>t.status!=="Resolved").length;
+  showToast(active+" active sample threat records. See the Threat Detection table.");
+});
+
+$("menuToggle").addEventListener("click",()=>{
+  $("sidebar").classList.toggle("open");
+});
+
+document.querySelectorAll(".sidebar a[href^='#']").forEach(link=>{
+  link.addEventListener("click",()=>{
+    $("sidebar").classList.remove("open");
+    document.querySelectorAll(".nav-link").forEach(a=>a.classList.remove("active"));
+    link.classList.add("active");
+  });
+});
+
+const overlay=$("scanOverlay");
+const scanBox=$("scanBox");
+let scanTimers=[];
+
+function clearScanTimers(){
+  scanTimers.forEach(clearTimeout);
+  scanTimers=[];
+}
+
+function runScan(){
+  if(overlay.classList.contains("show")) return;
+  clearScanTimers();
+  overlay.classList.add("show");
+  scanBox.classList.add("scanning");
+  $("scanIcon").textContent="⬡";
+  $("scanTitle").textContent="Security Scan";
+  $("scanDescription").textContent="This interactive demo simulates a scan. It does not access your device, files, or network.";
+  $("scanProgress").style.width="0%";
+  $("scanStatus").textContent="Preparing demo scan...";
+  $("closeScan").disabled=true;
+  $("runScan").disabled=true;
+  $("sideScan").disabled=true;
+
+  const steps=[
+    [15,"Initializing simulated checks..."],
+    [38,"Reviewing example security rules..."],
+    [63,"Processing sample records..."],
+    [84,"Preparing demonstration summary..."],
+    [100,"Demo scan completed."]
+  ];
+
+  steps.forEach(([progress,message],i)=>{
+    scanTimers.push(setTimeout(()=>{
+      $("scanProgress").style.width=progress+"%";
+      $("scanStatus").textContent=message;
+    },650*(i+1)));
+  });
+
+  scanTimers.push(setTimeout(()=>{
+    scanBox.classList.remove("scanning");
+    $("scanIcon").textContent="✓";
+    $("scanTitle").textContent="Demo Scan Complete";
+    $("scanDescription").textContent="The interface simulation completed successfully. This is not a real malware scan or security audit.";
+    $("closeScan").disabled=false;
+    $("runScan").disabled=false;
+    $("sideScan").disabled=false;
+    scanCount++;
+    updateStats();
+    $("lastScan").textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+    addActivity("success","Demo security scan completed","Simulated checks finished; no real device was scanned.");
+    showToast("Demo scan complete. No device or network was inspected.");
+  },3400));
+}
+
+function closeScan(){
+  if($("closeScan").disabled) return;
+  overlay.classList.remove("show");
+  clearScanTimers();
+  $("runScan").disabled=false;
+  $("sideScan").disabled=false;
+}
+
+$("runScan").addEventListener("click",runScan);
+$("sideScan").addEventListener("click",()=>{
+  $("sidebar").classList.remove("open");
+  runScan();
+});
+$("closeScan").addEventListener("click",closeScan);
+overlay.addEventListener("click",e=>{
+  if(e.target===overlay) closeScan();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && !$("closeScan").disabled) closeScan();
+});
+
+renderThreats();
+renderActivities();
+drawChart("7");
+</script>
+</body>
+</html>

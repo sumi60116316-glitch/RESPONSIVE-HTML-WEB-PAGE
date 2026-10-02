@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave - Food Delivery</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #252525;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 8%;
+            background: white;
+            box-shadow: 0 2px 12px #0000000c;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e64b2e;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #e64b2e;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            gap: 40px;
+            min-height: 440px;
+            background: #fff0e5;
+        }
+
+        .hero-content {
+            max-width: 520px;
+        }
+
+        .tag {
+            color: #e64b2e;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.15;
+            margin: 20px 0;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            border-radius: 7px;
+            background: #e64b2e;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #c83920;
+        }
+
+        .hero-image {
+            width: 42%;
+            max-width: 440px;
+            height: 300px;
+            border-radius: 18px;
+            background: #f5d2bd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 110px;
+        }
+
+        .section {
+            padding: 65px 8%;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .section-heading h2 {
+            font-size: 30px;
+        }
+
+        .section-heading p {
+            color: #777;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .food-card {
+            background: white;
+            border: 1px solid #f0e8e2;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px #00000010;
+        }
+
+        .food-image {
+            height: 175px;
+            background: #f8eee5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 75px;
+        }
+
+        .food-info {
+            padding: 20px;
+        }
+
+        .food-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .food-info p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #777;
+            min-height: 42px;
+        }
+
+        .food-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e64b2e;
+        }
+
+        .add-btn {
+            background: #252525;
+            color: white;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #e64b2e;
+        }
+
+        .offer {
+            margin: 0 8% 65px;
+            padding: 35px;
+            border-radius: 14px;
+            background: #262626;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .offer p {
+            color: #ddd;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .about {
+            background: white;
+            text-align: center;
+        }
+
+        .about p {
+            max-width: 650px;
+            margin: 18px auto 0;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #202020;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        #cart-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #252525;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: none;
+            z-index: 10;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                padding: 20px 5%;
+                flex-wrap: wrap;
+                gap: 18px;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 14px;
+            }
+
+            nav a {
+                margin: 0;
+            }
+
+            .hero {
+                padding: 45px 6%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-image {
+                width: 100%;
+                max-width: none;
+                height: 220px;
+            }
+
+            .section {
+                padding: 45px 6%;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .offer {
+                margin: 0 6% 45px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-heading h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">crave<span>.</span></div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Our Menu</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#menu">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="tag">FRESH FOOD · FAST DELIVERY</span>
+
+            <h1>Good food.<br>Good mood.</h1>
+
+            <p>
+                Discover delicious meals made with fresh ingredients.
+                Your favourite food is just a few clicks away.
+            </p>
+
+            <a href="#menu" class="btn">Explore Our Menu &rarr;</a>
+        </div>
+
+        <div class="hero-image" aria-label="Food illustration">
+            🍕
+        </div>
+    </section>
+
+    <section class="section" id="menu">
+        <div class="section-heading">
+            <div>
+                <h2>Popular Dishes</h2>
+                <p>Customer favourites, freshly prepared for you.</p>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+
+            <article class="food-card">
+                <div class="food-image">🍕</div>
+                <div class="food-info">
+                    <h3>Margherita Pizza</h3>
+                    <p>Classic cheese pizza with tomato sauce and herbs.</p>
+                    <div class="food-bottom">
+                        <span class="price">₹199</span>
+                        <button class="add-btn"
+                            onclick="addToCart('Margherita Pizza', 199)">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="food-card">
+                <div class="food-image">🍔</div>
+                <div class="food-info">
+                    <h3>Classic Veg Burger</h3>
+                    <p>Crispy vegetable patty with fresh lettuce and sauce.</p>
+                    <div class="food-bottom">
+                        <span class="price">₹129</span>
+                        <button class="add-btn"
+                            onclick="addToCart('Classic Veg Burger', 129)">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="food-card">
+                <div class="food-image">🍝</div>
+                <div class="food-info">
+                    <h3>Creamy White Pasta</h3>
+                    <p>Creamy pasta with herbs and a rich white sauce.</p>
+                    <div class="food-bottom">
+                        <span class="price">₹179</span>
+                        <button class="add-btn"
+                            onclick="addToCart('Creamy White Pasta', 179)">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="offer">
+        <div>
+            <h2>Your next favourite meal awaits.</h2>
+            <p>Explore our menu and discover something delicious today.</p>
+        </div>
+        <a href="#menu" class="btn">Order Now</a>
+    </section>
+
+    <section class="section about" id="about">
+        <h2>Made with Love, Served Fresh</h2>
+        <p>
+            At Crave, we believe every meal should be memorable.
+            We bring together fresh ingredients, great flavours,
+            and a simple ordering experience.
+        </p>
+    </section>
+</main>
+
+<footer id="contact">
+    <p>Contact: hello@crave.example | Phone: 9876543210</p>
+    <p style="margin-top: 12px;">
+        &copy; 2026 Crave. All rights reserved.
+    </p>
+</footer>
+
+<div id="cart-message" role="status" aria-live="polite"></div>
+
+<script>
+    let cartCount = 0;
+    let cartTotal = 0;
+    let messageTimer;
+
+    function addToCart(name, price) {
+        cartCount++;
+        cartTotal += price;
+
+        document.getElementById("cart-count").textContent = cartCount;
+
+        const message = document.getElementById("cart-message");
+        message.textContent =
+            name + " added! Items: " + cartCount +
+            " | Total: ₹" + cartTotal;
+
+        message.style.display = "block";
+
+        clearTimeout(messageTimer);
+        messageTimer = setTimeout(function () {
+            message.style.display = "none";
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>

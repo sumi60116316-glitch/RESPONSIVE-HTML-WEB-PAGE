@@ -1,0 +1,1548 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduNova | Learn Without Limits</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #5b4bdb;
+      --primary-dark: #4636c2;
+      --ink: #20213a;
+      --muted: #777b91;
+      --surface: #f7f7fc;
+      --border: #e9e9f2;
+      --white: #ffffff;
+      --radius: 18px;
+      --shadow: 0 12px 35px rgba(38, 34, 85, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Manrope", sans-serif;
+      line-height: 1.25;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 35px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      margin-bottom: 13px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: white;
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      color: #555970;
+      font-size: 0.94rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: none;
+      font-size: 1.7rem;
+      color: var(--ink);
+    }
+
+    /* Hero */
+
+    .hero {
+      padding: 75px 0 65px;
+      background:
+        radial-gradient(circle at 5% 15%, #eeebff 0, transparent 28%),
+        linear-gradient(120deg, #fbfaff, #f4f3ff);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      letter-spacing: -2px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      max-width: 510px;
+      font-size: 1.06rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-bottom: 30px;
+    }
+
+    .hero-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 10px 15px 15px 0;
+    }
+
+    .hero-visual > img {
+      height: 430px;
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .floating-card {
+      position: absolute;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px 19px;
+      box-shadow: var(--shadow);
+    }
+
+    .floating-card strong {
+      display: block;
+      font-size: 1.25rem;
+    }
+
+    .floating-card small {
+      color: var(--muted);
+    }
+
+    .students-card {
+      left: -28px;
+      bottom: 38px;
+    }
+
+    .rating-card {
+      right: 0;
+      top: 38px;
+    }
+
+    /* Trust strip */
+
+    .trust-strip {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .trust-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .trust-inner p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .trust-numbers {
+      display: flex;
+      gap: 35px;
+      flex-wrap: wrap;
+    }
+
+    .trust-numbers strong {
+      display: block;
+      font-size: 1.3rem;
+    }
+
+    .trust-numbers span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* Categories */
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+    }
+
+    .category-card {
+      padding: 25px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+      transition: 0.25s ease;
+    }
+
+    .category-card:hover {
+      border-color: #c6bfff;
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      background: #f0edff;
+      color: var(--primary);
+      border-radius: 13px;
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+    }
+
+    .category-card h3 {
+      font-size: 1rem;
+      margin-bottom: 7px;
+    }
+
+    .category-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Courses */
+
+    .courses-section {
+      background: var(--surface);
+    }
+
+    .course-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 13px 16px 13px 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: white;
+    }
+
+    .search-box input:focus,
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 11px;
+      left: 14px;
+      color: var(--muted);
+    }
+
+    .filter-select {
+      padding: 13px 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: white;
+      color: var(--ink);
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 23px;
+    }
+
+    .course-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .course-image {
+      position: relative;
+    }
+
+    .course-image img {
+      height: 205px;
+    }
+
+    .course-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 10px;
+      background: white;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .course-content {
+      padding: 20px;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.81rem;
+      margin-bottom: 12px;
+    }
+
+    .rating {
+      color: #d79514;
+      font-weight: 700;
+    }
+
+    .course-content h3 {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+      min-height: 53px;
+    }
+
+    .instructor {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 17px 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .instructor img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+    }
+
+    .course-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 15px;
+    }
+
+    .price {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .price del {
+      font-size: 0.8rem;
+      color: #a0a1b0;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .course-bottom button {
+      padding: 9px 13px;
+      font-size: 0.84rem;
+    }
+
+    .no-results {
+      display: none;
+      padding: 35px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* Learning benefits */
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .benefit-image img {
+      height: 450px;
+      border-radius: 23px;
+    }
+
+    .benefit-list {
+      display: grid;
+      gap: 22px;
+      margin: 28px 0;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 15px;
+    }
+
+    .check {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      background: #eeebff;
+      color: var(--primary);
+      border-radius: 50%;
+      font-weight: 800;
+    }
+
+    .benefit-item h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .benefit-item p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Instructor section */
+
+    .instructor-section {
+      background: var(--surface);
+    }
+
+    .instructor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .teacher-card {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .teacher-card img {
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      margin: 0 auto 17px;
+    }
+
+    .teacher-card h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .teacher-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding: 75px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(115deg, #4b3acb, #7568ed);
+      color: white;
+      padding: 55px 35px;
+      text-align: center;
+      border-radius: 25px;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      color: #e7e4ff;
+      max-width: 570px;
+      margin: 0 auto 25px;
+    }
+
+    .cta-box .btn {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* Footer */
+
+    footer {
+      background: #20213a;
+      color: white;
+      padding: 55px 0 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 35px;
+      padding-bottom: 35px;
+    }
+
+    .footer-about p {
+      color: #c3c5d4;
+      max-width: 280px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1rem;
+      margin-bottom: 17px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #c3c5d4;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      min-width: 0;
+      padding: 11px;
+      border: 1px solid #4c4d67;
+      border-radius: 8px;
+      background: #2b2c48;
+      color: white;
+      outline: none;
+    }
+
+    .newsletter-form button {
+      padding: 10px 13px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #41425b;
+      padding-top: 20px;
+      color: #bfc0d0;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .back-top {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 43px;
+      height: 43px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 500;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 950px) {
+      .nav-links {
+        gap: 15px;
+      }
+
+      .hero-grid {
+        gap: 30px;
+      }
+
+      .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .category-grid,
+      .instructor-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .section {
+        padding: 65px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-inner {
+        min-height: 68px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        width: 100%;
+        padding: 20px 5%;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .nav-actions .btn {
+        padding: 10px 13px;
+        font-size: 0.82rem;
+      }
+
+      .hero {
+        padding: 55px 0 45px;
+      }
+
+      .hero-grid,
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.3px;
+      }
+
+      .hero-visual {
+        padding-left: 10px;
+      }
+
+      .hero-visual > img {
+        height: 320px;
+      }
+
+      .students-card {
+        left: 0;
+      }
+
+      .trust-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .trust-numbers {
+        gap: 22px;
+      }
+
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .search-box {
+        max-width: none;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      .benefit-image img {
+        height: 320px;
+      }
+
+      .cta-box {
+        padding: 42px 22px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .category-grid,
+      .instructor-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-numbers {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .rating-card {
+        right: -4px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">Edu<span>Nova.</span></a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#courses">Courses</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#courses" class="btn btn-outline">Explore</a>
+        <a href="#courses" class="btn btn-primary">Get Started</a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle"
+              aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Learn something new today</p>
+          <h1>Build skills.<br>Shape your <span>future.</span></h1>
+
+          <p class="hero-copy">
+            Learn from experienced instructors, work on practical projects,
+            and build skills that help you move forward in your career.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#courses" class="btn btn-primary">Explore Courses →</a>
+            <a href="#about" class="btn btn-outline">How It Works</a>
+          </div>
+
+          <p class="hero-note">
+            Flexible learning · Practical projects · Learn at your own pace
+          </p>
+        </div>
+
+        <div class="hero-visual">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=85"
+            alt="Students collaborating while learning together">
+
+          <div class="floating-card rating-card">
+            <strong>4.8 / 5</strong>
+            <small>Average course rating</small>
+          </div>
+
+          <div class="floating-card students-card">
+            <strong>Learn anywhere</strong>
+            <small>On your own schedule</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning statistics -->
+    <section class="trust-strip">
+      <div class="container trust-inner">
+        <p>Learning opportunities for every stage of your journey.</p>
+
+        <div class="trust-numbers">
+          <div>
+            <strong>120+</strong>
+            <span>Online courses</span>
+          </div>
+          <div>
+            <strong>35+</strong>
+            <span>Expert instructors</span>
+          </div>
+          <div>
+            <strong>12</strong>
+            <span>Learning categories</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Find your interest</p>
+          <h2>Explore learning categories</h2>
+          <p>Choose a field that matches your interests and career goals.</p>
+        </div>
+
+        <div class="category-grid">
+          <a href="#courses" class="category-card" data-category="Development">
+            <div class="category-icon">⌘</div>
+            <h3>Web Development</h3>
+            <p>Build websites and web applications.</p>
+          </a>
+
+          <a href="#courses" class="category-card" data-category="Data Science">
+            <div class="category-icon">▥</div>
+            <h3>Data Science</h3>
+            <p>Discover insights from data.</p>
+          </a>
+
+          <a href="#courses" class="category-card" data-category="Design">
+            <div class="category-icon">✎</div>
+            <h3>UI/UX Design</h3>
+            <p>Create useful digital experiences.</p>
+          </a>
+
+          <a href="#courses" class="category-card" data-category="Business">
+            <div class="category-icon">↗</div>
+            <h3>Business</h3>
+            <p>Develop practical business skills.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses -->
+    <section class="section courses-section" id="courses">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Featured learning</p>
+          <h2>Find your next course</h2>
+          <p>Explore courses designed around practical skills and guided learning.</p>
+        </div>
+
+        <div class="course-toolbar">
+          <div class="search-box">
+            <span class="search-icon">⌕</span>
+            <input
+              type="search"
+              id="courseSearch"
+              placeholder="Search courses or instructors..."
+              aria-label="Search courses">
+          </div>
+
+          <select class="filter-select" id="categoryFilter"
+                  aria-label="Filter by category">
+            <option value="All">All Categories</option>
+            <option value="Development">Development</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Design">Design</option>
+            <option value="Business">Business</option>
+          </select>
+
+          <select class="filter-select" id="sortCourses"
+                  aria-label="Sort courses">
+            <option value="featured">Sort: Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Rating: High to Low</option>
+          </select>
+        </div>
+
+        <div class="course-grid" id="courseGrid">
+
+          <article class="course-card" data-category="Development"
+                   data-price="799" data-rating="4.9">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+                alt="Laptop displaying a web development workspace"
+                loading="lazy">
+              <span class="course-tag">Bestseller</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Development</span>
+                <span class="rating">★ 4.9</span>
+              </div>
+              <h3>Complete Web Development Bootcamp</h3>
+              <div class="course-meta">
+                <span>◷ 24 hours</span>
+                <span>▤ 18 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Arun Kumar · Web Developer</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹799 <del>₹1,499</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="Complete Web Development Bootcamp">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="course-card" data-category="Data Science"
+                   data-price="999" data-rating="4.8">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                alt="Data analytics dashboard on a computer screen"
+                loading="lazy">
+              <span class="course-tag">Popular</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Data Science</span>
+                <span class="rating">★ 4.8</span>
+              </div>
+              <h3>Python for Data Analysis</h3>
+              <div class="course-meta">
+                <span>◷ 20 hours</span>
+                <span>▤ 15 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Priya Sharma · Data Analyst</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹999 <del>₹1,799</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="Python for Data Analysis">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="course-card" data-category="Design"
+                   data-price="699" data-rating="4.7">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=800&q=80"
+                alt="Creative graphic design workspace"
+                loading="lazy">
+              <span class="course-tag">Beginner Friendly</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Design</span>
+                <span class="rating">★ 4.7</span>
+              </div>
+              <h3>UI/UX Design with Figma</h3>
+              <div class="course-meta">
+                <span>◷ 16 hours</span>
+                <span>▤ 12 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Rahul Dev · UI/UX Designer</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹699 <del>₹1,199</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="UI/UX Design with Figma">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="course-card" data-category="Development"
+                   data-price="899" data-rating="4.8">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80"
+                alt="Programming code displayed on a monitor"
+                loading="lazy">
+              <span class="course-tag">Career Skills</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Development</span>
+                <span class="rating">★ 4.8</span>
+              </div>
+              <h3>Java Programming Essentials</h3>
+              <div class="course-meta">
+                <span>◷ 22 hours</span>
+                <span>▤ 17 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Arun Kumar · Software Engineer</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹899 <del>₹1,599</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="Java Programming Essentials">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="course-card" data-category="Data Science"
+                   data-price="1199" data-rating="4.9">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"
+                alt="Artificial intelligence concept on a screen"
+                loading="lazy">
+              <span class="course-tag">Trending</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Data Science</span>
+                <span class="rating">★ 4.9</span>
+              </div>
+              <h3>Introduction to AI and Machine Learning</h3>
+              <div class="course-meta">
+                <span>◷ 28 hours</span>
+                <span>▤ 21 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Priya Sharma · AI Educator</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹1,199 <del>₹1,999</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="Introduction to AI and Machine Learning">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="course-card" data-category="Business"
+                   data-price="599" data-rating="4.6">
+            <div class="course-image">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                alt="Team collaborating on a business project"
+                loading="lazy">
+              <span class="course-tag">Practical</span>
+            </div>
+            <div class="course-content">
+              <div class="course-meta">
+                <span>Business</span>
+                <span class="rating">★ 4.6</span>
+              </div>
+              <h3>Project Management Fundamentals</h3>
+              <div class="course-meta">
+                <span>◷ 12 hours</span>
+                <span>▤ 10 lessons</span>
+              </div>
+              <div class="instructor">
+                <img
+                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80"
+                  alt="Instructor profile" loading="lazy">
+                <span>Rahul Dev · Project Manager</span>
+              </div>
+              <div class="course-bottom">
+                <div class="price">₹599 <del>₹999</del></div>
+                <button class="btn btn-primary enroll-btn"
+                        data-course="Project Management Fundamentals">
+                  View Course
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="no-results" id="noResults">
+          <h3>No matching courses found</h3>
+          <p>Try another keyword or choose a different category.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section" id="about">
+      <div class="container benefit-grid">
+        <div class="benefit-image">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85"
+            alt="Student learning online using a laptop"
+            loading="lazy">
+        </div>
+
+        <div>
+          <p class="eyebrow">Why EduNova?</p>
+          <h2 style="font-size:clamp(1.8rem,4vw,2.6rem)">
+            Learn in a way that works for you
+          </h2>
+
+          <p style="color:var(--muted);margin-top:15px">
+            Make progress with structured lessons, practical activities,
+            and learning resources you can revisit.
+          </p>
+
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div class="check">✓</div>
+              <div>
+                <h3>Learn at your own pace</h3>
+                <p>Study when it suits your schedule and revisit lessons when needed.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="check">✓</div>
+              <div>
+                <h3>Build practical skills</h3>
+                <p>Practice concepts through activities and project-based learning.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="check">✓</div>
+              <div>
+                <h3>Learn from instructors</h3>
+                <p>Explore guided content created around specific learning goals.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#courses" class="btn btn-primary">Browse All Courses →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructors -->
+    <section class="section instructor-section" id="instructors">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Meet the instructors</p>
+          <h2>Learn from experienced professionals</h2>
+          <p>Explore different perspectives from instructors across technology, design, and business.</p>
+        </div>
+
+        <div class="instructor-grid">
+          <article class="teacher-card">
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
+              alt="Arun Kumar" loading="lazy">
+            <h3>Arun Kumar</h3>
+            <p>Web Development</p>
+          </article>
+
+          <article class="teacher-card">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
+              alt="Priya Sharma" loading="lazy">
+            <h3>Priya Sharma</h3>
+            <p>Data Science & AI</p>
+          </article>
+
+          <article class="teacher-card">
+            <img
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80"
+              alt="Rahul Dev" loading="lazy">
+            <h3>Rahul Dev</h3>
+            <p>Design & Project Management</p>
+          </article>
+
+          <article class="teacher-card">
+            <img
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80"
+              alt="Meera Nair" loading="lazy">
+            <h3>Meera Nair</h3>
+            <p>Business & Communication</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Your next skill starts here.</h2>
+          <p>
+            Choose a course, set a learning goal, and take the next step
+            toward your personal or professional development.
+          </p>
+          <a href="#courses" class="btn">Explore Learning Options →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="#home" class="logo">Edu<span>Nova.</span></a>
+          <p>
+            A learning platform concept designed to make skill development
+            accessible, flexible, and practical.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h3>Explore</h3>
+          <a href="#courses">All Courses</a>
+          <a href="#categories">Categories</a>
+          <a href="#instructors">Instructors</a>
+          <a href="#about">About Us</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Learning</h3>
+          <a href="#courses">Web Development</a>
+          <a href="#courses">Data Science</a>
+          <a href="#courses">UI/UX Design</a>
+          <a href="#courses">Business Skills</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Learning updates</h3>
+          <p style="color:#c3c5d4;font-size:.9rem">
+            Subscribe to receive course announcements.
+          </p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" id="newsletterEmail"
+                   placeholder="Your email address"
+                   aria-label="Your email address" required>
+            <button type="submit" aria-label="Subscribe">→</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="currentYear"></span> EduNova. All rights reserved.</p>
+        <p>Learn today. Grow tomorrow.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Course search, category filter and sorting
+    const courseSearch = document.getElementById("courseSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const sortCourses = document.getElementById("sortCourses");
+    const courseGrid = document.getElementById("courseGrid");
+    const noResults = document.getElementById("noResults");
+
+    function filterAndSortCourses() {
+      const keyword = courseSearch.value.toLowerCase().trim();
+      const category = categoryFilter.value;
+      const cards = Array.from(courseGrid.querySelectorAll(".course-card"));
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const cardCategory = card.dataset.category;
+
+        const matchesKeyword = text.includes(keyword);
+        const matchesCategory =
+          category === "All" || cardCategory === category;
+
+        card.style.display =
+          matchesKeyword && matchesCategory ? "" : "none";
+      });
+
+      const visibleCards = cards.filter(
+        card => card.style.display !== "none"
+      );
+
+      if (sortCourses.value !== "featured") {
+        visibleCards.sort((a, b) => {
+          if (sortCourses.value === "price-low") {
+            return Number(a.dataset.price) - Number(b.dataset.price);
+          }
+
+          if (sortCourses.value === "price-high") {
+            return Number(b.dataset.price) - Number(a.dataset.price);
+          }
+
+          if (sortCourses.value === "rating") {
+            return Number(b.dataset.rating) - Number(a.dataset.rating);
+          }
+
+          return 0;
+        });
+
+        visibleCards.forEach(card => courseGrid.appendChild(card));
+      }
+
+      noResults.style.display = visibleCards.length ? "none" : "block";
+    }
+
+    courseSearch.addEventListener("input", filterAndSortCourses);
+    categoryFilter.addEventListener("change", filterAndSortCourses);
+    sortCourses.addEventListener("change", filterAndSortCourses);
+
+    // Clicking a category card filters the courses
+    document.querySelectorAll(".category-card").forEach(card => {
+      card.addEventListener("click", () => {
+        categoryFilter.value = card.dataset.category;
+        filterAndSortCourses();
+      });
+    });
+
+    // Course preview interaction
+    document.querySelectorAll(".enroll-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const courseName = button.dataset.course;
+
+        alert(
+          "Course selected: " + courseName +
+          "\n\nThis is a front-end demo. Connect a course details page, " +
+          "student login, and enrollment/payment system to enable real enrollment."
+        );
+      });
+    });
+
+    // Newsletter demo
+    document.getElementById("newsletterForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const email = document.getElementById("newsletterEmail").value.trim();
+
+      if (!email) return;
+
+      alert(
+        "Thank you for your interest!\n\n" +
+        "Newsletter form demo completed for: " + email +
+        "\nConnect a backend service to store subscriptions."
+      );
+
+      event.target.reset();
+    });
+
+    // Back-to-top button
+    const backTop = document.getElementById("backTop");
+
+    window.addEventListener("scroll", () => {
+      backTop.style.display = window.scrollY > 400 ? "block" : "none";
+    });
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Automatic footer year
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>

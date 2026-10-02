@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northstar University | Shape Your Future</title>
+
+<style>
+:root {
+  --navy: #102c4e;
+  --blue: #246bfd;
+  --gold: #f5b942;
+  --light: #f5f8fc;
+  --text: #23334a;
+  --muted: #68778b;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background: var(--white);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1160px, 90%);
+  margin: auto;
+}
+
+.topbar {
+  background: var(--navy);
+  color: #dce8f8;
+  padding: 9px 0;
+  font-size: 12px;
+}
+
+.topbar-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.navbar {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px #102c4e0d;
+}
+
+.nav-content {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--navy);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  background: var(--blue);
+  color: white;
+  border-radius: 12px;
+  font-size: 23px;
+}
+
+.logo small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: var(--blue);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 21px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: var(--blue);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  transition: .25s;
+}
+
+.btn:hover {
+  background: #1555d6;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  color: var(--navy);
+  background: transparent;
+  border-color: #cbd5e1;
+}
+
+.btn-outline:hover {
+  color: white;
+  border-color: var(--blue);
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  font-size: 27px;
+  color: var(--navy);
+}
+
+.hero {
+  min-height: 610px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(8,28,52,.92), rgba(8,28,52,.70) 45%, rgba(8,28,52,.12)),
+    url("https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=2000&q=85")
+    center/cover no-repeat;
+  color: white;
+}
+
+.hero-content {
+  max-width: 680px;
+  padding: 95px 0 130px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5.5vw, 67px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin-bottom: 23px;
+}
+
+.hero h1 span {
+  color: var(--gold);
+}
+
+.hero p {
+  color: #e1eaf5;
+  max-width: 560px;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+}
+
+.hero .btn-outline {
+  color: white;
+  border-color: #ffffff80;
+}
+
+.hero .btn-outline:hover {
+  background: white;
+  color: var(--navy);
+}
+
+.hero-note {
+  margin-top: 28px;
+  color: #d9e4f1;
+  font-size: 13px;
+}
+
+.stats {
+  position: relative;
+  margin-top: -55px;
+  z-index: 2;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 15px 45px #102c4e14;
+  padding: 30px 18px;
+}
+
+.stat {
+  text-align: center;
+  border-right: 1px solid #e8edf4;
+  padding: 5px 10px;
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.stat h2 {
+  color: var(--blue);
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.stat p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+section {
+  padding: 95px 0;
+}
+
+.section-heading {
+  max-width: 650px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.section-tag {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.section-heading h2 {
+  color: var(--navy);
+  font-size: clamp(29px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 65px;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-image img {
+  display: block;
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.image-badge {
+  position: absolute;
+  bottom: 22px;
+  right: -20px;
+  background: white;
+  border-radius: 10px;
+  padding: 19px 23px;
+  box-shadow: 0 10px 30px #102c4e1a;
+}
+
+.image-badge strong {
+  display: block;
+  color: var(--blue);
+  font-size: 25px;
+}
+
+.image-badge span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.about-content .section-tag {
+  margin-bottom: 13px;
+}
+
+.about-content h2 {
+  font-size: 37px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.about-content > p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.feature {
+  display: flex;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.feature-icon {
+  flex: 0 0 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: #eaf1ff;
+  color: var(--blue);
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.feature h3 {
+  font-size: 15px;
+  margin-bottom: 4px;
+  color: var(--navy);
+}
+
+.feature p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.courses {
+  background: var(--light);
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.course-card {
+  background: white;
+  border: 1px solid #e9eef5;
+  border-radius: 13px;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px #102c4e12;
+}
+
+.course-image {
+  height: 205px;
+  overflow: hidden;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.course-card:hover .course-image img {
+  transform: scale(1.05);
+}
+
+.course-info {
+  padding: 24px;
+}
+
+.course-label {
+  display: inline-block;
+  background: #eaf1ff;
+  color: var(--blue);
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-weight: 800;
+  margin-bottom: 13px;
+}
+
+.course-info h3 {
+  color: var(--navy);
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.course-info p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.course-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.course-bottom a {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.campus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.campus-card {
+  min-height: 310px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+}
+
+.campus-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #081c34e8, transparent 80%);
+}
+
+.campus-card-content {
+  position: relative;
+  padding: 30px;
+}
+
+.campus-card h3 {
+  font-size: 24px;
+  margin-bottom: 7px;
+}
+
+.campus-card p {
+  color: #e1eaf5;
+  font-size: 14px;
+}
+
+.admissions {
+  background: var(--navy);
+  color: white;
+}
+
+.admissions-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.admissions-copy h2 {
+  font-size: clamp(32px, 4vw, 45px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.admissions-copy p {
+  color: #c5d4e6;
+  margin-bottom: 23px;
+}
+
+.admission-points {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.admission-points li {
+  margin: 12px 0;
+  color: #e1eaf5;
+  font-size: 14px;
+}
+
+.admission-points li::before {
+  content: "✓";
+  color: var(--gold);
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.admission-form {
+  background: white;
+  color: var(--text);
+  border-radius: 14px;
+  padding: 32px;
+}
+
+.admission-form h3 {
+  color: var(--navy);
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.admission-form > p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 23px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dbe3ee;
+  border-radius: 7px;
+  outline: none;
+  background: #fbfcfe;
+  color: var(--text);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px #246bfd18;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.admission-form .btn {
+  width: 100%;
+  border: none;
+}
+
+.form-message {
+  display: none;
+  background: #e9f8ef;
+  color: #176b3a;
+  border-radius: 7px;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.testimonial {
+  background: var(--light);
+}
+
+.quote-card {
+  max-width: 790px;
+  margin: auto;
+  text-align: center;
+  background: white;
+  border: 1px solid #e8edf4;
+  padding: 40px;
+  border-radius: 14px;
+}
+
+.quote-mark {
+  font-size: 50px;
+  color: var(--blue);
+  line-height: 1;
+}
+
+.quote-card blockquote {
+  font-size: 19px;
+  color: var(--navy);
+  margin: 15px 0 22px;
+}
+
+.quote-card h3 {
+  font-size: 15px;
+}
+
+.quote-card p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.contact-card {
+  text-align: center;
+  border: 1px solid #e7edf5;
+  border-radius: 12px;
+  padding: 30px 20px;
+}
+
+.contact-card .feature-icon {
+  margin: 0 auto 15px;
+}
+
+.contact-card h3 {
+  color: var(--navy);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.contact-card p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer {
+  background: #091e37;
+  color: #d4dfed;
+  padding: 55px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 35px;
+}
+
+.footer .logo {
+  color: white;
+  margin-bottom: 17px;
+}
+
+.footer .logo small {
+  color: #b3c5db;
+}
+
+.footer-about {
+  font-size: 13px;
+  color: #b3c5db;
+  max-width: 280px;
+}
+
+.footer h3 {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 18px;
+}
+
+.footer-links {
+  display: grid;
+  gap: 10px;
+  font-size: 13px;
+  color: #b3c5db;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid #ffffff20;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  color: #9db0c8;
+  font-size: 12px;
+}
+
+.back-top {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 5px 20px #246bfd55;
+  display: none;
+  z-index: 50;
+  font-size: 20px;
+}
+
+.back-top.show {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .nav-content > .btn {
+    display: none;
+  }
+
+  .about-grid,
+  .admissions-grid {
+    gap: 35px;
+  }
+
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .topbar-content {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-content {
+    min-height: 70px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 20px 5%;
+    box-shadow: 0 15px 20px #102c4e12;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 14px;
+  }
+
+  .hero {
+    min-height: 570px;
+    background-position: 58% center;
+  }
+
+  .hero-content {
+    padding: 75px 0 100px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 0;
+    padding: 25px 10px;
+  }
+
+  .stat:nth-child(2) {
+    border-right: 0;
+  }
+
+  section {
+    padding: 70px 0;
+  }
+
+  .about-grid,
+  .admissions-grid,
+  .campus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image img {
+    height: 320px;
+  }
+
+  .image-badge {
+    right: 10px;
+  }
+
+  .about-content h2 {
+    font-size: 31px;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-image {
+    height: 225px;
+  }
+
+  .admission-form {
+    padding: 23px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-card {
+    padding: 27px 20px;
+  }
+
+  .quote-card blockquote {
+    font-size: 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container topbar-content">
+    <span>Admissions Open for 2026–27</span>
+    <span>✉ admissions@northstar.edu &nbsp; | &nbsp; ☎ +91 98765 43210</span>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<header class="navbar">
+  <div class="container nav-content">
+    <a href="#home" class="logo">
+      <span class="logo-mark">N</span>
+      <span>
+        NORTHSTAR
+        <small>UNIVERSITY</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+      aria-label="Open navigation menu" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#courses">Programs</a>
+      <a href="#campus">Campus Life</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#admissions" class="btn">Apply Now ↗</a>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">Welcome to Northstar University</div>
+
+      <h1>Discover Your Potential.<br>
+        <span>Define Your Future.</span>
+      </h1>
+
+      <p>
+        Build your future through innovative learning, real-world
+        experience and a community that inspires you to achieve more.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#courses" class="btn">Explore Programs ↗</a>
+        <a href="#about" class="btn btn-outline">Discover Our Campus</a>
+      </div>
+
+      <div class="hero-note">
+        Industry-focused education &nbsp; • &nbsp;
+        Student-first learning &nbsp; • &nbsp; Future-ready skills
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <h2>25+</h2>
+      <p>Academic Programs</p>
+    </div>
+    <div class="stat">
+      <h2>8K+</h2>
+      <p>Students</p>
+    </div>
+    <div class="stat">
+      <h2>150+</h2>
+      <p>Expert Faculty</p>
+    </div>
+    <div class="stat">
+      <h2>40+</h2>
+      <p>Student Clubs</p>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-image">
+      <img
+        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1100&q=85"
+        alt="University students celebrating graduation">
+      <div class="image-badge">
+        <strong>Learn. Grow.</strong>
+        <span>Make a meaningful impact.</span>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="section-tag">About Northstar</div>
+      <h2>Education That Goes Beyond the Classroom</h2>
+      <p>
+        We believe education should prepare students not just for
+        examinations, but for the opportunities and challenges of the
+        real world.
+      </p>
+
+      <div class="feature">
+        <div class="feature-icon">01</div>
+        <div>
+          <h3>Industry-Relevant Learning</h3>
+          <p>Practical projects and skills designed around changing industry needs.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">02</div>
+        <div>
+          <h3>Experienced Faculty</h3>
+          <p>Learn through mentorship, research and collaborative projects.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">03</div>
+        <div>
+          <h3>Career Development</h3>
+          <p>Build communication, problem-solving and professional skills.</p>
+        </div>
+      </div>
+
+      <a href="#admissions" class="btn">Start Your Journey ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses" id="courses">
+  <div class="container">
+    <div class="section-heading">
+      <div class="section-tag">Find Your Path</div>
+      <h2>Explore Our Academic Programs</h2>
+      <p>
+        Discover programs that match your interests and help you develop
+        the knowledge to reach your goals.
+      </p>
+    </div>
+
+    <div class="course-grid">
+
+      <article class="course-card">
+        <div class="course-image">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85"
+            alt="Students working with computers">
+        </div>
+        <div class="course-info">
+          <span class="course-label">TECHNOLOGY</span>
+          <h3>Computer Science</h3>
+          <p>Explore software development, algorithms, cloud computing and modern technology.</p>
+          <div class="course-bottom">
+            <span>Undergraduate Program</span>
+            <a href="#admissions">Learn More ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-image">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=85"
+            alt="Data analytics on computer screens">
+        </div>
+        <div class="course-info">
+          <span class="course-label">DATA & AI</span>
+          <h3>Artificial Intelligence</h3>
+          <p>Study machine learning, intelligent systems, analytics and real-world AI applications.</p>
+          <div class="course-bottom">
+            <span>Undergraduate Program</span>
+            <a href="#admissions">Learn More ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-image">
+          <img
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85"
+            alt="Business professionals discussing a project">
+        </div>
+        <div class="course-info">
+          <span class="course-label">BUSINESS</span>
+          <h3>Business Administration</h3>
+          <p>Build your foundation in management, strategy, marketing and entrepreneurship.</p>
+          <div class="course-bottom">
+            <span>Undergraduate Program</span>
+            <a href="#admissions">Learn More ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-image">
+          <img
+            src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=85"
+            alt="Scientific research laboratory">
+        </div>
+        <div class="course-info">
+          <span class="course-label">SCIENCE</span>
+          <h3>Applied Sciences</h3>
+          <p>Connect scientific concepts with laboratory practice, experimentation and rese

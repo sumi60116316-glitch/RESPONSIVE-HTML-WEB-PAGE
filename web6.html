@@ -1,0 +1,1811 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FITCORE | Fitness & Performance</title>
+
+<style>
+:root {
+  --black: #101211;
+  --dark: #191d1b;
+  --lime: #c6f36b;
+  --white: #f8faf7;
+  --muted: #a5ada7;
+  --line: #333a35;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1180px, 90%);
+  margin: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 22px;
+  background: var(--lime);
+  color: var(--black);
+  border: 1px solid var(--lime);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: .25s;
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--lime);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border-color: #ffffff70;
+}
+
+.btn-outline:hover {
+  background: var(--lime);
+  color: var(--black);
+  border-color: var(--lime);
+}
+
+.announcement {
+  background: var(--lime);
+  color: var(--black);
+  text-align: center;
+  padding: 8px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #101211f5;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  min-height: 78px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--lime);
+}
+
+.logo small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d6ddd7;
+  transition: .2s;
+}
+
+.nav-links a:hover {
+  color: var(--lime);
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: white;
+  font-size: 27px;
+}
+
+.hero {
+  min-height: 650px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #101211f5 0%, #101211d9 38%, #10121140 100%),
+    url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2000&q=85")
+    center/cover no-repeat;
+}
+
+.hero-content {
+  max-width: 690px;
+  padding: 90px 0 120px;
+}
+
+.eyebrow {
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: clamp(45px, 7vw, 86px);
+  line-height: .99;
+  letter-spacing: -4px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.hero h1 span {
+  color: var(--lime);
+}
+
+.hero p {
+  max-width: 500px;
+  color: #c5ccc6;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 48px;
+  padding-top: 25px;
+  border-top: 1px solid #ffffff35;
+}
+
+.hero-meta strong {
+  display: block;
+  font-size: 23px;
+  color: var(--lime);
+}
+
+.hero-meta span {
+  color: #d0d6d1;
+  font-size: 11px;
+}
+
+.ticker {
+  overflow: hidden;
+  background: var(--lime);
+  color: var(--black);
+  padding: 15px 0;
+}
+
+.ticker-inner {
+  display: flex;
+  justify-content: space-around;
+  gap: 25px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.section {
+  padding: 95px 0;
+}
+
+.section-header {
+  max-width: 690px;
+  margin-bottom: 43px;
+}
+
+.section-tag {
+  color: var(--lime);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.section-header h2 {
+  font-size: clamp(32px, 4.5vw, 54px);
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  line-height: 1.08;
+  margin-bottom: 18px;
+}
+
+.section-header p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  align-items: center;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-image img {
+  display: block;
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  filter: saturate(.8);
+}
+
+.image-label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: var(--lime);
+  color: var(--black);
+  padding: 15px 20px;
+}
+
+.image-label strong {
+  display: block;
+  font-size: 23px;
+}
+
+.image-label span {
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.about-copy h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.about-copy h2 span {
+  color: var(--lime);
+}
+
+.about-copy > p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.benefits {
+  list-style: none;
+  margin: 25px 0 30px;
+}
+
+.benefits li {
+  border-bottom: 1px solid var(--line);
+  padding: 13px 0;
+  font-size: 13px;
+  color: #dfe5df;
+}
+
+.benefits li::before {
+  content: "↗";
+  color: var(--lime);
+  margin-right: 12px;
+  font-weight: 900;
+}
+
+.programs {
+  background: var(--dark);
+}
+
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.program-card {
+  background: #202522;
+  border: 1px solid var(--line);
+  transition: .3s;
+}
+
+.program-card:hover {
+  border-color: var(--lime);
+  transform: translateY(-5px);
+}
+
+.program-image {
+  height: 220px;
+  overflow: hidden;
+}
+
+.program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.program-card:hover .program-image img {
+  transform: scale(1.06);
+}
+
+.program-info {
+  padding: 25px;
+}
+
+.program-no {
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.program-info h3 {
+  font-size: 21px;
+  text-transform: uppercase;
+  margin: 10px 0;
+}
+
+.program-info p {
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 65px;
+}
+
+.program-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  margin-top: 20px;
+  padding-top: 16px;
+}
+
+.program-bottom span {
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.program-bottom a {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.program-bottom a:hover {
+  color: var(--lime);
+}
+
+.facility-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 25px;
+}
+
+.facility-large {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+}
+
+.facility-large img,
+.facility-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: transform .5s;
+}
+
+.facility-large:hover img,
+.facility-small:hover img {
+  transform: scale(1.05);
+}
+
+.facility-large::after,
+.facility-small::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #101211e8, transparent 80%);
+}
+
+.facility-copy {
+  position: absolute;
+  z-index: 2;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+}
+
+.facility-copy h3 {
+  font-size: 25px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.facility-copy p {
+  color: #c5ccc6;
+  font-size: 13px;
+}
+
+.facility-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 25px;
+}
+
+.facility-small {
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+.facility-small .facility-copy h3 {
+  font-size: 19px;
+}
+
+.membership {
+  background: var(--lime);
+  color: var(--black);
+}
+
+.membership .section-tag {
+  color: #435e24;
+}
+
+.membership .section-header p {
+  color: #3f4b35;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.price-card {
+  background: #fff;
+  padding: 32px;
+  border: 1px solid #d7e8b8;
+  position: relative;
+}
+
+.price-card.featured {
+  background: var(--black);
+  color: white;
+  border-color: var(--black);
+  transform: translateY(-10px);
+}
+
+.plan-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: var(--green, #31594c);
+}
+
+.featured .plan-label {
+  color: var(--lime);
+}
+
+.price-card h3 {
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 14px 0 8px;
+}
+
+.plan-description {
+  font-size: 12px;
+  color: #77817b;
+  min-height: 40px;
+}
+
+.featured .plan-description {
+  color: #a5ada7;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: 900;
+  margin: 20px 0;
+}
+
+.price small {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 25px;
+}
+
+.plan-features li {
+  border-top: 1px solid #e5e9e2;
+  padding: 12px 0;
+  font-size: 12px;
+}
+
+.featured .plan-features li {
+  border-color: var(--line);
+}
+
+.plan-features li::before {
+  content: "✓";
+  color: #6d9b2e;
+  font-weight: 900;
+  margin-right: 9px;
+}
+
+.featured .plan-features li::before {
+  color: var(--lime);
+}
+
+.price-card .btn {
+  width: 100%;
+}
+
+.featured .btn {
+  background: var(--lime);
+  color: var(--black);
+}
+
+.bmi-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.bmi-copy h2 {
+  font-size: clamp(34px, 4vw, 49px);
+  line-height: 1.08;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.bmi-copy h2 span {
+  color: var(--lime);
+}
+
+.bmi-copy p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.bmi-form {
+  background: var(--dark);
+  border: 1px solid var(--line);
+  padding: 32px;
+}
+
+.bmi-form h3 {
+  font-size: 23px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #dce3dd;
+  margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  background: #101211;
+  border: 1px solid #414942;
+  color: white;
+  padding: 13px;
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--lime);
+}
+
+.bmi-form .btn {
+  width: 100%;
+}
+
+.bmi-result {
+  display: none;
+  margin-top: 20px;
+  padding: 16px;
+  background: #29342b;
+  border-left: 3px solid var(--lime);
+}
+
+.bmi-result strong {
+  color: var(--lime);
+  font-size: 25px;
+}
+
+.bmi-result p {
+  font-size: 12px;
+  color: #d1d9d2;
+  margin-top: 5px;
+}
+
+.trainers {
+  background: var(--dark);
+}
+
+.trainer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.trainer-card {
+  background: #202522;
+  border: 1px solid var(--line);
+}
+
+.trainer-photo {
+  height: 300px;
+  overflow: hidden;
+}
+
+.trainer-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trainer-info {
+  padding: 22px;
+}
+
+.trainer-info h3 {
+  text-transform: uppercase;
+  font-size: 19px;
+}
+
+.trainer-info p {
+  color: var(--lime);
+  font-size: 11px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+.trainer-info span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.cta {
+  padding: 80px 0;
+  background:
+    linear-gradient(90deg, #101211ed, #10121175),
+    url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1800&q=85")
+    center/cover no-repeat;
+}
+
+.cta-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.cta h2 {
+  font-size: clamp(32px, 4.5vw, 55px);
+  line-height: 1.08;
+  text-transform: uppercase;
+  max-width: 650px;
+}
+
+.cta h2 span {
+  color: var(--lime);
+}
+
+.cta p {
+  color: #c4cbc5;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 55px;
+}
+
+.contact-copy h2 {
+  font-size: 42px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.contact-copy h2 span {
+  color: var(--lime);
+}
+
+.contact-copy > p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.contact-detail {
+  border-top: 1px solid var(--line);
+  padding: 17px 0;
+}
+
+.contact-detail strong {
+  display: block;
+  color: var(--lime);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.contact-detail span {
+  display: block;
+  color: #d1d8d2;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.contact-form {
+  background: var(--dark);
+  padding: 32px;
+  border: 1px solid var(--line);
+}
+
+.contact-form h3 {
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.contact-form .btn {
+  width: 100%;
+}
+
+.form-message {
+  display: none;
+  background: #263c28;
+  color: var(--lime);
+  padding: 13px;
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.footer {
+  background: #090b0a;
+  padding: 55px 0 20px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 30px;
+  padding-bottom: 35px;
+}
+
+.footer-about {
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 270px;
+  margin-top: 15px;
+}
+
+.footer h3 {
+  font-size: 12px;
+  color: white;
+  letter-spacing: 1px;
+  margin-bottom: 17px;
+}
+
+.footer-links {
+  display: grid;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  color: var(--lime);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.back-top {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: var(--lime);
+  color: var(--black);
+  font-size: 22px;
+  z-index: 50;
+}
+
+.back-top.show {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  .nav-inner > .btn {
+    display: none;
+  }
+
+  .about-grid,
+  .bmi-grid,
+  .contact-grid {
+    gap: 30px;
+  }
+
+  .program-grid,
+  .trainer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pricing-grid {
+    gap: 12px;
+  }
+
+  .price-card {
+    padding: 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .nav-inner {
+    min-height: 70px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #101211;
+    padding: 15px 5%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 13px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero {
+    min-height: 600px;
+    background-position: 62% center;
+  }
+
+  .hero h1 {
+    font-size: 49px;
+    letter-spacing: -2px;
+  }
+
+  .hero-content {
+    padding: 75px 0 90px;
+  }
+
+  .hero-meta {
+    gap: 20px;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .about-grid,
+  .bmi-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image img {
+    height: 340px;
+  }
+
+  .program-grid,
+  .trainer-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-card.featured {
+    transform: none;
+  }
+
+  .facility-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .facility-large {
+    min-height: 350px;
+  }
+
+  .facility-small {
+    min-height: 250px;
+  }
+
+  .cta-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .bmi-form,
+  .contact-form {
+    padding: 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 41px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+  YOUR FITNESS JOURNEY STARTS HERE — MEMBERSHIP ENQUIRIES OPEN
+</div>
+
+<header class="navbar">
+  <div class="container nav-inner">
+
+    <a href="#home" class="logo">
+      FIT<span>CORE.</span>
+      <small>FITNESS & PERFORMANCE</small>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+      aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">HOME</a>
+      <a href="#about">ABOUT</a>
+      <a href="#programs">PROGRAMS</a>
+      <a href="#membership">MEMBERSHIP</a>
+      <a href="#trainers">TRAINERS</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+
+    <a href="#membership" class="btn">JOIN FITCORE ↗</a>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+
+      <div class="eyebrow">Train With Purpose</div>
+
+      <h1>Built By<br>Discipline.<br><span>Defined By You.</span></h1>
+
+      <p>
+        More than a gym. A space to build strength, improve performance
+        and develop habits that help you become your strongest self.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#membership" class="btn">EXPLORE MEMBERSHIPS ↗</a>
+        <a href="#programs" class="btn btn-outline">OUR PROGRAMS</a>
+      </div>
+
+      <div class="hero-meta">
+        <div>
+          <strong>24/7</strong>
+          <span>Flexible Training*</span>
+        </div>
+        <div>
+          <strong>12+</strong>
+          <span>Training Programs</span>
+        </div>
+        <div>
+          <strong>1:1</strong>
+          <span>Personal Coaching</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="container ticker-inner">
+    <span>STRENGTH TRAINING</span>
+    <span>FUNCTIONAL FITNESS</span>
+    <span>PERSONAL COACHING</span>
+    <span>YOUR GOALS. YOUR JOURNEY.</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container about-grid">
+
+    <div class="about-image">
+      <img
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85"
+        alt="Modern fitness gym with strength training equipment">
+
+      <div class="image-label">
+        <strong>MOVE BETTER.</strong>
+        <span>TRAIN SMARTER. LIVE STRONGER.</span>
+      </div>
+    </div>
+
+    <div class="about-copy">
+      <div class="section-tag">THE FITCORE APPROACH</div>
+
+      <h2>Progress Is Built Through <span>Consistency.</span></h2>
+
+      <p>
+        Every fitness journey is different. Our approach focuses on
+        helping you develop a sustainable routine that fits your
+        lifestyle, ability and personal goals.
+      </p>
+
+      <p>
+        Whether you are starting your first workout or improving your
+        performance, we provide an environment that encourages learning,
+        discipline and progress.
+      </p>
+
+      <ul class="benefits">
+        <li>Structured workout programs</li>
+        <li>Guidance from fitness professionals</li>
+        <li>Strength and functional training zones</li>
+        <li>Flexible membership options</li>
+      </ul>
+
+      <a href="#programs" class="btn">EXPLORE OUR PROGRAMS ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section programs" id="programs">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-tag">Training Programs</div>
+      <h2>Find Your Training Style.</h2>
+      <p>
+        Choose a training approach that matches your goals, interests
+        and current fitness level.
+      </p>
+    </div>
+
+    <div class="program-grid">
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=85"
+            alt="Strength training with gym weights">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 01</div>
+          <h3>Strength Training</h3>
+          <p>Build strength and develop proper lifting technique through structured workouts.</p>
+          <div class="program-bottom">
+            <span>ALL LEVELS</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=85"
+            alt="Person practising a fitness and flexibility workout">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 02</div>
+          <h3>Functional Fitness</h3>
+          <p>Improve mobility, coordination, balance and movement for everyday activities.</p>
+          <div class="program-bottom">
+            <span>ALL LEVELS</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=900&q=85"
+            alt="Athlete training for cardiovascular fitness">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 03</div>
+          <h3>Cardio & Endurance</h3>
+          <p>Develop cardiovascular fitness and stamina through suitable conditioning sessions.</p>
+          <div class="program-bottom">
+            <span>ALL LEVELS</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1517838277536-fb1d8b6d8b9d?auto=format&fit=crop&w=900&q=85"
+            alt="Personal trainer guiding a workout">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 04</div>
+          <h3>Personal Training</h3>
+          <p>Receive individual guidance and a workout plan tailored to your goals.</p>
+          <div class="program-bottom">
+            <span>ONE-TO-ONE</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=85"
+            alt="Group exercise and flexibility session">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 05</div>
+          <h3>Mobility & Recovery</h3>
+          <p>Work on flexibility, mobility and recovery as part of a balanced fitness routine.</p>
+          <div class="program-bottom">
+            <span>ALL LEVELS</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program-card">
+        <div class="program-image">
+          <img
+            src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=900&q=85"
+            alt="Gym training floor and fitness equipment">
+        </div>
+        <div class="program-info">
+          <div class="program-no">PROGRAM 06</div>
+          <h3>Beginner Fitness</h3>
+          <p>Learn the fundamentals of exercise and build confidence at your own pace.</p>
+          <div class="program-bottom">
+            <span>BEGINNER FRIENDLY</span>
+            <a href="#membership">EXPLORE ↗</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="section" id="facilities">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-tag">Our Facilities</div>
+      <h2>Space To Push Your Limits.</h2>
+      <p>
+        Explore dedicated spaces designed to support different
+        styles of training.
+      </p>
+    </div>
+
+    <div class="facility-grid">
+
+      <div class="facility-large">
+        <img
+          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85"
+          alt="Modern gym training area">
+
+        <div class="facility-copy">
+          <h3>Strength & Conditioning</h3>
+          <p>A dedicated space for resistance training and structured workouts.</p>
+        </div>
+      </div>
+
+      <div class="facility-side">
+
+        <div class="facility-small">
+          <img
+            src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=85"
+            alt="Personal fitness training session">
+
+          <div class="facility-copy">
+            <h3>Personal Coaching</h3>
+            <p>Individual guidance for your training goals.</p>
+          </div>
+        </div>
+
+        <div class="facility-small">
+          <img
+            src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=900&q=85"
+            alt="Fitness training equipment">
+
+          <div class="facility-copy">
+            <h3>Modern Equipment</h3>
+            <p>Training equipment for a range of exercises.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="section membership" id="membership">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-tag">Membership Plans</div>
+      <h2>Invest In Your Progress.</h2>
+      <p>
+        Explore the available plans and choose the membership
+        that fits your routine.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <article class="price-card">
+        <div class="plan-label">01 / STARTER</div>
+        <h3>Essential</h3>
+        <p class="plan-description">For building a consistent fitness routine.</p>
+        <div class="price">₹999 <small>/ month</small></div>
+
+        <ul class="plan-features">
+          <li>Gym floor access</li>
+          <li>Basic fitness orientation</li>
+          <li>Standard equipment access</li>
+          <li>Locker facilities</li>
+        </ul>
+
+        <a href="#contact" class="btn">CHOOSE ESSENTIAL ↗</a>
+      </article>
+
+      <article class="price-card featured">
+        <div class="plan-label">02 / MOST POPULAR</div>
+        <h3>Performance</h3>
+        <p class="plan-description">For members looking for structured progress.</p>
+        <div class="price">₹1,799 <small>/ month</small></div>
+
+        <ul class="plan-features">
+          <li>All Essential benefits</li>
+          <li>Group workout sessions</li>
+          <li>Monthly progress review</li>
+          <li>Program guidance</li>
+        </ul>
+
+        <a href="#contact" class="btn">CHOOSE PERFORMANCE ↗</a>
+      </article>
+
+      <article class="price-card">
+        <div class="plan-label">03 / PERSONAL</div>
+        <h3>Elite</h3>
+        <p class="plan-description">For personalised support and guidance.</p>
+        <div class="price">₹3,499 <small>/ month</small></div>
+
+        <ul class="plan-features">
+          <li>All Performance benefits</li>
+          <li>Personal training sessions</li>
+          <li>Individual workout plan</li>
+          <li>Personal progress review</li>
+        </ul>
+
+        <a href="#contact" class="btn">CHOOSE ELITE ↗</a>
+      </article>
+
+    </div>
+
+    <p style="text-align:center;color:#3f4b35;font-size:11px;margin-top:25px;">
+      Membership prices are illustrative demo values and may not reflect actual gym rates.
+    </p>
+  </div>
+</section>
+
+<!-- BMI CALCULATOR -->
+<section class="section" id="bmi">
+  <div class="container bmi-grid">
+
+    <div class="bmi-copy">
+      <div class="section-tag">Fitness Tool</div>
+      <h2>Understand Your <span>Body Mass Index.</span></h2>
+      <p>
+        Enter your height and weight to calculate your BMI.
+        BMI is a general screening measure and does not directly
+        measure body fat or individual fitness.
+      </p>
+    </div>
+
+    <form class="bmi-form" id="bmiForm">
+      <h3>BMI Calculator</h3>
+
+      <div class="field">
+        <label for="height">HEIGHT (CM)</label>
+        <input type="number" id="height" min="50" max="250"
+          placeholder="Example: 165" required>
+      </div>
+
+      <div class="field">
+        <label for="weight">WEIGHT (KG)</label>
+        <input type="number" id="weight" min="10" max="500"
+          step="0.1" placeholder="Example: 60" required>
+      </div>
+
+      <button class="btn" type="submit">CALCULATE BMI ↗</button>
+
+      <div class="bmi-result" id="bmiResult" role="status">
+        <strong id="bmiValue"></strong>
+        <p id="bmiCategory"></p>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="section trainers" id="trainers">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-tag">Our Coaching Team</div>
+      <h2>Guidance That Moves You Forward.</h2>
+      <p>
+        Meet the example coaching profiles used in this website demo.
+      </p>
+    </div>
+
+    <div class="trainer-grid">
+
+      <article class="trainer-card">
+        <div class="trainer-photo">
+          <img
+            src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=800&q=85"
+            alt="Fitness coach training in a gym">
+        </div>
+        <div class="trainer-info">
+          <h3>Arjun Kumar</h3>
+          <p>STRENGTH COACH</p>
+          <span>Focus: resistance training, movement technique and strength development.</span>
+        </div>
+      </article>
+
+      <article class="trainer-card">
+        <div class="trainer-photo">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=85"
+            alt="Fitness training environment">
+        </div>
+        <div class="trainer-info">
+          <h3>Meera Sharma</h3>
+          <p>FITNESS COACH</p>
+          <span>Focus: beginner routines, workout consistency and functional fitness.</span>
+        </div>
+      </article>
+
+      <article class="trainer-card">
+        <div class="trainer-photo">
+          <img
+            src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=85"
+            alt="Athlete performing a strength workout">
+        </div>
+        <div class="trainer-info">
+          <h3>Rahul Menon</h3>
+          <p>PERFORMANCE COACH</p>
+          <span>Focus: conditioning, workout planning and performance goals.</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container cta-inner">
+
+    <div>
+      <div class="eyebrow">Your Next Chapter Starts Here</div>
+      <h2>Show Up Today.<br><span>Get Stronger Tomorrow.</span></h2>
+      <p>Choose your membership and take the first step towards a consistent routine.</p>
+    </div>
+
+    <a href="#contact" class="btn">GET STARTED ↗</a>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container contact-grid">
+
+    <div class="contact-copy">
+      <div class="section-tag">Get In Touch</div>
+      <h2>Let's Build Your <span>Next Chapter.</span></h2>
+
+      <p>
+        Have questions about membership, personal coaching or our programs?
+        Send us an enquiry and tell us what you want to explore.
+      </p>
+
+      <div class="contact-detail">
+        <strong>VISIT US</strong>
+        <span>FITCORE Fitness Centre, Chennai, Tamil Nadu</span>
+      </div>
+
+      <div class="contact-detail">
+        <strong>CALL US</strong>
+        <span>+91 98765 43210</span>
+      </div>
+
+      <div class="contact-detail">
+        <strong>EMAIL</strong>
+        <span>hello@fitcore.example</span>
+      </div>
+
+      <div class="contact-detail">
+        <strong>OPENING HOURS*</strong>
+        <span>Monday – Saturday: 6 AM – 10 PM</span>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <h3>Membership Enquiry</h3>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="fullName">FULL NAME *</label>
+          <input type="text" id="fullName" required placeholder="Your name">
+        </div>
+
+        <div class="field">
+          <label for="email">EMAIL ADDRESS *</label>
+          <input type="email" id="email" required placeholder="you@example.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mobile">MOBILE NUMBER *</label>
+        <input type="tel" id="mobile" required
+          pattern="[0-9]{10}" maxlength="10"
+          placeholder="10-digit mobile number">
+      </div>
+
+      <div class="field">
+        <label for="interest">PROGRAM OF INTEREST *</label>
+        <select id="interest" required>
+          <option value="">Select a program</option>
+          <option>Strength Training</option>
+          <option>Functional Fitness</option>
+          <option>Cardio & Endurance</option>
+          <option>Personal Training</option>
+          <option>Beginner Fitness</option>
+          <option>Membership Information</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">MESSAGE</label>
+        <textarea id="message"
+          placeholder="Tell us about your goals or questions"
+          style="width:100%;min-height:100px;padding:13px;background:#101211;border:1px solid #414942;color:white;resize:vertical;"></textarea>
+      </div>
+
+      <button type="submit" class="btn">SUBMIT ENQUIRY ↗</button>
+
+      <div class="form-message" id="formMessage" role="status"></div>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+        <a href="#home" class="logo">FIT<span>CORE.</span>
+          <small>FITNESS & PERFORMANCE</small>
+        </a>
+        <p class="footer-about">
+          A fitness-focused demo website built around training,
+          consistency and personal progress.
+        </p>
+      </div>
+
+      <div>
+        <h3>EXPLORE</h3>
+        <div class="footer-links">
+          <a href="#about">About FITCORE</a>
+          <a href="#programs">Training Programs</a>
+          <a href="#facilities">Facilities</a>
+          <a href="#trainers">Coaching Team</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>MEMBERSHIP</h3>
+        <div class="footer-links">
+          <a href="#membership">Essential</a>
+          <a href="#membership">Performance</a>
+          <a href="#membership">Elite</a>
+          <a href="#contact">Enquiry</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <span>Chennai, Tamil Nadu</span>
+          <span>+91 98765 43210</span>
+          <a href="#contact">Send an Enquiry</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> FITCORE. Demo website.</span>
+      <span>*Sample details; confirm actual facilities and opening hours with the gym.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+// Mobile navigation
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", function () {
+  const isOpen = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", isOpen);
+  menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+document.querySelectorAll("#navLinks a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  });
+});
+
+// BMI calculator
+document.getElementById("bmiForm").addEventListener("submit",
+  function (event) {
+    event.preventDefault();
+
+    const heightCm = Number(document.getElementById("height").value);
+    const weightKg = Number(document.getElementById("weight").value);
+
+    if (heightCm <= 0 || weightKg <= 0) {
+      alert("Please enter valid height and weight.");
+      return;
+    }
+
+    const heightM = heightCm / 100;
+    const bmi = weightKg / (heightM * heightM);
+
+    let category;
+
+    if (bmi < 18.5) {
+      category = "Below the standard adult BMI reference range.";
+    } else if (bmi < 25) {
+      category = "Within the standard adult BMI reference range.";
+    } else if (bmi < 30) {
+      category = "Above the standard adult BMI reference range.";
+    } else {
+      category = "In the higher adult BMI reference range.";
+    }
+
+    document.getElementById("bmiValue").textContent = bmi.toFixed(1);
+    document.getElementById("bmiCategory").textContent =
+      category + " BMI is a screening measure, not a diagnosis.";
+
+    document.getElementById("bmiResult").style.display = "block";
+  }
+);
+
+// Membership selection
+document.querySelectorAll(".price-card .btn").forEach(function (button) {
+  button.addEventListener("click", function () {
+    const plan = button.closest(".price-card").querySelector("h3").textContent;
+
+    document.getElementById("interest").value = "Membership Information";
+    document.getElementById("message").value =
+      "I would like more information about the " + plan + " membership.";
+
+    document.getElementById("contact").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+});
+
+// Contact form demonstration
+document.getElementById("contactForm").addEventListener("submit",
+  function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById("fullName").value.trim();
+    const status = document.getElementById("formMessage");
+
+    status.style.display = "block";
+    status.textContent =
+      "Thank you, " + name +
+      "! Your form passed validation. This demo does not send or save your data.";
+
+    this.reset();
+  }
+);
+
+// Back-to-top button
+const backTop = document.getElementById("backTop");
+
+window.addEventListener("scroll", function () {
+  backTop.classList.toggle("show", window.scrollY > 400);
+});
+
+backTop.addEventListener("click", function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

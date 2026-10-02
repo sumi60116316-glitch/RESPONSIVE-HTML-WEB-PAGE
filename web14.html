@@ -1,0 +1,1405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoVerse | A Greener Tomorrow</title>
+
+<style>
+:root {
+  --green: #217a52;
+  --dark: #163d2c;
+  --lime: #d8f36a;
+  --cream: #f7f8f0;
+  --muted: #748278;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+button, input, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; }
+
+.container {
+  width: min(1160px, 91%);
+  margin: auto;
+}
+
+/* NAVBAR */
+
+header {
+  background: rgba(247,248,240,.96);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid #e7ebdf;
+}
+
+.navbar {
+  min-height: 78px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  background: var(--green);
+  color: white;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.logo span { color: var(--green); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 29px;
+}
+
+.nav-links a {
+  color: #617267;
+  font-size: 13px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.nav-links a:hover { color: var(--green); }
+
+.nav-cta {
+  border: none;
+  border-radius: 30px;
+  background: var(--green);
+  color: white;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.menu-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  font-size: 25px;
+}
+
+/* HERO */
+
+.hero {
+  padding: 65px 0 75px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 55px;
+}
+
+.eyebrow {
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: 19px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 25px;
+  height: 2px;
+  background: var(--green);
+}
+
+.hero h1 {
+  font-size: clamp(39px, 5.1vw, 66px);
+  line-height: 1.09;
+  letter-spacing: -3px;
+  margin-bottom: 23px;
+}
+
+.hero h1 em {
+  color: var(--green);
+  font-style: normal;
+}
+
+.hero-text {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 480px;
+  line-height: 1.9;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-top: 29px;
+}
+
+.btn-primary, .btn-secondary {
+  border-radius: 30px;
+  padding: 14px 22px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid var(--green);
+  transition: .2s;
+}
+
+.btn-primary {
+  color: white;
+  background: var(--green);
+}
+
+.btn-primary:hover {
+  background: var(--dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--green);
+}
+
+.btn-secondary:hover { background: #eaf0e5; }
+
+.hero-note {
+  margin-top: 31px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.avatar-stack {
+  display: flex;
+}
+
+.avatar-stack img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  margin-left: -9px;
+}
+
+.avatar-stack img:first-child { margin-left: 0; }
+
+.hero-note p {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.hero-note strong { color: var(--dark); }
+
+.hero-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 465px;
+  object-fit: cover;
+  border-radius: 190px 190px 24px 24px;
+  display: block;
+}
+
+.floating-card {
+  position: absolute;
+  left: -35px;
+  bottom: 35px;
+  padding: 19px;
+  background: white;
+  border-radius: 17px;
+  width: 190px;
+  box-shadow: 0 12px 45px #173c2b18;
+}
+
+.floating-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.floating-card strong {
+  display: block;
+  font-size: 27px;
+  margin: 3px 0;
+}
+
+.floating-card span {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.image-caption {
+  position: absolute;
+  right: 15px;
+  top: 18px;
+  background: #ffffffed;
+  padding: 9px 13px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* STATS */
+
+.stats-band {
+  background: var(--dark);
+  color: white;
+  padding: 30px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat {
+  padding: 10px 20px;
+  border-right: 1px solid #ffffff22;
+}
+
+.stat:last-child { border: none; }
+
+.stat strong {
+  font-size: 30px;
+  letter-spacing: -1px;
+  display: block;
+}
+
+.stat p {
+  color: #c1d1c5;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* SECTION COMMON */
+
+section.content-section { padding: 85px 0; }
+
+.section-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 32px;
+}
+
+.section-top h2 {
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -1.6px;
+}
+
+.section-top p {
+  max-width: 420px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.section-label {
+  color: var(--green);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: 11px;
+}
+
+/* ENVIRONMENT CARDS */
+
+.issue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.issue-card {
+  border: 1px solid #e8ebdf;
+  border-radius: 19px;
+  overflow: hidden;
+  background: white;
+  transition: .25s;
+}
+
+.issue-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px #193d2b12;
+}
+
+.issue-card img {
+  width: 100%;
+  height: 215px;
+  object-fit: cover;
+  display: block;
+}
+
+.issue-body { padding: 22px; }
+
+.issue-number {
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.issue-body h3 {
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+.issue-body p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.text-link {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  border: none;
+  background: none;
+}
+
+.text-link:hover { text-decoration: underline; }
+
+/* CALCULATOR */
+
+.calculator-section {
+  background: #eaf0e5;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.calculator-image {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.calculator-panel {
+  background: white;
+  border-radius: 21px;
+  padding: 29px;
+  box-shadow: 0 10px 35px #173c2b08;
+}
+
+.calculator-panel h3 {
+  font-size: 22px;
+  letter-spacing: -.5px;
+}
+
+.calculator-panel > p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 8px 0 24px;
+}
+
+.field { margin-bottom: 19px; }
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.field select, .field input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #dfe6dd;
+  border-radius: 10px;
+  background: white;
+  color: var(--dark);
+  outline: none;
+  font-size: 12px;
+}
+
+.field select:focus, .field input:focus {
+  border-color: var(--green);
+}
+
+.calculator-panel .btn-primary { width: 100%; }
+
+.result-box {
+  margin-top: 20px;
+  padding: 18px;
+  background: #edf7e8;
+  border-radius: 13px;
+  display: none;
+}
+
+.result-box.show { display: block; }
+
+.result-box small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.result-box strong {
+  display: block;
+  font-size: 30px;
+  color: var(--green);
+  margin: 3px 0;
+}
+
+.result-box p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* CHALLENGES */
+
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.challenge {
+  padding: 25px;
+  background: white;
+  border: 1px solid #e8ebdf;
+  border-radius: 18px;
+}
+
+.challenge-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #eaf2e5;
+  font-size: 23px;
+  margin-bottom: 19px;
+}
+
+.challenge h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.challenge p {
+  color: var(--muted);
+  font-size: 12px;
+  min-height: 60px;
+  line-height: 1.8;
+}
+
+.challenge-bottom {
+  border-top: 1px solid #edf0e8;
+  margin-top: 19px;
+  padding-top: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.challenge-bottom span {
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.challenge-bottom button {
+  border: 1px solid #dce7d8;
+  background: #f8faf5;
+  color: var(--green);
+  padding: 9px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.challenge-bottom button.done {
+  background: var(--green);
+  color: white;
+}
+
+/* NEWSLETTER */
+
+.newsletter {
+  background: var(--lime);
+  border-radius: 24px;
+  padding: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.newsletter h2 {
+  font-size: clamp(25px, 3vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.newsletter p {
+  color: #49613b;
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+.newsletter-form {
+  display: flex;
+  width: min(420px, 100%);
+  background: white;
+  padding: 5px;
+  border-radius: 35px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 12px 15px;
+  font-size: 12px;
+}
+
+.newsletter-form button {
+  border: none;
+  background: var(--dark);
+  color: white;
+  border-radius: 30px;
+  padding: 12px 17px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 48px 0 22px;
+  background: #102f21;
+  color: white;
+  margin-top: 85px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 35px;
+}
+
+.footer-brand p {
+  color: #b5c6b8;
+  font-size: 12px;
+  max-width: 260px;
+  line-height: 1.9;
+  margin-top: 16px;
+}
+
+footer h4 {
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: #b5c6b8;
+  font-size: 11px;
+}
+
+.footer-links a:hover { color: var(--lime); }
+
+.footer-bottom {
+  border-top: 1px solid #ffffff20;
+  padding-top: 19px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  color: #9fb4a3;
+  font-size: 10px;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--dark);
+  color: white;
+  border-radius: 12px;
+  padding: 14px 19px;
+  z-index: 100;
+  font-size: 12px;
+  box-shadow: 0 10px 35px #0002;
+  display: none;
+  max-width: calc(100% - 40px);
+}
+
+.toast.show { display: block; }
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .hero-grid {
+    gap: 30px;
+  }
+
+  .hero-photo { height: 400px; }
+
+  .floating-card {
+    left: -15px;
+    width: 160px;
+  }
+
+  .calculator-grid { gap: 25px; }
+
+  .issue-grid, .challenge-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .navbar { min-height: 68px; }
+
+  .menu-toggle { display: block; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 68px;
+    padding: 18px 5%;
+    background: var(--cream);
+    border-bottom: 1px solid #e4e9df;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a {
+    padding: 12px 0;
+  }
+
+  .nav-cta {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .hero { padding: 45px 0 55px; }
+
+  .hero-grid, .calculator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 { letter-spacing: -2px; }
+
+  .hero-visual { margin: 0 10px 0 20px; }
+
+  .hero-photo {
+    height: 370px;
+    border-radius: 150px 150px 20px 20px;
+  }
+
+  .floating-card { left: -20px; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .stat {
+    padding: 12px;
+    border-right: none;
+    border-bottom: 1px solid #ffffff20;
+  }
+
+  .stat strong { font-size: 25px; }
+
+  section.content-section { padding: 60px 0; }
+
+  .section-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+  }
+
+  .issue-grid, .challenge-grid { grid-template-columns: 1fr; }
+
+  .issue-card img { height: 230px; }
+
+  .calculator-image { height: 300px; }
+
+  .calculator-panel { padding: 22px; }
+
+  .newsletter {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 29px 22px;
+  }
+
+  .newsletter-form { width: 100%; }
+
+  .footer-grid { gap: 28px 18px; }
+
+  footer { margin-top: 60px; }
+
+  .footer-bottom { flex-direction: column; }
+}
+
+@media (max-width: 360px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .newsletter-form button { padding: 11px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="#home" class="logo">
+      <div class="logo-mark">✳</div>
+      Eco<span>Verse</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+            aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#issues">Our Planet</a>
+      <a href="#calculator">Carbon Calculator</a>
+      <a href="#challenges">Take Action</a>
+      <button class="nav-cta" id="joinButton">Join the Movement ↗</button>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div>
+        <div class="eyebrow">Small steps. Big impact.</div>
+
+        <h1>A better planet<br>starts with <em>us.</em></h1>
+
+        <p class="hero-text">
+          Discover how everyday choices can protect our environment.
+          Learn about climate change, reduce your footprint and take
+          meaningful action for a healthier planet.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn-primary" href="#challenges">Explore actions ↗</a>
+          <a class="btn-secondary" href="#issues">Discover the issues</a>
+        </div>
+
+        <div class="hero-note">
+          <div class="avatar-stack">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="Community member">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="Community member">
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=80&q=80" alt="Community member">
+          </div>
+          <p><strong>Every action matters.</strong><br>Start with one change today.</p>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img class="hero-photo"
+             src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=85"
+             alt="Sunlight streaming through a lush green forest">
+
+        <div class="image-caption">🌿 Protect what matters</div>
+
+        <div class="floating-card">
+          <small>Your next mission</small>
+          <strong>Go greener.</strong>
+          <span>One habit at a time ↗</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTRODUCTORY STATS -->
+  <section class="stats-band">
+    <div class="container stats-grid">
+      <div class="stat">
+        <strong>3 Rs</strong>
+        <p>Reduce, reuse, recycle</p>
+      </div>
+      <div class="stat">
+        <strong>1 Planet</strong>
+        <p>Our shared home</p>
+      </div>
+      <div class="stat">
+        <strong>Daily</strong>
+        <p>Opportunities to make a change</p>
+      </div>
+      <div class="stat">
+        <strong>Small Steps</strong>
+        <p>Build lasting habits</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENVIRONMENTAL ISSUES -->
+  <section class="content-section" id="issues">
+    <div class="container">
+
+      <div class="section-top">
+        <div>
+          <div class="section-label">Understand our planet</div>
+          <h2>The challenges we<br>need to face together.</h2>
+        </div>
+        <p>
+          Understanding environmental problems is the first step toward
+          making informed choices. Explore three important areas.
+        </p>
+      </div>
+
+      <div class="issue-grid">
+
+        <article class="issue-card">
+          <img
+            src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=700&q=80"
+            alt="Green mountain landscape surrounded by mist">
+          <div class="issue-body">
+            <div class="issue-number">01 / CLIMATE</div>
+            <h3>Climate Change</h3>
+            <p>
+              Learn how greenhouse gas emissions contribute to global
+              warming and why energy efficiency and cleaner transport matter.
+            </p>
+            <a class="text-link" target="_blank" rel="noopener"
+               href="https://climate.nasa.gov/">
+              Explore climate science ↗
+            </a>
+          </div>
+        </article>
+
+        <article class="issue-card">
+          <img
+            src="https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=700&q=80"
+            alt="Plastic waste collected for environmental cleanup">
+          <div class="issue-body">
+            <div class="issue-number">02 / WASTE</div>
+            <h3>Plastic Pollution</h3>
+            <p>
+              Discover how single-use plastics affect ecosystems and how
+              reusable bags, bottles and better waste sorting can help.
+            </p>
+            <a class="text-link" target="_blank" rel="noopener"
+               href="https://www.unep.org/plastic-pollution">
+              Learn about plastic pollution ↗
+            </a>
+          </div>
+        </article>
+
+        <article class="issue-card">
+          <img
+            src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80"
+            alt="Tall trees in a green forest">
+          <div class="issue-body">
+            <div class="issue-number">03 / BIODIVERSITY</div>
+            <h3>Nature & Forests</h3>
+            <p>
+              Forests provide habitats, store carbon and support water
+              cycles. Protecting natural ecosystems helps biodiversity.
+            </p>
+            <a class="text-link" target="_blank" rel="noopener"
+               href="https://www.worldwildlife.org/">
+              Discover conservation ↗
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CARBON FOOTPRINT CALCULATOR -->
+  <section class="content-section calculator-section" id="calculator">
+    <div class="container calculator-grid">
+
+      <div>
+        <div class="section-label">Know your impact</div>
+        <h2 style="font-size:clamp(30px,4vw,45px);line-height:1.15;letter-spacing:-1.7px">
+          Your footprint.<br>Your opportunity<br>to make a change.
+        </h2>
+
+        <p style="color:var(--muted);font-size:13px;line-height:1.9;margin:19px 0 24px">
+          Explore how transport, electricity and food habits may affect
+          your carbon footprint. Use this simple educational calculator
+          to compare lifestyle choices.
+        </p>
+
+        <img class="calculator-image"
+             src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=85"
+             alt="Green indoor plants growing in natural light">
+      </div>
+
+      <div class="calculator-panel">
+        <h3>Carbon footprint estimator</h3>
+        <p>Enter your approximate monthly habits below.</p>
+
+        <form id="carbonForm">
+
+          <div class="field">
+            <label for="transport">Transport per month</label>
+            <select id="transport" required>
+              <option value="10">Mostly walking / cycling</option>
+              <option value="45" selected>Public transport</option>
+              <option value="100">Mostly petrol or diesel vehicle</option>
+              <option value="150">Frequent long-distance travel</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="electricity">Household electricity usage</label>
+            <select id="electricity" required>
+              <option value="25">Low usage</option>
+              <option value="60" selected>Moderate usage</option>
+              <option value="120">High usage</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="diet">Typical food habits</label>
+            <select id="diet" required>
+              <option value="35">Mostly plant-based</option>
+              <option value="60" selected>Mixed diet</option>
+              <option value="100">Meat-heavy diet</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="waste">Waste and recycling habits</label>
+            <select id="waste" required>
+              <option value="10">Reuse and recycle regularly</option>
+              <option value="25" selected>Recycle sometimes</option>
+              <option value="45">Little recycling</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            Estimate my footprint ↗
+          </button>
+        </form>
+
+        <div class="result-box" id="carbonResult" aria-live="polite">
+          <small>Estimated monthly footprint</small>
+          <strong id="carbonNumber">0 kg CO₂e</strong>
+          <p id="carbonAdvice">
+            This is an illustrative estimate, not a verified measurement.
+          </p>
+        </div>
+
+        <p style="font-size:10px;margin-top:14px;line-height:1.7">
+          Educational estimate only. Values are simplified illustrative
+          factors, not a validated personal carbon accounting method.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ECO CHALLENGES -->
+  <section class="content-section" id="challenges">
+    <div class="container">
+
+      <div class="section-top">
+        <div>
+          <div class="section-label">Turn awareness into action</div>
+          <h2>Choose your next<br>eco-friendly habit.</h2>
+        </div>
+        <p>
+          Pick a challenge that fits your routine. Mark it complete
+          when you have done it and keep track of your progress.
+        </p>
+      </div>
+
+      <div class="challenge-grid">
+
+        <article class="challenge">
+          <div class="challenge-icon">♻</div>
+          <h3>Plastic-Free Day</h3>
+          <p>
+            Carry a reusable bottle and bag. Avoid unnecessary
+            single-use plastic wherever practical.
+          </p>
+          <div class="challenge-bottom">
+            <span>Daily habit</span>
+            <button class="challenge-btn" data-challenge="plastic">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+        <article class="challenge">
+          <div class="challenge-icon">🚲</div>
+          <h3>Greener Commute</h3>
+          <p>
+            Walk, cycle, carpool or use public transport for a
+            suitable journey instead of travelling alone by car.
+          </p>
+          <div class="challenge-bottom">
+            <span>Transport</span>
+            <button class="challenge-btn" data-challenge="transport">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+        <article class="challenge">
+          <div class="challenge-icon">💡</div>
+          <h3>Save Electricity</h3>
+          <p>
+            Switch off unused lights and devices. Make use of
+            daylight when it is available.
+          </p>
+          <div class="challenge-bottom">
+            <span>Energy</span>
+            <button class="challenge-btn" data-challenge="energy">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+        <article class="challenge">
+          <div class="challenge-icon">🌱</div>
+          <h3>Grow Something</h3>
+          <p>
+            Grow a suitable plant at home or help care for
+            existing greenery in your community.
+          </p>
+          <div class="challenge-bottom">
+            <span>Biodiversity</span>
+            <button class="challenge-btn" data-challenge="plant">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+        <article class="challenge">
+          <div class="challenge-icon">🚰</div>
+          <h3>Use Water Wisely</h3>
+          <p>
+            Turn off taps when not needed and report leaks
+            instead of allowing water to go to waste.
+          </p>
+          <div class="challenge-bottom">
+            <span>Water</span>
+            <button class="challenge-btn" data-challenge="water">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+        <article class="challenge">
+          <div class="challenge-icon">🥗</div>
+          <h3>Mindful Meals</h3>
+          <p>
+            Plan portions, store food properly and find ways
+            to use leftovers safely to reduce food waste.
+          </p>
+          <div class="challenge-bottom">
+            <span>Food</span>
+            <button class="challenge-btn" data-challenge="food">
+              Mark complete
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <div style="margin-top:25px;background:white;border:1px solid #e8ebdf;border-radius:15px;padding:19px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap">
+        <div>
+          <strong style="font-size:14px">Your eco-progress</strong>
+          <p id="challengeProgressText" style="color:var(--muted);font-size:11px;margin-top:4px">
+            0 of 6 challenges completed
+          </p>
+        </div>
+        <div style="width:min(350px,100%);height:9px;border-radius:20px;background:#e9eee4;overflow:hidden">
+          <div id="challengeProgress" style="height:100%;width:0;background:var(--green);border-radius:20px;transition:width .3s"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="container" id="join">
+    <div class="newsletter">
+      <div>
+        <div class="section-label" style="color:#49613b">Stay inspired</div>
+        <h2>Good news for<br>a greener world.</h2>
+        <p>Get practical sustainability ideas and eco-friendly tips.</p>
+      </div>
+
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" id="emailInput"
+               placeholder="Enter your email address" required>
+        <button type="submit">Subscribe ↗</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo" style="color:white">
+          <div class="logo-mark" style="background:var(--lime);color:var(--dark)">✳</div>
+          Eco<span style="color:var(--lime)">Verse</span>
+        </a>
+        <p>
+          Helping people understand environmental challenges and
+          discover practical ways to care for our shared planet.
+        </p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#issues">Environmental Issues</a>
+          <a href="#calculator">Carbon Calculator</a>
+          <a href="#challenges">Eco Challenges</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Learn More</h4>
+        <div class="footer-links">
+          <a href="https://www.unep.org/" target="_blank" rel="noopener">UN Environment</a>
+          <a href="https://climate.nasa.gov/" target="_blank" rel="noopener">NASA Climate</a>
+          <a href="https://www.worldwildlife.org/" target="_blank" rel="noopener">Wildlife Conservation</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Our Mission</h4>
+        <div class="footer-links">
+          <a href="#issues">Raise Awareness</a>
+          <a href="#challenges">Take Action</a>
+          <a href="#join">Stay Connected</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 EcoVerse. Learn. Act. Protect.</span>
+      <span>Made for a more sustainable future 🌍</span>
+    </div>
+
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* MOBILE NAVIGATION */
+
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  });
+});
+
+/* TOAST */
+
+let toastTimer;
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+/* NAVIGATION CTA */
+
+document.getElementById("joinButton").addEventListener("click", () => {
+  document.getElementById("join").scrollIntoView({ behavior: "smooth" });
+});
+
+document.getElementById("joinButton").addEventListener("click", () => {
+  navLinks.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.textContent = "☰";
+});
+
+/* CARBON FOOTPRINT ESTIMATOR */
+
+document.getElementById("carbonForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const transport = Number(document.getElementById("transport").value);
+  const electricity = Number(document.getElementById("electricity").value);
+  const diet = Number(document.getElementById("diet").value);
+  const waste = Number(document.getElementById("waste").value);
+
+  const total = transport + electricity + diet + waste;
+
+  document.getElementById("carbonNumber").textContent =
+    total.toLocaleString("en-IN") + " kg CO₂e";
+
+  let advice = "";
+
+  if (total < 100) {
+    advice = "Your selected habits have a relatively low illustrative score. Keep exploring ways to reduce your impact.";
+  } else if (total < 220) {
+    advice = "Consider comparing transport options, electricity habits and food waste to identify changes that fit your routine.";
+  } else {
+    advice = "Explore lower-emission travel where practical, efficient energy use and ways to reduce avoidable waste.";
+  }
+
+  document.getElementById("carbonAdvice").textContent =
+    advice + " This is not a measured personal footprint.";
+
+  document.getElementById("carbonResult").classList.add("show");
+});
+
+/* ECO CHALLENGES */
+
+const completedChallenges = new Set();
+
+document.querySelectorAll(".challenge-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const id = button.dataset.challenge;
+
+    if (completedChallenges.has(id)) {
+      completedChallenges.delete(id);
+      button.classList.remove("done");
+      button.textContent = "Mark complete";
+      showToast("Challenge moved back to incomplete.");
+    } else {
+      completedChallenges.add(id);
+      button.classList.add("done");
+      button.textContent = "✓ Completed";
+      showToast("Nice work! One more step for the planet.");
+    }
+
+    updateChallengeProgress();
+  });
+});
+
+function updateChallengeProgress() {
+  const completed = completedChallenges.size;
+  const total = document.querySelectorAll(".challenge-btn").length;
+  const percent = (completed / total) * 100;
+
+  document.getElementById("challengeProgress").style.width =
+    percent + "%";
+
+  document.getElementById("challengeProgressText").textContent =
+    completed + " of " + total + " challenges completed";
+}
+
+/* NEWSLETTER DEMO */
+
+document.getElementById("newsletterForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const email = document.getElementById("emailInput").value.trim();
+
+  if (!email) {
+    showToast("Please enter your email address.");
+    return;
+  }
+
+  showToast("Thanks for your interest! This demo does not send emails.");
+  document.getElementById("newsletterForm").reset();
+});
+</script>
+
+</body>
+</html>

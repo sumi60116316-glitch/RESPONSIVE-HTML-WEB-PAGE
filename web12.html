@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuralSpace — AI Productivity Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7fb;--white:#fff;--ink:#1b1b30;--muted:#77788f;
+  --purple:#7357ee;--purple-light:#eeeaff;--border:#e8e7f0;
+  --green:#16856c;--shadow:0 10px 35px rgba(39,32,89,.07)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.container{width:min(1180px,92%);margin:auto}
+header{background:#ffffffed;backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.logo{display:flex;align-items:center;gap:10px;font:700 22px "Space Grotesk",sans-serif;letter-spacing:-.8px}
+.logo-mark{width:37px;height:37px;display:grid;place-items:center;border-radius:12px;background:var(--purple);color:#fff;font-size:21px}
+.logo span{color:var(--purple)}
+.nav-links{display:flex;align-items:center;gap:28px;color:#686880;font-size:13px;font-weight:600}
+.nav-links a:hover{color:var(--purple)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn{border:0;border-radius:9px;padding:11px 17px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--purple);color:white;box-shadow:0 5px 14px #7357ee30}
+.btn-primary:hover{background:#6245df}
+.btn-light{background:#f0edff;color:#6449e0}
+.btn-outline{background:white;border:1px solid var(--border);color:var(--ink)}
+.menu-toggle{display:none;border:0;background:transparent;font-size:25px;color:var(--ink)}
+.hero{padding:75px 0 56px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:45px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#eeeaff;color:#6749e8;border:1px solid #e2dcff;padding:7px 12px;border-radius:30px;font-size:11px;font-weight:700}
+.pulse{height:7px;width:7px;background:#8064f6;border-radius:50%;box-shadow:0 0 0 4px #8064f61a}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif}
+.hero h1{font-size:clamp(39px,5.4vw,66px);line-height:1.09;letter-spacing:-2.8px;margin:23px 0}
+.gradient-text{background:linear-gradient(100deg,#7357ee,#bc6de5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{font-size:15px;color:var(--muted);max-width:510px;line-height:1.9}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.hero-stats{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+.hero-stats strong{display:block;font:700 23px "Space Grotesk",sans-serif}
+.hero-stats small{color:var(--muted);font-size:11px}
+.hero-visual{position:relative;min-width:0}
+.hero-photo{width:100%;height:410px;object-fit:cover;border-radius:24px;box-shadow:var(--shadow)}
+.visual-overlay{position:absolute;inset:auto 18px 18px 18px;background:#ffffffef;backdrop-filter:blur(12px);padding:18px;border:1px solid #ffffff;border-radius:15px}
+.visual-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.visual-top strong{font:600 14px "Space Grotesk",sans-serif}
+.visual-top span{color:var(--green);font-size:10px;font-weight:700}
+.mini-bars{height:53px;display:flex;align-items:end;gap:6px;margin-top:15px}
+.mini-bars i{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(#a99aff,#7357ee);min-width:5px}
+.section{padding:68px 0}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
+.section-heading h2{font-size:clamp(27px,4vw,37px);letter-spacing:-1.2px;line-height:1.2;margin-top:9px}
+.section-heading p{color:var(--muted);font-size:13px;margin-top:9px;max-width:580px}
+.eyebrow{color:var(--purple);font-size:10px;letter-spacing:1.8px;font-weight:800;text-transform:uppercase}
+.tool-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.tool-controls{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.search-wrap{position:relative;flex:1;min-width:220px;max-width:400px}
+.search-wrap input{width:100%;padding:12px 15px 12px 40px;border:1px solid var(--border);border-radius:10px;outline:none;background:#fbfbfe;font-size:12px}
+.search-wrap input:focus,.select:focus{border-color:var(--purple)}
+.search-symbol{position:absolute;left:14px;top:10px;color:var(--muted);font-size:17px}
+.categories{display:flex;gap:7px;flex-wrap:wrap}
+.category-btn{padding:9px 13px;border:1px solid var(--border);border-radius:30px;background:#fff;color:#77778e;font-size:11px;font-weight:700}
+.category-btn.active,.category-btn:hover{background:var(--purple);color:white;border-color:var(--purple)}
+.tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.tool-card{background:white;border:1px solid var(--border);border-radius:15px;padding:21px;transition:.23s;display:flex;flex-direction:column;min-width:0}
+.tool-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#d4cbff}
+.tool-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tool-icon{height:47px;width:47px;border-radius:13px;display:grid;place-items:center;font-size:23px;background:#eeeaff;color:#7357ee}
+.tool-icon.blue{background:#e8f2ff;color:#357bd9}
+.tool-icon.orange{background:#fff0df;color:#d77d24}
+.tool-icon.green{background:#e3f7ef;color:#16856c}
+.tool-icon.pink{background:#ffebf4;color:#d45491}
+.tool-icon.dark{background:#ececf2;color:#36364e}
+.favorite{border:1px solid var(--border);height:31px;width:31px;border-radius:8px;background:white;color:#a4a3b8;font-size:17px}
+.favorite.saved{color:#ed609a;background:#fff0f6;border-color:#ffd5e7}
+.tool-card h3{font-size:16px;margin-top:17px}
+.tool-card p{font-size:12px;color:var(--muted);line-height:1.8;margin-top:7px;min-height:44px}
+.tool-meta{display:flex;align-items:center;justify-content:space-between;margin-top:17px;font-size:10px;color:var(--muted)}
+.tag{background:#f1efff;color:#7258dc;padding:5px 8px;border-radius:5px;font-weight:700}
+.tool-card .btn{margin-top:17px;width:100%}
+.no-tools{display:none;grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+.studio-section{background:linear-gradient(130deg,#f1efff,#f9f7ff 55%,#eef8ff)}
+.studio-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:45px;align-items:start}
+.studio-copy h2{font-size:clamp(29px,4vw,42px);letter-spacing:-1.3px;line-height:1.2;margin:15px 0}
+.studio-copy p{color:var(--muted);font-size:13px;line-height:1.9}
+.feature-list{display:grid;gap:15px;margin-top:25px}
+.feature{display:flex;align-items:flex-start;gap:12px}
+.feature-icon{width:34px;height:34px;flex-shrink:0;display:grid;place-items:center;background:#fff;border:1px solid #e6e0ff;border-radius:10px;color:var(--purple)}
+.feature strong{display:block;font-size:12px}
+.feature small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.studio-card{background:white;border:1px solid #e3def9;border-radius:17px;padding:23px;box-shadow:0 15px 40px #3e2a8910}
+.studio-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:19px}
+.studio-head h3{font-size:17px}
+.demo-label{font-size:10px;color:#6a50d7;background:#eeeaff;padding:6px 9px;border-radius:6px;font-weight:800}
+.field-label{font-size:11px;font-weight:700;display:block;margin:15px 0 8px}
+.select,.text-input,.prompt-area{width:100%;border:1px solid var(--border);border-radius:9px;padding:12px;background:#fbfbfe;color:var(--ink);outline:none;font-size:12px}
+.prompt-area{resize:vertical;min-height:130px;line-height:1.7}
+.studio-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.studio-output{display:none;background:#f7f5ff;border:1px solid #e7e1ff;border-radius:10px;padding:16px;margin-top:18px}
+.output-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.output-head strong{font-size:12px}
+.output-text{font-size:12px;color:#53516b;white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere}
+.output-foot{font-size:10px;color:var(--muted);margin-top:12px}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.workflow-card{padding:25px;border:1px solid var(--border);border-radius:14px;background:#fff}
+.step-number{font:700 30px "Space Grotesk",sans-serif;color:#d7d0ff}
+.workflow-card h3{font-size:17px;margin-top:15px}
+.workflow-card p{font-size:12px;color:var(--muted);line-height:1.8;margin-top:8px}
+.workflow-icon{font-size:22px;color:var(--purple);margin-top:13px}
+.banner{padding:39px;background:#211947;color:white;border-radius:19px;display:flex;justify-content:space-between;align-items:center;gap:25px;overflow:hidden;position:relative}
+.banner:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:#7357ee35;right:19%;top:-130px}
+.banner h2{font:700 clamp(25px,3.5vw,34px) "Space Grotesk",sans-serif;letter-spacing:-1px;position:relative;z-index:1}
+.banner p{font-size:12px;color:#c6bfeb;margin-top:10px;position:relative;z-index:1}
+.banner .btn{position:relative;z-index:1;white-space:nowrap}
+footer{background:#fff;border-top:1px solid var(--border);padding:35px 0 20px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:28px;padding-bottom:30px}
+.footer-brand p{color:var(--muted);font-size:12px;line-height:1.8;margin-top:13px;max-width:270px}
+.footer-col h4{font-size:12px;margin-bottom:13px}
+.footer-col a{display:block;color:var(--muted);font-size:11px;margin-bottom:10px}
+.footer-col a:hover{color:var(--purple)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:17px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:10px}
+.toast{position:fixed;bottom:20px;right:20px;z-index:50;background:#211947;color:white;padding:13px 17px;border-radius:10px;font-size:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:950px){
+ .nav-links{gap:15px}.hero-grid{gap:25px}.hero-photo{height:360px}
+ .tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .studio-grid{gap:25px}.footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+ .nav{height:68px}.menu-toggle{display:block}
+ .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:18px 5%;flex-direction:column;align-items:flex-start;gap:18px}
+ .nav-links.open{display:flex}
+ .nav-actions .btn-outline{display:none}
+ .logo{font-size:19px}.logo-mark{width:33px;height:33px}
+ .hero{padding:49px 0 38px}.hero-grid{grid-template-columns:1fr;gap:30px}
+ .hero h1{letter-spacing:-1.8px}.hero-photo{height:330px}
+ .hero-stats{gap:20px}.section{padding:50px 0}
+ .section-heading{align-items:flex-start;flex-direction:column}
+ .tool-controls{align-items:stretch}.search-wrap{max-width:none;min-width:0}
+ .tool-grid{grid-template-columns:1fr}.tool-card p{min-height:0}
+ .studio-grid{grid-template-columns:1fr}
+ .workflow-grid{grid-template-columns:1fr}
+ .banner{padding:27px;align-items:flex-start;flex-direction:column}
+ .footer-grid{grid-template-columns:1fr 1fr;gap:25px}
+}
+@media(max-width:390px){
+ .nav-actions .btn{padding:9px 10px}
+ .hero h1{font-size:38px}
+ .hero-stats{gap:14px}
+ .studio-card{padding:15px}
+ .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="#home"><span class="logo-mark">✳</span> Neural<span>Space</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#tools">AI Tools</a>
+      <a href="#studio">Prompt Studio</a>
+      <a href="#workflow">How It Works</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn btn-outline" id="savedNav">♡ Saved tools</button>
+      <a href="#studio" class="btn btn-primary">Try AI Studio ↗</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="pill"><span class="pulse"></span> YOUR AI PRODUCTIVITY WORKSPACE</div>
+      <h1>Turn your ideas into <span class="gradient-text">something more.</span></h1>
+      <p class="hero-copy">Discover AI-powered tools, experiment with prompts, and organize your creative workflow in one simple workspace.</p>
+      <div class="hero-actions">
+        <a href="#tools" class="btn btn-primary">Explore AI Tools ↗</a>
+        <a href="#studio" class="btn btn-outline">Open Prompt Studio</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>12+</strong><small>Tool concepts</small></div>
+        <div><strong>06</strong><small>Categories</small></div>
+        <div><strong>01</strong><small>Unified workspace</small></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=85" alt="Abstract artificial intelligence visualization">
+      <div class="visual-overlay">
+        <div class="visual-top"><strong>Creative workspace</strong><span>● Interface preview</span></div>
+        <div class="mini-bars">
+          <i style="height:35%"></i><i style="height:55%"></i><i style="height:44%"></i>
+          <i style="height:76%"></i><i style="height:58%"></i><i style="height:88%"></i>
+          <i style="height:68%"></i><i style="height:100%"></i><i style="height:72%"></i>
+          <i style="height:83%"></i><i style="height:57%"></i><i style="height:92%"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tool-section" id="tools">
+  <div class="container">
+    <div class="section-heading">
+      <div><div class="eyebrow">The AI toolkit</div><h2>One workspace. Many possibilities.</h2><p>Explore the sample tools below. Search by name or filter by category to find a workflow that fits your task.</p></div>
+      <button class="btn btn-outline" id="favoritesFilter">♡ My favorites (<span id="favoriteCount">0</span>)</button>
+    </div>
+    <div class="tool-controls">
+      <div class="search-wrap"><span class="search-symbol">⌕</span><input type="search" id="toolSearch" placeholder="Search tools, tasks, or categories..." aria-label="Search AI tools"></div>
+      <div class="categories" id="categories">
+        <button class="category-btn active" data-category="All">All tools</button>
+        <button class="category-btn" data-category="Writing">Writing</button>
+        <button class="category-btn" data-category="Coding">Coding</button>
+        <button class="category-btn" data-category="Image">Image</button>
+        <button class="category-btn" data-category="Research">Research</button>
+        <button class="category-btn" data-category="Productivity">Productivity</button>
+      </div>
+    </div>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+</section>
+
+<section class="section studio-section" id="studio">
+  <div class="container studio-grid">
+    <div class="studio-copy">
+      <div class="eyebrow">Interactive playground</div>
+      <h2>Your next idea starts with a prompt.</h2>
+      <p>Draft a task, choose a demonstration mode, and generate a local example response. This playground illustrates the user experience without connecting to an external AI service.</p>
+      <div class="feature-list">
+        <div class="feature"><span class="feature-icon">✎</span><div><strong>Flexible prompts</strong><small>Write your own task or start with an example.</small></div></div>
+        <div class="feature"><span class="feature-icon">⌘</span><div><strong>Multiple task modes</strong><small>Try writing, summarization, or code-explanation demos.</small></div></div>
+        <div class="feature"><span class="feature-icon">↗</span><div><strong>Copy your result</strong><small>Keep the generated sample for your next step.</small></div></div>
+      </div>
+    </div>
+
+    <div class="studio-card">
+      <div class="studio-head"><h3>Prompt Playground</h3><span class="demo-label">LOCAL DEMO</span></div>
+      <label class="field-label" for="taskMode">Choose a task</label>
+      <select class="select" id="taskMode">
+        <option value="writing">Content writing</option>
+        <option value="summary">Summarization</option>
+        <option value="code">Code explanation</option>
+        <option value="ideas">Idea generation</option>
+      </select>
+      <label class="field-label" for="promptInput">Your prompt</label>
+      <textarea class="prompt-area" id="promptInput" maxlength="1800" placeholder="Example: Write a short introduction for my college AI project."></textarea>
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:7px;color:var(--muted);font-size:10px"><span>Keep your prompt clear and specific.</span><span id="charCount">0 / 1800</span></div>
+      <div class="studio-actions">
+        <button class="btn btn-primary" id="generateBtn">✳ Generate example</button>
+        <button class="btn btn-outline" id="sampleBtn">Use sample prompt</button>
+        <button class="btn btn-outline" id="clearBtn">Clear</button>
+      </div>
+      <div class="studio-output" id="studioOutput">
+        <div class="output-head"><strong>Example result</strong><button class="btn btn-light" id="copyOutput">Copy text</button></div>
+        <div class="output-text" id="outputText"></div>
+        <div class="output-foot">Illustrative local output — not generated by a live AI model.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="workflow">
+  <div class="container">
+    <div class="section-heading">
+      <div><div class="eyebrow">Simple by design</div><h2>A smoother way to work with AI.</h2><p>Organize your tasks around a straightforward workflow instead of switching between disconnected ideas.</p></div>
+    </div>
+    <div class="workflow-grid">
+      <article class="workflow-card"><div class="step-number">01</div><div class="workflow-icon">⌕</div><h3>Discover</h3><p>Browse tool concepts by category and search for the task you want to complete.</p></article>
+      <article class="workflow-card"><div class="step-number">02</div><div class="workflow-icon">✎</div><h3>Experiment</h3><p>Write a clear prompt, select a task type, and explore the sample playground.</p></article>
+      <article class="workflow-card"><div class="step-number">03</div><div class="workflow-icon">♡</div><h3>Organize</h3><p>Save useful tools to your favorites and return to them during the same session.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="banner">
+      <div><h2>Have an idea worth exploring?</h2><p>Start with a prompt. Build your workflow one step at a time.</p></div>
+      <a class="btn btn-primary" href="#studio">Open Prompt Studio ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a class="logo" href="#home"><span class="logo-mark">✳</span> Neural<span>Space</span></a><p>A concept AI productivity platform designed to bring tool discovery and prompt experimentation into one workspace.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="#tools">All AI tools</a><a href="#tools">Writing tools</a><a href="#tools">Coding tools</a><a href="#tools">Research tools</a></div>
+      <div class="footer-col"><h4>Workspace</h4><a href="#studio">Prompt playground</a><a href="#workflow">How it works</a><a href="#tools" id="footerFavorites">Saved tools</a></div>
+      <div class="footer-col"><h4>Information</h4><a href="#footer">About NeuralSpace</a><a href="#studio">Demo limitations</a><a href="#home">Back to top ↑</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 NeuralSpace. Concept website.</span><span>Front-end demonstration · No live AI API connected</span></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const tools = [
+ {id:1,name:"Blog Writer",category:"Writing",icon:"✎",tone:"",description:"Plan and draft blog content with a clear topic, structure, and intended audience.",tag:"Content",level:"Beginner"},
+ {id:2,name:"Email Assistant",category:"Writing",icon:"✉",tone:"blue",description:"Organize professional emails, follow-ups, and concise business messages.",tag:"Communication",level:"Beginner"},
+ {id:3,name:"Code Explainer",category:"Coding",icon:"⌘",tone:"dark",description:"Break down programming concepts into readable steps and simple examples.",tag:"Developer",level:"Intermediate"},
+ {id:4,name:"Bug Report Helper",category:"Coding",icon:"⚙",tone:"orange",description:"Structure an issue report with reproduction steps, expected behavior, and actual results.",tag:"Debugging",level:"Intermediate"},
+ {id:5,name:"Visual Concept Planner",category:"Image",icon:"▧",tone:"pink",description:"Draft visual briefs describing composition, mood, subject, and image style.",tag:"Creative",level:"Beginner"},
+ {id:6,name:"Brand Moodboard",category:"Image",icon:"◈",tone:"",description:"Outline brand direction, visual references, typography ideas, and design language.",tag:"Design",level:"Beginner"},
+ {id:7,name:"Research Organizer",category:"Research",icon:"⌕",tone:"blue",description:"Organize a research question into themes, subtopics, and source-checking tasks.",tag:"Learning",level:"Intermediate"},
+ {id:8,name:"Study Notes",category:"Research",icon:"▤",tone:"green",description:"Create a structured revision outline from topics you provide.",tag:"Education",level:"Beginner"},
+ {id:9,name:"Meeting Summary",category:"Productivity",icon:"◷",tone:"orange",description:"Turn meeting notes into decisions, action items, and open questions.",tag:"Workflow",level:"Beginner"},
+ {id:10,name:"Task Planner",category:"Productivity",icon:"✓",tone:"green",description:"Break a large goal into manageable tasks with priorities and milestones.",tag:"Planning",level:"Beginner"},
+ {id:11,name:"SQL Practice Coach",category:"Coding",icon:"⌗",tone:"blue",description:"Generate SQL practice prompts covering filtering, joins, grouping, and subqueries.",tag:"Database",level:"Intermediate"},
+ {id:12,name:"Idea Generator",category:"Writing",icon:"✳",tone:"pink",description:"Explore project ideas, alternative approaches, and brainstorming directions.",tag:"Ideation",level:"Beginner"}
+];
+
+let activeCategory = "All";
+let favorites = new Set();
+let favoritesOnly = false;
+let toastTimer;
+
+const $ = id => document.getElementById(id);
+
+function toast(message){
+ const el=$("toast");
+ el.textContent=message;
+ el.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>el.classList.remove("show"),2800);
+}
+
+function renderTools(){
+ const query=$("toolSearch").value.trim().toLowerCase();
+ const visible=tools.filter(t=>{
+   const matchesCategory=activeCategory==="All"||t.category===activeCategory;
+   const matchesQuery=[t.name,t.category,t.description,t.tag,t.level].some(v=>v.toLowerCase().includes(query));
+   const matchesFavorite=!favoritesOnly||favorites.has(t.id);
+   return matchesCategory&&matchesQuery&&matchesFavorite;
+ });
+ const grid=$("toolGrid");
+ grid.innerHTML="";
+ $("favoriteCount").textContent=favorites.size;
+
+ visible.forEach(t=>{
+   const card=document.createElement("article");
+   card.className="tool-card";
+
+   const top=document.createElement("div");
+   top.className="tool-card-top";
+   const icon=document.createElement("div");
+   icon.className="tool-icon "+t.tone;
+   icon.textContent=t.icon;
+
+   const fav=document.createElement("button");
+   fav.className="favorite"+(favorites.has(t.id)?" saved":"");
+   fav.textContent=favorites.has(t.id)?"♥":"♡";
+   fav.setAttribute("aria-label",(favorites.has(t.id)?"Remove ":"Add ")+t.name+" "+(favorites.has(t.id)?"from":"to")+" favorites");
+   fav.setAttribute("aria-pressed",favorites.has(t.id));
+   fav.addEventListener("click",()=>{
+     if(favorites.has(t.id)) favorites.delete(t.id);
+     else favorites.add(t.id);
+     renderTools();
+   });
+   top.append(icon,fav);
+
+   const title=document.createElement("h3");
+   title.textContent=t.name;
+   const desc=document.createElement("p");
+   desc.textContent=t.description;
+
+   const meta=document.createElement("div");
+   meta.className="tool-meta";
+   const tag=document.createElement("span");
+   tag.className="tag";
+   tag.textContent=t.tag;
+   const level=document.createElement("span");
+   level.textContent=t.level;
+   meta.append(tag,level);
+
+   const use=document.createElement("button");
+   use.className="btn btn-light";
+   use.textContent="Try this workflow ↗";
+   use.addEventListener("click",()=>{
+     $("taskMode").value=t.category==="Coding"?"code":t.category==="Research"?"summary":t.category==="Writing"?"writing":t.category==="Productivity"?"ideas":"ideas";
+     $("promptInput").value="Help me use "+t.name+" to "+t.description.charAt(0).toLowerCase()+t.description.slice(1);
+     updateCharCount();
+     $("studioOutput").style.display="none";
+     $("studio").scrollIntoView({behavior:"smooth"});
+     $("promptInput").focus({preventScroll:true});
+     toast(t.name+" workflow loaded into the playground.");
+   });
+
+   card.append(top,title,desc,meta,use);
+   grid.appendChild(card);
+ });
+
+ const empty=document.createElement("div");
+ empty.className="no-tools";
+ empty.textContent=favoritesOnly?"No saved tools match your search.":"No tools match your search.";
+ empty.style.display=visible.length?"none":"block";
+ grid.appendChild(empty);
+}
+
+$("toolSearch").addEventListener("input",renderTools);
+
+$("categories").addEventListener("click",e=>{
+ const btn=e.target.closest("[data-category]");
+ if(!btn)return;
+ activeCategory=btn.dataset.category;
+ document.querySelectorAll(".category-btn").forEach(b=>b.classList.toggle("active",b===btn));
+ renderTools();
+});
+
+function toggleFavorites(){
+ favoritesOnly=!favoritesOnly;
+ $("favoritesFilter").classList.toggle("btn-primary",favoritesOnly);
+ $("favoritesFilter").classList.toggle("btn-outline",!favoritesOnly);
+ $("favoritesFilter").innerHTML=(favoritesOnly?"♥ Showing favorites":"♡ My favorites")+" (<span id='favoriteCount'>"+favorites.size+"</span>)";
+ renderTools();
+ $("tools").scrollIntoView({behavior:"smooth"});
+}
+$("favoritesFilter").addEventListener("click",toggleFavorites);
+$("savedNav").addEventListener("click",()=>{
+ if(!favoritesOnly){toggleFavorites();}
+ else $("tools").scrollIntoView({behavior:"smooth"});
+});
+$("footerFavorites").addEventListener("click",e=>{
+ e.preventDefault();
+ if(!favoritesOnly)toggleFavorites();
+ else $("tools").scrollIntoView({behavior:"smooth"});
+});
+
+const samples={
+ writing:"Write a friendly introduction for a student project about artificial intelligence. Keep it concise and professional.",
+ summary:"Artificial intelligence helps software identify patterns in data, automate repetitive tasks, and support decision-making. Its results depend on data quality, evaluation, and responsible use.",
+ code:"Explain this Python expression: numbers = [x * 2 for x in range(5)]",
+ ideas:"Suggest practical AI project ideas that a college student can build with Python and a small dataset."
+};
+
+$("taskMode").addEventListener("change",()=>{
+ $("promptInput").value=samples[$("taskMode").value]||"";
+ updateCharCount();
+});
+
+$("sampleBtn").addEventListener("click",()=>{
+ $("promptInput").value=samples[$("taskMode").value]||"";
+ updateCharCount();
+ $("promptInput").focus();
+});
+
+$("clearBtn").addEventListener("click",()=>{
+ $("promptInput").value="";
+ updateCharCount();
+ $("studioOutput").style.display="none";
+ $("promptInput").focus();
+});
+
+function updateCharCount(){
+ $("charCount").textContent=$("promptInput").value.length+" / 1800";
+}
+$("promptInput").addEventListener("input",updateCharCount);
+
+function makeLocalExample(mode,prompt){
+ const trimmed=prompt.trim();
+ const short=trimmed.length>220?trimmed.slice(0,220)+"…":trimmed;
+
+ if(mode==="writing"){
+  return "Draft structure\n\n1. Opening: Introduce the main topic and why it matters.\n2. Main point: Explain the idea using clear, specific details.\n3. Example: Add a practical example that your audience can understand.\n4. Conclusion: Summarize the key takeaway.\n\nYour prompt: "+short+"\n\nNext step: Add your target audience, desired tone, and approximate word count.";
+ }
+ if(mode==="summary"){
+  return "Summary framework\n\n• Main topic: "+short+"\n• Key points: Identify the central idea and 2–3 supporting details.\n• Important context: Check any dates, figures, or assumptions.\n• Takeaway: Write one sentence describing the main conclusion.\n\nNote: This local demonstration organizes your prompt; it does not retrieve external documents or verify facts.";
+ }
+ if(mode==="code"){
+  return "Code explanation checklist\n\n1. Identify the language and the purpose of the code.\n2. Break the expression into smaller operations.\n3. Trace the input and output with a small example.\n4. Check edge cases and possible errors.\n\nCode or question provided:\n"+short+"\n\nFor a precise explanation, paste the complete code and specify the behavior you expect.";
+ }
+ return "Idea exploration\n\n1. Define the goal: What problem should the project solve?\n2. Identify users: Who will benefit from it?\n3. Choose an approach: Start with a small prototype and measurable outcome.\n4. Validate: Test with sample inputs and record limitations.\n5. Improve: Add features based on feedback.\n\nStarting point: "+short+"\n\nTry generating three alternatives and compare their scope, data needs, and implementation effort.";
+}
+
+$("generateBtn").addEventListener("click",()=>{
+ const prompt=$("promptInput").value.trim();
+ if(!prompt){
+  toast("Enter a prompt first, or use the sample prompt.");
+  $("promptInput").focus();
+  return;
+ }
+ const button=$("generateBtn");
+ button.disabled=true;
+ button.textContent="Preparing example...";
+ setTimeout(()=>{
+   $("outputText").textContent=makeLocalExample($("taskMode").value,prompt);
+   $("studioOutput").style.display="block";
+   button.disabled=false;
+   button.textContent="✳ Generate example";
+   $("studioOutput").scrollIntoView({behavior:"smooth",block:"nearest"});
+ },350);
+});
+
+$("copyOutput").addEventListener("click",async()=>{
+ const text=$("outputText").textContent;
+ try{
+  await navigator.clipboard.writeText(text);
+  toast("Example result copied.");
+ }catch(e){
+  const area=document.createElement("textarea");
+  area.value=text;
+  area.style.position="fixed";
+  area.style.opacity="0";
+  document.body.appendChild(area);
+  area.select();
+  const ok=document.execCommand("copy");
+  area.remove();
+  toast(ok?"Example result copied.":"Copy failed. Please select and copy the text manually.");
+ }
+});
+
+$("menuToggle").addEventListener("click",()=>{
+ $("navLinks").classList.toggle("open");
+});
+document.querySelectorAll(".nav-links a").forEach(a=>{
+ a.addEventListener("click",()=>$("navLinks").classList.remove("open"));
+});
+
+renderTools();
+updateCharCount();
+</script>
+</body>
+</html>

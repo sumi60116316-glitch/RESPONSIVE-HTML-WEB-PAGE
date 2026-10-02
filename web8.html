@@ -1,0 +1,1801 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MediCare Plus healthcare website with medical services, doctors and appointment booking.">
+  <title>MediCare Plus | Healthcare You Can Trust</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #087f8c;
+      --primary-dark: #05636e;
+      --navy: #18334c;
+      --text: #263849;
+      --muted: #6e7e8b;
+      --light: #f3f9fa;
+      --border: #e0eaed;
+      --white: #fff;
+      --radius: 16px;
+      --shadow: 0 12px 35px rgba(24, 51, 76, 0.09);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Manrope", sans-serif;
+      line-height: 1.25;
+      color: var(--navy);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    .section {
+      padding: 85px 0;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 35px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      margin-bottom: 14px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 21px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: white;
+      border-color: var(--border);
+      color: var(--navy);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Top information bar */
+
+    .topbar {
+      background: var(--navy);
+      color: #e7f2f5;
+      font-size: 0.82rem;
+      padding: 9px 0;
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .topbar a:hover {
+      color: white;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Manrope", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--primary);
+      border-radius: 11px;
+      font-size: 1.6rem;
+    }
+
+    .logo span:last-child {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.9rem;
+      color: #526373;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 0;
+      font-size: 1.7rem;
+      color: var(--navy);
+    }
+
+    /* Hero */
+
+    .hero {
+      background:
+        radial-gradient(circle at 5% 10%, #dff5f4 0, transparent 30%),
+        linear-gradient(110deg, #f5fbfb, #edf6fa);
+      padding: 65px 0 75px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -1.8px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      max-width: 530px;
+      font-size: 1.05rem;
+      margin-bottom: 27px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-note strong {
+      color: var(--primary);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image {
+      height: 440px;
+      border-radius: 25px;
+      object-position: center;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-info-card {
+      position: absolute;
+      bottom: 25px;
+      left: -25px;
+      background: white;
+      padding: 17px 21px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      max-width: 235px;
+    }
+
+    .hero-info-card strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .hero-info-card span {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    /* Quick services */
+
+    .quick-services {
+      margin-top: -30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: white;
+      border-radius: 17px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .quick-item {
+      padding: 25px 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .quick-item:last-child {
+      border-right: none;
+    }
+
+    .quick-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+
+    .quick-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .quick-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* Departments */
+
+    .department-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .department-card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: 0.25s;
+      background: white;
+    }
+
+    .department-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: #b8dfe0;
+    }
+
+    .department-icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 18px;
+      border-radius: 13px;
+      background: #e4f6f5;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .department-card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+
+    .department-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 17px;
+    }
+
+    .text-link {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* About */
+
+    .about-section {
+      background: var(--light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      height: 430px;
+      border-radius: 22px;
+    }
+
+    .experience-card {
+      position: absolute;
+      right: -18px;
+      bottom: 25px;
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .experience-card strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.65rem;
+    }
+
+    .experience-card span {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .about-copy > p {
+      color: var(--muted);
+      margin: 15px 0 25px;
+    }
+
+    .about-points {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .about-point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .about-point .check {
+      display: grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #d9f2ee;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .about-point h3 {
+      font-size: 0.98rem;
+      margin-bottom: 3px;
+    }
+
+    .about-point p {
+      font-size: 0.87rem;
+      color: var(--muted);
+    }
+
+    /* Doctors */
+
+    .doctor-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .doctor-search {
+      width: min(100%, 330px);
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .doctor-search:focus {
+      border-color: var(--primary);
+    }
+
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .doctor-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: white;
+      transition: 0.25s;
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .doctor-card > img {
+      height: 240px;
+      object-position: center top;
+    }
+
+    .doctor-content {
+      padding: 19px;
+    }
+
+    .doctor-content h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .doctor-specialty {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .doctor-content p {
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-bottom: 15px;
+    }
+
+    .doctor-content .btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.87rem;
+    }
+
+    .empty-doctors {
+      display: none;
+      color: var(--muted);
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* Appointment form */
+
+    .appointment-section {
+      background: var(--navy);
+      color: white;
+    }
+
+    .appointment-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .appointment-copy .eyebrow {
+      color: #8ee0d8;
+    }
+
+    .appointment-copy h2 {
+      color: white;
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      margin-bottom: 17px;
+    }
+
+    .appointment-copy > p {
+      color: #c5d5df;
+      margin-bottom: 28px;
+    }
+
+    .contact-detail {
+      display: flex;
+      gap: 13px;
+      margin: 20px 0;
+      align-items: flex-start;
+    }
+
+    .contact-detail .symbol {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: #2a4a61;
+      color: #8ee0d8;
+    }
+
+    .contact-detail strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .contact-detail span {
+      font-size: 0.9rem;
+      color: #c5d5df;
+    }
+
+    .appointment-form {
+      padding: 30px;
+      border-radius: 19px;
+      background: white;
+      color: var(--text);
+    }
+
+    .appointment-form h3 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .form-intro {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 23px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.87rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .appointment-form .btn {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #e8f7f1;
+      color: #17674d;
+      font-size: 0.9rem;
+    }
+
+    .disclaimer {
+      color: #7d8b95;
+      font-size: 0.77rem;
+      margin-top: 13px;
+    }
+
+    /* Testimonials */
+
+    .testimonial-section {
+      background: var(--light);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .stars {
+      color: #d99c29;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-card blockquote {
+      color: #566b7a;
+      font-size: 0.93rem;
+      margin-bottom: 22px;
+    }
+
+    .patient {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .patient img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+    }
+
+    .patient strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .patient span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* FAQ */
+
+    .faq-wrap {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 21px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      background: none;
+      border: 0;
+      text-align: left;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .faq-question span:last-child {
+      color: var(--primary);
+      font-size: 1.4rem;
+    }
+
+    .faq-answer {
+      display: none;
+      color: var(--muted);
+      padding: 0 25px 21px 0;
+      font-size: 0.93rem;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Footer */
+
+    footer {
+      background: #142a3e;
+      color: white;
+      padding: 55px 0 20px;
+    }
+
+    footer .logo {
+      color: white;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: 35px;
+      padding-bottom: 35px;
+    }
+
+    .footer-about p {
+      color: #c0ced8;
+      font-size: 0.9rem;
+      margin-top: 15px;
+      max-width: 280px;
+    }
+
+    .footer-column h3 {
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 17px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #c0ced8;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-column p {
+      color: #c0ced8;
+      font-size: 0.88rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #344b5e;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      color: #c0ced8;
+      font-size: 0.83rem;
+    }
+
+    .back-top {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 43px;
+      height: 43px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.25rem;
+      display: none;
+      z-index: 500;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        gap: 14px;
+      }
+
+      .doctor-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-item:nth-child(2) {
+        border-right: none;
+      }
+
+      .quick-item:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section {
+        padding: 65px 0;
+      }
+
+      .topbar-inner {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-inner {
+        min-height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 22px 5%;
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-inner > .btn {
+        display: none;
+      }
+
+      .hero {
+        padding: 48px 0 60px;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .appointment-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero-image {
+        height: 340px;
+      }
+
+      .hero-info-card {
+        left: 8px;
+      }
+
+      .department-grid,
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-image img {
+        height: 330px;
+      }
+
+      .experience-card {
+        right: 5px;
+      }
+
+      .appointment-form {
+        padding: 23px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .department-grid,
+      .doctor-grid,
+      .testimonial-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .quick-item:last-child {
+        border-bottom: none;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .doctor-card > img {
+        height: 290px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top information bar -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Quality care. Personal attention.</span>
+      <span>Emergency assistance: <a href="tel:108">Call 108 for emergencies in India</a></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-mark">+</span>
+        <span>MediCare <span>Plus</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#departments">Departments</a>
+        <a href="#about">About</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+
+      <a href="#appointment" class="btn btn-primary">Book Appointment</a>
+
+      <button class="menu-toggle" id="menuToggle"
+              aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Your health matters</p>
+
+          <h1>Compassionate care.<br><span>Healthier lives.</span></h1>
+
+          <p class="hero-copy">
+            Discover patient-focused healthcare, experienced medical
+            professionals, and coordinated care designed around your needs.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#appointment" class="btn btn-primary">Book an Appointment →</a>
+            <a href="#departments" class="btn btn-outline">Explore Services</a>
+          </div>
+
+          <p class="hero-note">
+            <strong>✓</strong> Patient-focused care
+            <strong>✓</strong> Multiple specialties
+          </p>
+        </div>
+
+        <div class="hero-image-wrap">
+          <img
+            class="hero-image"
+            src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1000&q=85"
+            alt="Healthcare professionals discussing patient care">
+
+          <div class="hero-info-card">
+            <strong>Care that puts you first</strong>
+            <span>Explore services and request an appointment online.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick services -->
+    <section class="quick-services">
+      <div class="container quick-grid">
+        <div class="quick-item">
+          <div class="quick-icon">✚</div>
+          <strong>Emergency Care</strong>
+          <p>For emergencies, contact local emergency services immediately.</p>
+        </div>
+
+        <div class="quick-item">
+          <div class="quick-icon">◷</div>
+          <strong>Appointment Requests</strong>
+          <p>Send a request for a consultation with a doctor.</p>
+        </div>
+
+        <div class="quick-item">
+          <div class="quick-icon">♡</div>
+          <strong>Preventive Care</strong>
+          <p>Learn about checkups and everyday wellness.</p>
+        </div>
+
+        <div class="quick-item">
+          <div class="quick-icon">⌂</div>
+          <strong>Patient Support</strong>
+          <p>Find information about services and patient visits.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Departments -->
+    <section class="section" id="departments">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Our specialties</p>
+          <h2>Healthcare for different needs</h2>
+          <p>
+            Explore common medical specialties and choose the department
+            relevant to your appointment request.
+          </p>
+        </div>
+
+        <div class="department-grid">
+          <article class="department-card">
+            <div class="department-icon">♡</div>
+            <h3>Cardiology</h3>
+            <p>Heart health consultations, assessments, and ongoing care.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="Cardiology">Request consultation →</a>
+          </article>
+
+          <article class="department-card">
+            <div class="department-icon">⚕</div>
+            <h3>Neurology</h3>
+            <p>Assessment and care for conditions involving the nervous system.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="Neurology">Request consultation →</a>
+          </article>
+
+          <article class="department-card">
+            <div class="department-icon">⌁</div>
+            <h3>Pediatrics</h3>
+            <p>Healthcare consultations focused on infants, children, and teens.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="Pediatrics">Request consultation →</a>
+          </article>
+
+          <article class="department-card">
+            <div class="department-icon">✚</div>
+            <h3>Orthopedics</h3>
+            <p>Consultations for bone, joint, muscle, and mobility concerns.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="Orthopedics">Request consultation →</a>
+          </article>
+
+          <article class="department-card">
+            <div class="department-icon">◉</div>
+            <h3>Dermatology</h3>
+            <p>Professional assessment of skin, hair, and nail concerns.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="Dermatology">Request consultation →</a>
+          </article>
+
+          <article class="department-card">
+            <div class="department-icon">＋</div>
+            <h3>General Medicine</h3>
+            <p>General consultations, health assessments, and care coordination.</p>
+            <a href="#appointment" class="text-link department-link"
+               data-department="General Medicine">Request consultation →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about-section" id="about">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85"
+            alt="Medical professional reviewing healthcare information"
+            loading="lazy">
+
+          <div class="experience-card">
+            <strong>Patient First</strong>
+            <span>Care centered on individual needs</span>
+          </div>
+        </div>
+
+        <div class="about-copy">
+          <p class="eyebrow">About MediCare Plus</p>
+          <h2 style="font-size:clamp(1.9rem,4vw,2.7rem)">
+            A more thoughtful healthcare experience
+          </h2>
+
+          <p>
+            Our website concept brings essential healthcare information
+            together in one place, helping patients explore services and
+            submit appointment requests with ease.
+          </p>
+
+          <div class="about-points">
+            <div class="about-point">
+              <span class="check">✓</span>
+              <div>
+                <h3>Clear service information</h3>
+                <p>Explore specialties and understand the services offered.</p>
+              </div>
+            </div>
+
+            <div class="about-point">
+              <span class="check">✓</span>
+              <div>
+                <h3>Convenient appointment requests</h3>
+                <p>Submit your preferred department, date, and contact details.</p>
+              </div>
+            </div>
+
+            <div class="about-point">
+              <span class="check">✓</span>
+              <div>
+                <h3>Patient-friendly design</h3>
+                <p>Access the website from desktops, tablets, and smartphones.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#appointment" class="btn btn-primary">Request an Appointment</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors -->
+    <section class="section" id="doctors">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Meet the specialists</p>
+          <h2>Explore our doctor profiles</h2>
+          <p>
+            Search the sample profiles by name or specialty, then select a
+            doctor when making an appointment request.
+          </p>
+        </div>
+
+        <div class="doctor-toolbar">
+          <p style="color:var(--muted);font-size:.9rem">
+            Sample doctor profiles for website demonstration
+          </p>
+
+          <input
+            class="doctor-search"
+            type="search"
+            id="doctorSearch"
+            placeholder="Search doctor or specialty..."
+            aria-label="Search doctors">
+        </div>
+
+        <div class="doctor-grid" id="doctorGrid">
+
+          <article class="doctor-card"
+                   data-name="Dr. Ananya Rao Cardiology">
+            <img
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80"
+              alt="Doctor profile photograph" loading="lazy">
+
+            <div class="doctor-content">
+              <h3>Dr. Ananya Rao</h3>
+              <div class="doctor-specialty">Cardiology</div>
+              <p>Sample profile · Heart health consultations</p>
+              <button class="btn btn-outline doctor-book"
+                      data-doctor="Dr. Ananya Rao"
+                      data-department="Cardiology">Request Appointment</button>
+            </div>
+          </article>
+
+          <article class="doctor-card"
+                   data-name="Dr. Karthik Menon Neurology">
+            <img
+              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80"
+              alt="Doctor profile photograph" loading="lazy">
+
+            <div class="doctor-content">
+              <h3>Dr. Karthik Menon</h3>
+              <div class="doctor-specialty">Neurology</div>
+              <p>Sample profile · Nervous system consultations</p>
+              <button class="btn btn-outline doctor-book"
+                      data-doctor="Dr. Karthik Menon"
+                      data-department="Neurology">Request Appointment</button>
+            </div>
+          </article>
+
+          <article class="doctor-card"
+                   data-name="Dr. Meera Iyer Pediatrics">
+            <img
+              src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=600&q=80"
+              alt="Doctor profile photograph" loading="lazy">
+
+            <div class="doctor-content">
+              <h3>Dr. Meera Iyer</h3>
+              <div class="doctor-specialty">Pediatrics</div>
+              <p>Sample profile · Children's healthcare</p>
+              <button class="btn btn-outline doctor-book"
+                      data-doctor="Dr. Meera Iyer"
+                      data-department="Pediatrics">Request Appointment</button>
+            </div>
+          </article>
+
+          <article class="doctor-card"
+                   data-name="Dr. Arjun Nair Orthopedics">
+            <img
+              src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
+              alt="Doctor profile photograph" loading="lazy">
+
+            <div class="doctor-content">
+              <h3>Dr. Arjun Nair</h3>
+              <div class="doctor-specialty">Orthopedics</div>
+              <p>Sample profile · Bone and joint consultations</p>
+              <button class="btn btn-outline doctor-book"
+                      data-doctor="Dr. Arjun Nair"
+                      data-department="Orthopedics">Request Appointment</button>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="empty-doctors" id="emptyDoctors">
+          No matching profiles found. Try another search.
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment booking -->
+    <section class="section appointment-section" id="appointment">
+      <div class="container appointment-grid">
+        <div class="appointment-copy">
+          <p class="eyebrow">Take the next step</p>
+          <h2>Request an appointment</h2>
+
+          <p>
+            Fill in your contact information and preferred consultation
+            details. In this demo, submitting the form displays a confirmation
+            on the page; it does not contact a hospital.
+          </p>
+
+          <div class="contact-detail">
+            <div class="symbol">☎</div>
+            <div>
+              <strong>Phone</strong>
+              <span>Replace with the hospital's verified contact number.</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="symbol">⌖</div>
+            <div>
+              <strong>Location</strong>
+              <span>Replace with the actual hospital address.</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="symbol">◷</div>
+            <div>
+              <strong>Consultation hours</strong>
+              <span>Contact the hospital to confirm availability.</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="appointment-form" id="appointmentForm">
+          <h3>Appointment details</h3>
+          <p class="form-intro">Fields marked with * are required.</p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="patientName">Full name *</label>
+              <input type="text" id="patientName" name="patientName"
+                     placeholder="Enter your name" required
+                     maxlength="100" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label for="patientPhone">Phone number *</label>
+              <input type="tel" id="patientPhone" name="patientPhone"
+                     placeholder="10-digit mobile number"
+                     pattern="[6-9][0-9]{9}" required
+                     inputmode="numeric" maxlength="10"
+                     title="Enter a valid 10-digit Indian mobile number"
+                     autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label for="patientEmail">Email address</label>
+              <input type="email" id="patientEmail" name="patientEmail"
+                     placeholder="name@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="patientDepartment">Department *</label>
+              <select id="patientDepartment" name="department" required>
+                <option value="">Choose department</option>
+                <option>Cardiology</option>
+                <option>Neurology</option>
+                <option>Pediatrics</option>
+                <option>Orthopedics</option>
+                <option>Dermatology</option>
+                <option>General Medicine</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="preferredDoctor">Preferred doctor</label>
+              <select id="preferredDoctor" name="doctor">
+                <option value="">No preference</option>
+                <option>Dr. Ananya Rao</option>
+                <option>Dr. Karthik Menon</option>
+                <option>Dr. Meera Iyer</option>
+                <option>Dr. Arjun Nair</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="appointmentDate">Preferred date *</label>
+              <input type="date" id="appointmentDate"
+                     name="appointmentDate" required>
+            </div>
+
+            <div class="form-group full">
+              <label for="appointmentNotes">Additional information (optional)</label>
+              <textarea id="appointmentNotes" name="notes"
+                        maxlength="500"
+                        placeholder="Optional: brief appointment-related information"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Submit Request →
+          </button>
+
+          <div class="form-message" id="formMessage" role="status"
+               aria-live="polite"></div>
+
+          <p class="disclaimer">
+            Demo only: do not enter sensitive medical information. This form
+            does not save or send your details to a hospital. An appointment
+            is not confirmed by submitting this form.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonial-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Patient experience</p>
+          <h2>What a supportive experience can look like</h2>
+          <p>
+            These illustrative testimonials demonstrate how patient feedback
+            could appear on a healthcare website.
+          </p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>
+              “The appointment process was easy to understand, and the
+              information was clearly organized.”
+            </blockquote>
+            <div class="patient">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                alt="" loading="lazy">
+              <div>
+                <strong>Sample Patient A</strong>
+                <span>Illustrative feedback</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>
+              “Being able to explore different departments in one place
+              made it easier to understand the available services.”
+            </blockquote>
+            <div class="patient">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
+                alt="" loading="lazy">
+              <div>
+                <strong>Sample Patient B</strong>
+                <span>Illustrative feedback</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>
+              “The layout was simple to navigate on my phone, and the
+              appointment details were easy to find.”
+            </blockquote>
+            <div class="patient">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80"
+                alt="" loading="lazy">
+              <div>
+                <strong>Sample Patient C</strong>
+                <span>Illustrative feedback</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container faq-wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Frequently asked questions</p>
+          <h2>Need more information?</h2>
+          <p>Read these general answers before requesting an appointment.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How do I request an appointment?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Select “Book Appointment,” fill in the required fields, and submit
+            the form. This demonstration does not send a real booking request.
+            A production website needs a secure backend and hospital confirmation.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can I choose a particular doctor?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Yes, the sample form includes a preferred-doctor field.
+            Availability must be verified by the actual healthcare provider.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Does submitting the form confirm my appointment?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            No. The current version is a frontend demo. A real appointment
+            system should send the request to the hospital and provide a
+            confirmation only after availability has been checked.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What should I do in a medical emergency?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Do not wait for a website response or routine appointment.
+            Contact local emergency services immediately. In India, call 112
+            or 108 for emergency assistance as appropriate in your area.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Are the doctors and reviews on this page real?</span>
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            No. The names, profiles, and testimonials are illustrative sample
+            content for this website design. Replace them with verified,
+            authorized information before publishing.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="#home" class="logo">
+            <span class="logo-mark">+</span>
+            <span>MediCare <span>Plus</span></span>
+          </a>
+          <p>
+            A responsive healthcare website concept designed to make
+            medical services and appointment information easier to explore.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <a href="#home">Home</a>
+          <a href="#about">About Us</a>
+          <a href="#departments">Departments</a>
+          <a href="#doctors">Doctors</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Our Services</h3>
+          <a href="#departments">Cardiology</a>
+          <a href="#departments">Neurology</a>
+          <a href="#departments">Pediatrics</a>
+          <a href="#appointment">Appointments</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Information</h3>
+          <p>Replace this section with the verified hospital address.</p>
+          <p style="margin-top:10px">
+            <a href="#appointment">Appointment enquiries →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="currentYear"></span> MediCare Plus. Demo website.</p>
+        <p>For demonstration purposes only. Not a real hospital service.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // Set minimum appointment date to today
+    const dateInput = document.getElementById("appointmentDate");
+    const today = new Date();
+    const localToday = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0")
+    ].join("-");
+
+    dateInput.min = localToday;
+
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Filter doctor profiles
+    const doctorSearch = document.getElementById("doctorSearch");
+    const doctorCards = Array.from(
+      document.querySelectorAll(".doctor-card")
+    );
+    const emptyDoctors = document.getElementById("emptyDoctors");
+
+    doctorSearch.addEventListener("input", () => {
+      const keyword = doctorSearch.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      doctorCards.forEach(card => {
+        const searchText = card.dataset.name.toLowerCase();
+        const matches = searchText.includes(keyword);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visibleCount++;
+      });
+
+      emptyDoctors.style.display = visibleCount ? "none" : "block";
+    });
+
+    // Prefill department when a department link is clicked
+    const departmentSelect =
+      document.getElementById("patientDepartment");
+
+    document.querySelectorAll(".department-link").forEach(link => {
+      link.addEventListener("click", () => {
+        departmentSelect.value = link.dataset.department;
+      });
+    });
+
+    // Prefill department and doctor from a doctor card
+    document.querySelectorAll(".doctor-book").forEach(button => {
+      button.addEventListener("click", () => {
+        departmentSelect.value = button.dataset.department;
+
+        const doctorSelect = document.getElementById("preferredDoctor");
+        doctorSelect.value = button.dataset.doctor;
+
+        document.getElementById("appointment").scrollIntoView({
+          behavior: "smooth"
+        });
+      });
+    });
+
+    // Appointment form demo: no data is sent or stored
+    const appointmentForm =
+      document.getElementById("appointmentForm");
+    const formMessage =
+      document.getElementById("formMessage");
+
+    appointmentForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!appointmentForm.reportValidity()) return;
+
+      const name = document.getElementById("patientName").value.trim();
+      const selectedDate = dateInput.value;
+
+      formMessage.style.display = "block";
+      formMessage.textContent =
+        "Demo request prepared for " + name +
+        " on " + selectedDate +
+        ". No information was sent or stored, and no appointment is confirmed.";
+
+      formMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll(".faq-question").forEach(button => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq-item");
+        const wasOpen = item.classList.contains("open");
+
+        document.querySelectorAll(".faq-item").forEach(faq => {
+          faq.classList.remove("open");
+          faq.querySelector(".faq-question").setAttribute(
+            "aria-expanded", "false"
+          );
+          faq.querySelector(".faq-question span:last-child").textContent = "+";
+        });
+
+        if (!wasOpen) {
+          item.classList.add("open");
+          button.setAttribute("aria-expanded", "true");
+          button.querySelector("span:last-child").textContent = "−";
+        }
+      });
+    });
+
+    // Back-to-top button
+    const backTop = document.getElementById("backTop");
+
+    window.addEventListener("scroll", () => {
+      backTop.style.display = window.scrollY > 400 ? "block" : "none";
+    });
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    // Dynamic copyright year
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>

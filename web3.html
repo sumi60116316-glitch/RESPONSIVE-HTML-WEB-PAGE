@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tripora | Explore the World</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#087e8b;--dark:#15343c;--bg:#f5f9fa;--muted:#71838a;--border:#e2eaec}
+body{font-family:Arial,sans-serif;background:var(--bg);color:#20343a}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--dark);color:white;text-align:center;padding:9px;font-size:12px}
+header{background:white;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
+.nav{max-width:1250px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.logo{font-size:27px;font-weight:800;color:var(--dark)}
+.logo span{color:var(--primary)}
+nav{display:flex;gap:25px}
+nav a{font-size:14px;color:#52656b}
+nav a:hover{color:var(--primary)}
+.nav-btn,.primary{background:var(--primary);color:white;border:0;padding:12px 19px;border-radius:7px;font-weight:bold}
+.nav-btn:hover,.primary:hover{background:#056570}
+.hero{min-height:490px;background:linear-gradient(90deg,rgba(8,39,45,.82),rgba(8,39,45,.15)),url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=85") center/cover;display:flex;align-items:center;color:white}
+.hero-content{max-width:1200px;width:100%;margin:auto;padding:60px 30px}
+.eyebrow{letter-spacing:3px;font-size:12px;color:#b9f0e8;margin-bottom:20px}
+.hero h1{font-size:clamp(38px,6vw,66px);line-height:1.08;max-width:650px;margin-bottom:18px}
+.hero p{max-width:510px;line-height:1.8;color:#e5f1f1;margin-bottom:28px}
+.search-panel{max-width:1100px;background:white;margin:-40px auto 0;position:relative;z-index:2;border-radius:12px;box-shadow:0 10px 35px #193f4515;padding:22px;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:13px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
+.field input,.field select{width:100%;padding:12px;border:1px solid var(--border);border-radius:7px;background:white;outline:none}
+.field input:focus,.field select:focus{border-color:var(--primary)}
+.search-panel button{align-self:end;min-height:43px}
+.container{max-width:1200px;margin:auto;padding:60px 25px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:25px}
+.section-head h2{font-size:28px;color:var(--dark);margin-bottom:8px}
+.section-head p{color:var(--muted);font-size:14px;line-height:1.6}
+.text-link{color:var(--primary);font-size:14px;font-weight:bold}
+.destination-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.destination{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.25s}
+.destination:hover{transform:translateY(-5px);box-shadow:0 12px 30px #123c4510}
+.destination img{width:100%;height:225px;object-fit:cover;display:block}
+.destination-info{padding:18px}
+.destination-info h3{font-size:19px;margin-bottom:8px}
+.destination-info p{font-size:13px;color:var(--muted);line-height:1.6}
+.destination-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:17px}
+.price{font-size:19px;color:var(--primary);font-weight:bold}
+.price small{font-size:11px;color:var(--muted);font-weight:normal}
+.rating{font-size:13px;color:#d49a24}
+.card-btn{margin-top:15px;width:100%;padding:11px;border:1px solid var(--primary);border-radius:7px;color:var(--primary);background:white;font-weight:bold}
+.card-btn:hover{background:var(--primary);color:white}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.filter-btn{border:1px solid var(--border);background:white;padding:10px 17px;border-radius:25px;color:#506269}
+.filter-btn.active,.filter-btn:hover{background:var(--primary);color:white;border-color:var(--primary)}
+.promo{background:var(--dark);color:white;border-radius:15px;padding:40px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+.promo h2{font-size:28px;margin-bottom:12px}
+.promo p{color:#c9dadd;line-height:1.7;font-size:14px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.why-card{background:white;border:1px solid var(--border);padding:25px;border-radius:10px}
+.why-card .icon{font-size:29px;margin-bottom:15px}
+.why-card h3{font-size:17px;margin-bottom:9px}
+.why-card p{font-size:13px;color:var(--muted);line-height:1.7}
+.empty{text-align:center;padding:30px;color:var(--muted);display:none}
+footer{background:#102c33;color:white;padding:38px 25px}
+.footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+footer p{font-size:13px;color:#c0d2d5;line-height:1.8;margin-top:8px}
+footer a{font-size:13px;margin-right:15px;color:#e2eeee}
+.overlay{display:none;position:fixed;inset:0;background:#081e25a8;z-index:30;align-items:center;justify-content:center;padding:18px}
+.modal{background:white;width:min(500px,100%);max-height:90vh;overflow:auto;padding:28px;border-radius:14px}
+.modal h2{margin-bottom:10px;color:var(--dark)}
+.modal>p{font-size:13px;line-height:1.7;color:var(--muted);margin-bottom:20px}
+.form-row{margin-bottom:15px}
+.form-row label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:7px}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions button{flex:1}
+.secondary{background:white;border:1px solid var(--border);border-radius:7px;padding:12px}
+.message{font-size:13px;line-height:1.6;color:#08734a;margin-top:14px}
+@media(max-width:900px){
+ .search-panel{margin:20px 20px 0;grid-template-columns:repeat(2,1fr)}
+ .destination-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .container{padding:45px 20px}
+}
+@media(max-width:600px){
+ .nav{padding:15px;flex-wrap:wrap}
+ nav{order:3;width:100%;justify-content:space-between;gap:10px}
+ nav a{font-size:12px}
+ .hero{min-height:420px}
+ .hero-content{padding:40px 22px}
+ .search-panel{grid-template-columns:1fr;margin:15px}
+ .destination-grid,.why-grid{grid-template-columns:1fr}
+ .destination img{height:220px}
+ .section-head{align-items:start;flex-direction:column}
+ .promo{padding:25px;flex-direction:column;align-items:start}
+ .promo h2{font-size:23px}
+ .container{padding:40px 16px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">✈ Your next adventure starts here — explore new destinations</div>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="#home">Trip<span>ora.</span></a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="nav-btn" id="navBook">Plan a Trip ↗</button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">DISCOVER · EXPERIENCE · REMEMBER</div>
+    <h1>Explore the World, One Journey at a Time.</h1>
+    <p>Discover beautiful destinations, plan memorable getaways and turn your travel dreams into experiences.</p>
+    <button class="primary" onclick="document.getElementById('destinations').scrollIntoView({behavior:'smooth'})">Explore Destinations →</button>
+  </div>
+</section>
+
+<form class="search-panel" id="searchForm">
+  <div class="field">
+    <label for="destinationSearch">Where do you want to go?</label>
+    <input id="destinationSearch" placeholder="Search destinations">
+  </div>
+  <div class="field">
+    <label for="travelDate">Travel date</label>
+    <input id="travelDate" type="date">
+  </div>
+  <div class="field">
+    <label for="travellers">Travellers</label>
+    <select id="travellers">
+      <option>1 Traveller</option>
+      <option selected>2 Travellers</option>
+      <option>3 Travellers</option>
+      <option>4 Travellers</option>
+      <option>5+ Travellers</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="tripType">Trip type</label>
+    <select id="tripType">
+      <option value="All">Any experience</option>
+      <option value="Beach">Beach</option>
+      <option value="Mountain">Mountain</option>
+      <option value="City">City</option>
+      <option value="Nature">Nature</option>
+    </select>
+  </div>
+  <button class="primary" type="submit">Search Trips</button>
+</form>
+
+<main>
+<section class="container" id="destinations">
+  <div class="section-head">
+    <div>
+      <h2>Popular Destinations</h2>
+      <p>Explore places travellers love to discover.</p>
+    </div>
+    <span class="text-link">Find your next escape ✦</span>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-type="All">All Places</button>
+    <button class="filter-btn" data-type="Beach">🏖 Beach</button>
+    <button class="filter-btn" data-type="Mountain">🏔 Mountain</button>
+    <button class="filter-btn" data-type="City">🏙 City</button>
+    <button class="filter-btn" data-type="Nature">🌿 Nature</button>
+  </div>
+
+  <div class="destination-grid" id="destinationGrid">
+
+    <article class="destination" data-name="Bali Indonesia" data-type="Beach" data-price="24999">
+      <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=85" alt="Bali tropical destination" loading="lazy">
+      <div class="destination-info">
+        <h3>Bali, Indonesia</h3>
+        <p>Beautiful beaches, tropical scenery and unforgettable sunsets.</p>
+        <div class="destination-bottom">
+          <div class="price">₹24,999 <small>/ person</small></div>
+          <span class="rating">★ 4.8</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+    <article class="destination" data-name="Manali Himachal Pradesh" data-type="Mountain" data-price="12999">
+      <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=85" alt="Mountain scenery in Manali" loading="lazy">
+      <div class="destination-info">
+        <h3>Manali, India</h3>
+        <p>Snowy peaks, mountain roads and peaceful Himalayan views.</p>
+        <div class="destination-bottom">
+          <div class="price">₹12,999 <small>/ person</small></div>
+          <span class="rating">★ 4.7</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+    <article class="destination" data-name="Paris France" data-type="City" data-price="59999">
+      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=85" alt="Paris city and Eiffel Tower" loading="lazy">
+      <div class="destination-info">
+        <h3>Paris, France</h3>
+        <p>Iconic landmarks, museums, cafés and charming streets.</p>
+        <div class="destination-bottom">
+          <div class="price">₹59,999 <small>/ person</small></div>
+          <span class="rating">★ 4.9</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+    <article class="destination" data-name="Munnar Kerala" data-type="Nature" data-price="8999">
+      <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=85" alt="Kerala green hills and nature" loading="lazy">
+      <div class="destination-info">
+        <h3>Munnar, India</h3>
+        <p>Green tea gardens, misty hills and relaxing nature trails.</p>
+        <div class="destination-bottom">
+          <div class="price">₹8,999 <small>/ person</small></div>
+          <span class="rating">★ 4.6</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+    <article class="destination" data-name="Maldives Island" data-type="Beach" data-price="39999">
+      <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=85" alt="Maldives island resort" loading="lazy">
+      <div class="destination-info">
+        <h3>Maldives</h3>
+        <p>Clear blue waters, island escapes and ocean-side stays.</p>
+        <div class="destination-bottom">
+          <div class="price">₹39,999 <small>/ person</small></div>
+          <span class="rating">★ 4.9</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+    <article class="destination" data-name="Swiss Alps Switzerland" data-type="Mountain" data-price="69999">
+      <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=900&q=85" alt="Swiss Alps mountain scenery" loading="lazy">
+      <div class="destination-info">
+        <h3>Swiss Alps, Switzerland</h3>
+        <p>Alpine villages, scenic train rides and stunning mountain views.</p>
+        <div class="destination-bottom">
+          <div class="price">₹69,999 <small>/ person</small></div>
+          <span class="rating">★ 4.8</span>
+        </div>
+        <button class="card-btn">View Trip Details</button>
+      </div>
+    </article>
+
+  </div>
+  <p class="empty" id="emptyMessage">No destinations found. Try another search.</p>
+</section>
+
+<section class="container" id="packages">
+  <div class="promo">
+    <div>
+      <h2>Your next adventure is calling.</h2>
+      <p>Choose your destination, select your travel dates and start planning your next memorable journey.</p>
+    </div>
+    <button class="primary" id="promoBook">Plan My Trip →</button>
+  </div>
+</section>
+
+<section class="container" id="about">
+  <div class="section-head">
+    <div>
+      <h2>Why Travel With Tripora?</h2>
+      <p>Make planning your next trip easier.</p>
+    </div>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="icon">🌍</div>
+      <h3>Discover New Places</h3>
+      <p>Browse destinations, explore different experiences and find places that match your interests.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">🗓️</div>
+      <h3>Plan With Ease</h3>
+      <p>Choose a destination, travel date and group size in one simple booking interface.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">💚</div>
+      <h3>Travel Your Way</h3>
+      <p>Find beach escapes, mountain adventures, city experiences and peaceful nature trips.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h2>Trip<span style="color:#65d0c5">ora.</span></h2>
+      <p>Discover more. Experience more.<br>Make every journey memorable.</p>
+    </div>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+    </div>
+    <p>© 2026 Tripora. Travel website demo.</p>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+
+<div class="overlay" id="bookingOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <h2 id="bookingTitle">Plan Your Journey ✈️</h2>
+    <p id="selectedDescription">Enter your details to create a travel enquiry.</p>
+
+    <form id="bookingForm">
+      <div class="form-row">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" required placeholder="Enter your name">
+      </div>
+
+      <div class="form-row">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" required placeholder="you@example.com">
+      </div>
+
+      <div class="form-row">
+        <label for="selectedDestination">Destination</label>
+        <select id="selectedDestination" required>
+          <option value="">Choose a destination</option>
+          <option>Bali, Indonesia</option>
+          <option>Manali, India</option>
+          <option>Paris, France</option>
+          <option>Munnar, India</option>
+          <option>Maldives</option>
+          <option>Swiss Alps, Switzerland</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="bookingDate">Travel Date</label>
+        <input id="bookingDate" type="date" required>
+      </div>
+
+      <div class="form-row">
+        <label for="bookingTravellers">Number of Travellers</label>
+        <select id="bookingTravellers" required>
+          <option value="1">1 Traveller</option>
+          <option value="2" selected>2 Travellers</option>
+          <option value="3">3 Travellers</option>
+          <option value="4">4 Travellers</option>
+          <option value="5">5 Travellers</option>
+          <option value="6">6 Travellers</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary" id="cancelBooking">Cancel</button>
+        <button type="submit" class="primary">Submit Enquiry</button>
+      </div>
+      <div class="message" id="bookingMessage" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const cards = [...document.querySelectorAll(".destination")];
+const filterButtons = [...document.querySelectorAll(".filter-btn")];
+const destinationSearch = document.getElementById("destinationSearch");
+const tripType = document.getElementById("tripType");
+const emptyMessage = document.getElementById("emptyMessage");
+
+let activeType = "All";
+let chosenCard = null;
+
+function filterDestinations() {
+  const query = destinationSearch.value.trim().toLowerCase();
+  const selectedType = tripType.value;
+  let count = 0;
+
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const type = card.dataset.type;
+
+    const matchesSearch = name.includes(query);
+    const matchesFilter = activeType === "All" || type === activeType;
+    const matchesTripType = selectedType === "All" || type === selectedType;
+
+    const show = matchesSearch && matchesFilter && matchesTripType;
+    card.style.display = show ? "" : "none";
+    if (show) count++;
+  });
+
+  emptyMessage.style.display = count ? "none" : "block";
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    activeType = button.dataset.type;
+    tripType.value = "All";
+
+    filterButtons.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    filterDestinations();
+  });
+});
+
+destinationSearch.addEventListener("input", filterDestinations);
+tripType.addEventListener("change", filterDestinations);
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  filterDestinations();
+  document.getElementById("destinations").scrollIntoView({behavior:"smooth"});
+});
+
+const overlay = document.getElementById("bookingOverlay");
+const selectedDestination = document.getElementById("selectedDestination");
+const bookingDate = document.getElementById("bookingDate");
+const bookingMessage = document.getElementById("bookingMessage");
+
+const today = new Date();
+const localToday = [
+  today.getFullYear(),
+  String(today.getMonth() + 1).padStart(2, "0"),
+  String(today.getDate()).padStart(2, "0")
+].join("-");
+
+document.getElementById("travelDate").min = localToday;
+bookingDate.min = localToday;
+
+function openBooking(card = null) {
+  chosenCard = card;
+  bookingMessage.textContent = "";
+  document.getElementById("bookingForm").reset();
+
+  if (card) {
+    selectedDestination.value = [...selectedDestination.options]
+      .find(option => option.text === card.querySelector("h3").textContent)?.value || "";
+
+    document.getElementById("selectedDescription").textContent =
+      card.querySelector("h3").textContent + " — " +
+      card.querySelector(".price").textContent.trim();
+  } else {
+    document.getElementById("selectedDescription").textContent =
+      "Enter your details to create a travel enquiry.";
+  }
+
+  bookingDate.min = localToday;
+  overlay.style.display = "flex";
+}
+
+document.querySelectorAll(".destination .card-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    openBooking(button.closest(".destination"));
+  });
+});
+
+document.getElementById("navBook").addEventListener("click", () => openBooking());
+document.getElementById("promoBook").addEventListener("click", () => openBooking());
+
+document.getElementById("cancelBooking").addEventListener("click", () => {
+  overlay.style.display = "none";
+});
+
+overlay.addEventListener("click", event => {
+  if (event.target === overlay) overlay.style.display = "none";
+});
+
+document.getElementById("bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (bookingDate.value < localToday) {
+    bookingMessage.textContent = "Please choose today or a future travel date.";
+    return;
+  }
+
+  const reference = "TR" + Date.now().toString().slice(-6);
+  const destination = selectedDestination.value;
+
+  bookingMessage.textContent =
+    "Enquiry preview created! Reference: " + reference +
+    ". Destination: " + destination +
+    ". This demo does not send your details or confirm a real booking.";
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") overlay.style.display = "none";
+});
+</script>
+
+</body>
+</html>

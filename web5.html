@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELORA | Luxury Hotel & Resorts</title>
+
+<style>
+:root {
+  --dark: #172b27;
+  --green: #31594c;
+  --gold: #c5a46d;
+  --cream: #f8f6f1;
+  --text: #293b35;
+  --muted: #77817b;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: white;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1180px, 90%);
+  margin: auto;
+}
+
+.topline {
+  background: var(--dark);
+  color: #e8e1d4;
+  text-align: center;
+  padding: 9px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 4px 20px #172b270c;
+}
+
+.nav-inner {
+  min-height: 82px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.brand {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+.brand span {
+  display: block;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.btn {
+  border: 1px solid var(--green);
+  padding: 13px 21px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: white;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: .25s;
+}
+
+.btn:hover {
+  background: var(--dark);
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background: transparent;
+  color: white;
+  border-color: #ffffffaa;
+}
+
+.btn-light:hover {
+  background: white;
+  color: var(--dark);
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: none;
+  font-size: 27px;
+  color: var(--dark);
+}
+
+.hero {
+  min-height: 650px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+  background:
+    linear-gradient(90deg, #0e201bd9, #0e201b80 52%, #0e201b12),
+    url("https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2000&q=85")
+    center/cover no-repeat;
+}
+
+.hero-content {
+  max-width: 680px;
+  padding: 95px 0 150px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(43px, 6vw, 76px);
+  line-height: 1.07;
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  margin-bottom: 23px;
+}
+
+.hero h1 em {
+  color: #e6cb98;
+  font-weight: 400;
+}
+
+.hero p {
+  max-width: 480px;
+  color: #e4e8e4;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.booking-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -65px;
+}
+
+.booking-bar {
+  background: white;
+  padding: 26px;
+  box-shadow: 0 15px 45px #172b271a;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr .8fr auto;
+  gap: 18px;
+  align-items: end;
+}
+
+.booking-field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 9px;
+  font-weight: 700;
+}
+
+.booking-field input,
+.booking-field select {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #dce2dd;
+  padding: 10px 0;
+  outline: none;
+  background: white;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.booking-field input:focus,
+.booking-field select:focus {
+  border-color: var(--gold);
+}
+
+.booking-bar .btn {
+  min-height: 43px;
+  white-space: nowrap;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-cream {
+  background: var(--cream);
+}
+
+.section-heading {
+  max-width: 680px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-tag {
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--dark);
+  margin-bottom: 17px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 75px;
+  align-items: center;
+}
+
+.about-photo {
+  position: relative;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+.about-photo::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--gold);
+  z-index: -1;
+}
+
+.about-copy h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--dark);
+  margin-bottom: 22px;
+}
+
+.about-copy p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.signature {
+  color: var(--green);
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  margin: 25px 0;
+}
+
+.text-link {
+  display: inline-block;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 5px;
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.room-card {
+  background: white;
+  border: 1px solid #e9e8e1;
+  transition: .3s;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px #172b2714;
+}
+
+.room-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.room-card:hover .room-image img {
+  transform: scale(1.05);
+}
+
+.room-label {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: white;
+  padding: 7px 11px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.room-info {
+  padding: 25px;
+}
+
+.room-info h3 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.room-info p {
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 62px;
+}
+
+.room-meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 11px;
+  margin: 15px 0 20px;
+}
+
+.room-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e9e8e1;
+  padding-top: 18px;
+}
+
+.price strong {
+  color: var(--dark);
+  font-size: 22px;
+}
+
+.price span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.room-bottom button {
+  background: none;
+  border: 0;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.experience-card {
+  text-align: center;
+  padding: 20px 18px;
+}
+
+.experience-number {
+  font-family: Georgia, serif;
+  color: var(--gold);
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.experience-card h3 {
+  color: var(--dark);
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.experience-card p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-rows: 210px 210px;
+  gap: 15px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item:first-child {
+  grid-row: span 2;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 18px 15px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(transparent, #101b18bb);
+}
+
+.offer {
+  padding: 80px 0;
+  background:
+    linear-gradient(90deg, #172b27eb, #172b2790),
+    url("https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1800&q=85")
+    center/cover no-repeat;
+  color: white;
+}
+
+.offer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 35px;
+}
+
+.offer h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.offer p {
+  color: #e2e9e4;
+  font-size: 14px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 60px;
+}
+
+.contact-info h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: var(--dark);
+  font-size: 40px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.contact-info > p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.contact-detail {
+  margin: 20px 0;
+}
+
+.contact-detail strong {
+  display: block;
+  color: var(--dark);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.contact-detail span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.contact-form {
+  padding: 32px;
+  background: var(--cream);
+}
+
+.contact-form h3 {
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-field {
+  margin-bottom: 17px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #dedfd7;
+  background: white;
+  outline: none;
+  color: var(--text);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--green);
+}
+
+.form-field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.contact-form .btn {
+  width: 100%;
+}
+
+.form-message {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  background: #e4f3e8;
+  color: #225d37;
+  font-size: 13px;
+}
+
+.footer {
+  background: var(--dark);
+  color: #e6eae6;
+  padding: 55px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 35px;
+}
+
+.footer .brand {
+  color: white;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.footer-about {
+  color: #b9c6be;
+  font-size: 13px;
+  max-width: 270px;
+}
+
+.footer h3 {
+  color: white;
+  font-size: 13px;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: grid;
+  gap: 11px;
+  color: #b9c6be;
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid #ffffff20;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #aab8b0;
+  font-size: 11px;
+}
+
+.back-top {
+  display: none;
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 50;
+  border: none;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  font-size: 20px;
+}
+
+.back-top.show {
+  display: block;
+}
+
+@media (max-width: 950px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .nav-inner > .btn {
+    display: none;
+  }
+
+  .booking-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .booking-bar .btn {
+    width: 100%;
+  }
+
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid,
+  .contact-grid {
+    gap: 35px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .nav-inner {
+    min-height: 72px;
+  }
+
+  .brand {
+    font-size: 23px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    padding: 15px 5%;
+    background: white;
+    box-shadow: 0 12px 20px #172b2710;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+  }
+
+  .hero {
+    min-height: 570px;
+    background-position: 60% center;
+  }
+
+  .hero-content {
+    padding: 75px 0 120px;
+  }
+
+  .hero h1 {
+    font-size: 45px;
+  }
+
+  .booking-bar {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo {
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  .about-photo img {
+    height: 320px;
+  }
+
+  .rooms-grid,
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-image {
+    height: 245px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 240px 170px 170px;
+  }
+
+  .gallery-item:first-child {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+
+  .offer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-form {
+    padding: 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 37px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topline">
+  AN EXCEPTIONAL STAY, THOUGHTFULLY DESIGNED
+</div>
+
+<header class="navbar">
+  <div class="container nav-inner">
+
+    <a href="#home" class="brand">
+      VELORA
+      <span>HOTELS & RESORTS</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+      aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">Our Story</a>
+      <a href="#rooms">Suites & Rooms</a>
+      <a href="#experiences">Experiences</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#booking" class="btn">RESERVE YOUR STAY ↗</a>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">Welcome to Velora</div>
+
+      <h1>Where Every Stay<br>Becomes <em>a Story.</em></h1>
+
+      <p>
+        Discover a world of thoughtful hospitality, beautiful spaces
+        and unforgettable experiences designed around you.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#rooms" class="btn">EXPLORE OUR ROOMS ↗</a>
+        <a href="#about" class="btn btn-light">DISCOVER VELORA</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="container booking-wrap" id="booking">
+  <form class="booking-bar" id="bookingForm">
+
+    <div class="booking-field">
+      <label for="destination">Destination</label>
+      <select id="destination" required>
+        <option value="">Choose location</option>
+        <option>Goa</option>
+        <option>Kerala</option>
+        <option>Ooty</option>
+        <option>Maldives</option>
+      </select>
+    </div>
+
+    <div class="booking-field">
+      <label for="checkin">Check In</label>
+      <input type="date" id="checkin" required>
+    </div>
+
+    <div class="booking-field">
+      <label for="checkout">Check Out</label>
+      <input type="date" id="checkout" required>
+    </div>
+
+    <div class="booking-field">
+      <label for="guests">Guests</label>
+      <select id="guests" required>
+        <option value="1">1 Guest</option>
+        <option value="2" selected>2 Guests</option>
+        <option value="3">3 Guests</option>
+        <option value="4">4 Guests</option>
+        <option value="5">5 Guests</option>
+      </select>
+    </div>
+
+    <button class="btn" type="submit">CHECK AVAILABILITY</button>
+  </form>
+</div>
+
+<!-- ABOUT SECTION -->
+<section class="section" id="about">
+  <div class="container about-grid">
+
+    <div class="about-photo">
+      <img
+        src="https://images.unsplash.com/photo-1578774204375-826dc5d996ed?auto=format&fit=crop&w=1100&q=85"
+        alt="Luxury hotel interior with comfortable seating">
+    </div>
+
+    <div class="about-copy">
+      <div class="section-tag">The Velora Philosophy</div>
+
+      <h2>Luxury Is in the Details.</h2>
+
+      <p>
+        At Velora, hospitality is more than a place to stay.
+        It is the feeling of being welcomed, the comfort of
+        thoughtfully designed spaces and the joy of discovering
+        somewhere new.
+      </p>
+
+      <p>
+        From peaceful mornings to memorable evenings, every detail
+        is designed to make your journey feel personal.
+      </p>
+
+      <div class="signature">Stay beautifully.</div>
+
+      <a href="#experiences" class="text-link">DISCOVER OUR EXPERIENCES ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="section section-cream" id="rooms">
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="section-tag">Stay Your Way</div>
+      <h2>Rooms Designed for Rest</h2>
+      <p>
+        Discover inviting spaces, carefully considered details
+        and comfortable surroundings for every kind of traveller.
+      </p>
+    </div>
+
+    <div class="rooms-grid">
+
+      <article class="room-card">
+        <div class="room-image">
+          <img
+            src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=85"
+            alt="Elegant hotel deluxe bedroom">
+          <span class="room-label">MOST POPULAR</span>
+        </div>
+
+        <div class="room-info">
+          <h3>Deluxe Room</h3>
+          <p>A welcoming retreat with a comfortable bed and thoughtfully arranged interiors.</p>
+          <div class="room-meta">
+            <span>◈ 320 sq. ft.</span>
+            <span>♙ 2 Guests</span>
+            <span>Wi-Fi</span>
+          </div>
+          <div class="room-bottom">
+            <div class="price">
+              <strong>₹4,500</strong>
+              <span>/ night</span>
+            </div>
+            <button class="text-link select-room" data-room="Deluxe Room">SELECT ROOM ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="room-card">
+        <div class="room-image">
+          <img
+            src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=85"
+            alt="Spacious premium hotel suite">
+          <span class="room-label">PREMIUM COMFORT</span>
+        </div>
+
+        <div class="room-info">
+          <h3>Executive Suite</h3>
+          <p>Extra space, a separate seating area and a relaxing environment for longer stays.</p>
+          <div class="room-meta">
+            <span>◈ 480 sq. ft.</span>
+            <span>♙ 3 Guests</span>
+            <span>Wi-Fi</span>
+          </div>
+          <div class="room-bottom">
+            <div class="price">
+              <strong>₹7,500</strong>
+              <span>/ night</span>
+            </div>
+            <button class="text-link select-room" data-room="Executive Suite">SELECT ROOM ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="room-card">
+        <div class="room-image">
+          <img
+            src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=900&q=85"
+            alt="Luxury bedroom with refined decor">
+          <span class="room-label">SIGNATURE STAY</span>
+        </div>
+
+        <div class="room-info">
+          <h3>Signature Suite</h3>
+          <p>A refined stay with generous space and carefully selected design details.</p>
+          <div class="room-meta">
+            <span>◈ 650 sq. ft.</span>
+            <span>♙ 4 Guests</span>
+            <span>Wi-Fi</span>
+          </div>
+          <div class="room-bottom">
+            <div class="price">
+              <strong>₹11,000</strong>
+              <span>/ night</span>
+            </div>
+            <button class="text-link select-room" data-room="Signature Suite">SELECT ROOM ↗</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCES -->
+<section class="section" id="experiences">
+  <div class="container">
+
+    <div></div>

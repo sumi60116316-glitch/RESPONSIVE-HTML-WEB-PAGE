@@ -1,0 +1,930 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameForge | Gaming Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #070b18;
+    --panel: #10182b;
+    --border: #24304b;
+    --purple: #9147ff;
+    --blue: #386bff;
+    --text: #f5f5ff;
+    --muted: #a5afc7;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+header {
+    height: 75px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: #0b1020;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #a36aff;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #e2e7f7;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #ae83ff;
+}
+
+.search-box input {
+    background: #151e32;
+    color: white;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: 12px 18px;
+    width: 240px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--purple);
+}
+
+.hero {
+    min-height: 350px;
+    padding: 55px 6%;
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(90deg, #070b18 5%, rgba(7,11,24,.85) 40%, rgba(7,11,24,.15)),
+      url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1800&q=85")
+      center/cover;
+}
+
+.hero-content {
+    max-width: 540px;
+}
+
+.eyebrow {
+    color: #b99aff;
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.08;
+    margin-bottom: 18px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #a76bff, #4c8dff);
+    color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    color: #d0d7e9;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.primary-btn {
+    border: 0;
+    border-radius: 25px;
+    padding: 13px 23px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(110deg, #a02dff, #356bff);
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 25px #743cff55;
+}
+
+main {
+    padding: 25px 6% 45px;
+}
+
+.genre-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.genre-btn {
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: 11px 19px;
+    background: #11192b;
+    color: #dfe5f6;
+}
+
+.genre-btn.active,
+.genre-btn:hover {
+    background: linear-gradient(110deg, #a02dff, #356bff);
+    border-color: transparent;
+    color: white;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 10px;
+}
+
+.section-heading h2 {
+    font-size: 23px;
+}
+
+.section-heading a {
+    color: #ad83ff;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.content-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 25px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.game-card {
+    background: linear-gradient(145deg, #111b30, #0a1020);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: .25s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #9255ff;
+}
+
+.game-card img {
+    width: 100%;
+    height: 155px;
+    object-fit: cover;
+    display: block;
+}
+
+.game-info {
+    padding: 13px;
+}
+
+.game-info h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 11px;
+    background: #392267;
+    color: #d9c7ff;
+    padding: 5px 9px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.rating {
+    color: #ffcc44;
+    font-size: 13px;
+    margin-bottom: 13px;
+}
+
+.details-btn {
+    width: 100%;
+    padding: 9px 5px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    background: linear-gradient(100deg, #873aff, #5261ff);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.side-panel {
+    background: #0d1426;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 17px;
+}
+
+.side-panel h3 {
+    margin-bottom: 17px;
+    font-size: 17px;
+}
+
+.top-game {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.top-game:last-child {
+    margin-bottom: 0;
+}
+
+.top-game img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
+.top-game .rank {
+    color: #b48aff;
+    font-weight: bold;
+}
+
+.newsletter p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.newsletter input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 10px;
+    background: #151e32;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: white;
+}
+
+.newsletter button {
+    width: 100%;
+}
+
+.trending {
+    margin-top: 35px;
+}
+
+.trending-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.trend-card {
+    background: #10182b;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.trend-card img {
+    width: 100%;
+    height: 115px;
+    object-fit: cover;
+    display: block;
+}
+
+.trend-info {
+    padding: 11px;
+}
+
+.trend-info h4 {
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.trend-info p {
+    font-size: 12px;
+    color: #ffcc44;
+}
+
+.empty-message {
+    display: none;
+    color: var(--muted);
+    padding: 25px 0;
+}
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 25px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+footer strong {
+    color: white;
+    font-size: 18px;
+}
+
+footer a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: #000b;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 20;
+}
+
+.modal-content {
+    background: #111a2e;
+    border: 1px solid #58418b;
+    border-radius: 15px;
+    max-width: 460px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.modal-content img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.modal-body p {
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 12px 0 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.close-btn {
+    background: #28334b;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 18px;
+}
+
+@media (max-width: 1100px) {
+    .content-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .game-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    header {
+        height: auto;
+        padding: 17px 5%;
+        flex-wrap: wrap;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .search-box {
+        flex: 1;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .hero {
+        min-height: 330px;
+        padding: 40px 5%;
+    }
+
+    main {
+        padding: 22px 5%;
+    }
+
+    .game-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .trending-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .game-card img {
+        height: 135px;
+    }
+}
+
+@media (max-width: 380px) {
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎮 Game<span>Forge</span></div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#genres">Genres</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <div class="search-box">
+        <input id="searchInput" type="search"
+               placeholder="Search games or genres..."
+               aria-label="Search games">
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="eyebrow">🎮 PLAY · EXPLORE · ENJOY</div>
+        <h1>Your Next Adventure <span class="gradient-text">Starts Here</span></h1>
+        <p>
+            Discover games from around the world.
+            From epic adventures to fast-paced shooters,
+            find your next favorite game!
+        </p>
+        <button class="primary-btn"
+                onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">
+            Browse Games →
+        </button>
+    </div>
+</section>
+
+<main>
+    <div class="genre-list" id="genres">
+        <button class="genre-btn active" data-genre="all">All Games</button>
+        <button class="genre-btn" data-genre="Action">⚔ Action</button>
+        <button class="genre-btn" data-genre="Adventure">🧭 Adventure</button>
+        <button class="genre-btn" data-genre="RPG">🛡 RPG</button>
+        <button class="genre-btn" data-genre="Shooter">🎯 Shooter</button>
+        <button class="genre-btn" data-genre="Racing">🏎 Racing</button>
+        <button class="genre-btn" data-genre="Simulation">🧱 Simulation</button>
+    </div>
+
+    <div class="content-layout">
+        <section id="games">
+            <div class="section-heading">
+                <h2>🎮 Featured Games</h2>
+                <a href="#trending">Explore trending ↓</a>
+            </div>
+
+            <div class="game-grid" id="gameGrid">
+
+                <article class="game-card"
+                    data-title="Elden Ring"
+                    data-genre="RPG"
+                    data-rating="4.9"
+                    data-description="Explore a vast fantasy world filled with challenging battles, mysterious locations and powerful enemies."
+                    data-image="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80" alt="Fantasy landscape" loading="lazy">
+                    <div class="game-info">
+                        <h3>Elden Ring</h3>
+                        <span class="tag">RPG</span>
+                        <div class="rating">★ 4.9</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="God of War"
+                    data-genre="Action"
+                    data-rating="4.8"
+                    data-description="Join an epic action adventure through a world inspired by Norse mythology."
+                    data-image="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80" alt="Gaming setup" loading="lazy">
+                    <div class="game-info">
+                        <h3>God of War</h3>
+                        <span class="tag">Action</span>
+                        <div class="rating">★ 4.8</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Red Dead Redemption 2"
+                    data-genre="Adventure"
+                    data-rating="4.7"
+                    data-description="Experience a story-driven open-world adventure set in the American frontier."
+                    data-image="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=80" alt="Wild forest landscape" loading="lazy">
+                    <div class="game-info">
+                        <h3>Red Dead Redemption 2</h3>
+                        <span class="tag">Adventure</span>
+                        <div class="rating">★ 4.7</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Forza Horizon 5"
+                    data-genre="Racing"
+                    data-rating="4.6"
+                    data-description="Drive a collection of cars across scenic roads and exciting racing events."
+                    data-image="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80" alt="Sports car" loading="lazy">
+                    <div class="game-info">
+                        <h3>Forza Horizon 5</h3>
+                        <span class="tag">Racing</span>
+                        <div class="rating">★ 4.6</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Minecraft"
+                    data-genre="Simulation"
+                    data-rating="4.5"
+                    data-description="Build, explore and create your own world using your imagination and resources."
+                    data-image="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=700&q=80" alt="Green natural landscape" loading="lazy">
+                    <div class="game-info">
+                        <h3>Minecraft</h3>
+                        <span class="tag">Simulation</span>
+                        <div class="rating">★ 4.5</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Cyberpunk 2077"
+                    data-genre="RPG"
+                    data-rating="4.4"
+                    data-description="Discover a futuristic city in a role-playing adventure full of choices and technology."
+                    data-image="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80" alt="Night city lights" loading="lazy">
+                    <div class="game-info">
+                        <h3>Cyberpunk 2077</h3>
+                        <span class="tag">RPG</span>
+                        <div class="rating">★ 4.4</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Call of Duty"
+                    data-genre="Shooter"
+                    data-rating="4.6"
+                    data-description="Take on tactical missions and competitive combat in a first-person shooter experience."
+                    data-image="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80" alt="Competitive gaming arena" loading="lazy">
+                    <div class="game-info">
+                        <h3>Call of Duty</h3>
+                        <span class="tag">Shooter</span>
+                        <div class="rating">★ 4.6</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+                <article class="game-card"
+                    data-title="Horizon Adventure"
+                    data-genre="Adventure"
+                    data-rating="4.5"
+                    data-description="Explore beautiful environments, discover hidden locations and take on exciting quests."
+                    data-image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Mountain adventure landscape" loading="lazy">
+                    <div class="game-info">
+                        <h3>Horizon Adventure</h3>
+                        <span class="tag">Adventure</span>
+                        <div class="rating">★ 4.5</div>
+                        <button class="details-btn">View Details →</button>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="empty-message" id="emptyMessage">
+                No games found. Try another search or genre.
+            </p>
+
+            <section class="trending" id="trending">
+                <div class="section-heading">
+                    <h2>🔥 Trending Now</h2>
+                </div>
+
+                <div class="trending-grid">
+                    <article class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=500&q=80" alt="Gaming tournament" loading="lazy">
+                        <div class="trend-info">
+                            <h4>Call of Duty</h4>
+                            <p>★ 4.6</p>
+                        </div>
+                    </article>
+
+                    <article class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=500&q=80" alt="Video game setup" loading="lazy">
+                        <div class="trend-info">
+                            <h4>Baldur's Gate</h4>
+                            <p>★ 4.9</p>
+                        </div>
+                    </article>
+
+                    <article class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=500&q=80" alt="Fantasy adventure scenery" loading="lazy">
+                        <div class="trend-info">
+                            <h4>Fantasy Quest</h4>
+                            <p>★ 4.5</p>
+                        </div>
+                    </article>
+
+                    <article class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=500&q=80" alt="Racing car" loading="lazy">
+                        <div class="trend-info">
+                            <h4>Street Racing</h4>
+                            <p>★ 4.4</p>
+                        </div>
+                    </article>
+
+                    <article class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=500&q=80" alt="Futuristic city" loading="lazy">
+                        <div class="trend-info">
+                            <h4>Star Explorer</h4>
+                            <p>★ 4.7</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </section>
+
+        <aside class="sidebar">
+            <div class="side-panel">
+                <h3>🏆 Top Rated Games</h3>
+
+                <div class="top-game">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=150&q=75" alt="" loading="lazy">
+                    <div><span class="rank">1.</span> Elden Ring<br><br><span class="rating">★ 4.9</span></div>
+                </div>
+
+                <div class="top-game">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=150&q=75" alt="" loading="lazy">
+                    <div><span class="rank">2.</span> God of War<br><br><span class="rating">★ 4.8</span></div>
+                </div>
+
+                <div class="top-game">
+                    <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=150&q=75" alt="" loading="lazy">
+                    <div><span class="rank">3.</span> Red Dead Redemption 2<br><br><span class="rating">★ 4.7</span></div>
+                </div>
+
+                <div class="top-game">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=150&q=75" alt="" loading="lazy">
+                    <div><span class="rank">4.</span> Forza Horizon 5<br><br><span class="rating">★ 4.6</span></div>
+                </div>
+            </div>
+
+            <div class="side-panel newsletter">
+                <h3>📩 Gaming Updates</h3>
+                <p>Subscribe to receive gaming news, new releases and community updates.</p>
+                <form id="newsletterForm">
+                    <input id="emailInput" type="email"
+                           placeholder="Enter your email address"
+                           aria-label="Email address" required>
+                    <button class="primary-btn" type="submit">Subscribe</button>
+                </form>
+                <p id="newsletterMessage" aria-live="polite" style="margin-top:12px"></p>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<footer id="about">
+    <div>
+        <strong>🎮 GameForge</strong>
+        <p style="margin-top:7px">Play More. Worry Less.</p>
+    </div>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#genres">Genres</a>
+        <a href="#about">About</a>
+    </div>
+
+    <p>© 2026 GameForge. Demo website.</p>
+</footer>
+
+<div class="modal" id="gameModal" role="dialog"
+     aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="">
+        <div class="modal-body">
+            <h2 id="modalTitle">Game Title</h2>
+            <p id="modalDescription"></p>
+            <div class="modal-actions">
+                <button class="primary-btn" id="saveGameBtn">♡ Add to Wishlist</button>
+                <button class="close-btn" id="closeModalBtn">Close</button>
+            </div>
+            <p id="wishlistMessage" aria-live="polite" style="margin-top:12px"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const cards = [...document.querySelectorAll(".game-card")];
+const genreButtons = [...document.querySelectorAll(".genre-btn")];
+const searchInput = document.getElementById("searchInput");
+const emptyMessage = document.getElementById("emptyMessage");
+
+let selectedGenre = "all";
+let selectedGame = null;
+const wishlist = new Set();
+
+function filterGames() {
+    const query = searchInput.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        const genre = card.dataset.genre.toLowerCase();
+
+        const matchesGenre =
+            selectedGenre === "all" ||
+            genre === selectedGenre.toLowerCase();
+
+        const matchesSearch =
+            title.includes(query) || genre.includes(query);
+
+        const visible = matchesGenre && matchesSearch;
+        card.style.display = visible ? "" : "none";
+
+        if (visible) visibleCount++;
+    });
+
+    emptyMessage.style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+genreButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        genreButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        selectedGenre = button.dataset.genre;
+        filterGames();
+    });
+});
+
+searchInput.addEventListener("input", filterGames);
+
+const modal = document.getElementById("gameModal");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const saveGameBtn = document.getElementById("saveGameBtn");
+const wishlistMessage = document.getElementById("wishlistMessage");
+
+function updateWishlistButton() {
+    const saved = wishlist.has(selectedGame?.dataset.title);
+    saveGameBtn.textContent = saved
+        ? "♥ Remove from Wishlist"
+        : "♡ Add to Wishlist";
+}
+
+cards.forEach(card => {
+    card.querySelector(".details-btn").addEventListener("click", () => {
+        selectedGame = card;
+        modalTitle.textContent = card.dataset.title;
+        modalDescription.textContent = card.dataset.description;
+        modalImage.src = card.dataset.image;
+        modalImage.alt = card.dataset.title;
+        wishlistMessage.textContent = "";
+        updateWishlistButton();
+        modal.style.display = "flex";
+    });
+});
+
+saveGameBtn.addEventListener("click", () => {
+    if (!selectedGame) return;
+
+    const title = selectedGame.dataset.title;
+
+    if (wishlist.has(title)) {
+        wishlist.delete(title);
+        wishlistMessage.textContent = "Removed from your wishlist.";
+    } else {
+        wishlist.add(title);
+        wishlistMessage.textContent = "Added to your wishlist!";
+    }
+
+    updateWishlistButton();
+});
+
+function closeModal() {
+    modal.style.display = "none";
+    selectedGame = null;
+}
+
+document.getElementById("closeModalBtn")
+    .addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+    if (event.target === modal) closeModal();
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeModal();
+});
+
+document.getElementById("newsletterForm")
+    .addEventListener("submit", event => {
+        event.preventDefault();
+
+        const email = document.getElementById("emailInput").value;
+        document.getElementById("newsletterMessage").textContent =
+            "Thanks for your interest! Newsletter signup is a demo; no email was sent.";
+
+        event.target.reset();
+    });
+</script>
+
+</body>
+</html>
